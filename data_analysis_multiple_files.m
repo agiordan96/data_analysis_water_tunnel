@@ -46,16 +46,25 @@ for k = 1:length(MyFolderInfo)
     exp_table = readtable("force_torque_measurements/" + MyFolderInfo(k).name, 'Delimiter', ', ', "Range", "D:I");
 
     exp_value.f_avg(k, :) = mean(exp_table{1:end, 1:3});  % average force vector for all of wing's config.
-    exp_value.f_std(k, :) = std(exp_table{1:end, 1:3});   % standard on for each force component of every wing config.
+    exp_value.f_std(k, :) = std(exp_table{1:end, 1:3});   % standard dev for each force component of every wing config.
     
     exp_value.f_ratio(k, :) = mean(exp_table{1:end, 1:3});
 
     exp_value.t_avg(k, :) = mean(exp_table{1:end, 4:6}); % average torque vector for all of wing's config.
     exp_value.t_std(k, :) = std(exp_table{1:end, 4:6});  % standard deviation for each torque component of every wing config.
 
-    exp_value.aoa(k) = str2double(MyFolderInfo(k).name(1:2));
-    exp_value.vel(k, 1) = str2double(MyFolderInfo(k).name(4:5)) / 100;
-    exp_value.inflation(k) = str2double(MyFolderInfo(k).name(7));
+    if MyFolderInfo(k).name(6:9) == "zero"
+        exp_value.aoa(k) = 0;
+    elseif MyFolderInfo(k).name(6:9) == "neg5"
+        exp_value.aoa(k) = -5;
+    elseif MyFolderInfo(k).name(6:9) == "pos5"
+        exp_value.aoa(k) = 5;
+    else
+        exp_value.aoa(k) = str2double(MyFolderInfo(k).name(8:9));
+    end
+    
+    exp_value.vel(k, 1) = str2double(MyFolderInfo(k).name(14:15)) / 100;
+    exp_value.inflation(k) = str2double(MyFolderInfo(k).name(19:21));
 
 end
 
