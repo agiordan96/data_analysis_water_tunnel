@@ -43,7 +43,7 @@ for k = 1:length(MyFolderInfo)
         continue
     end
 
-    exp_table = readtable("usable Data/" + MyFolderInfo(k).name, 'Delimiter', ', ', "Range", "D:I");
+    exp_table = readtable("force_torque_measurements/" + MyFolderInfo(k).name, 'Delimiter', ', ', "Range", "D:I");
 
     exp_value.f_avg(k, :) = mean(exp_table{1:end, 1:3});  % average force vector for all of wing's config.
     exp_value.f_std(k, :) = std(exp_table{1:end, 1:3});   % standard on for each force component of every wing config.
