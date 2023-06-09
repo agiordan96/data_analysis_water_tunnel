@@ -145,6 +145,10 @@ sel_inflation = [0, 30, 60, 90, 120];
 dyn_pressure = 0.5 * rho .* sel_speed .^ 2; % vector, calculation of dynamic pressure
 div = dyn_pressure .* S; % matrix leading to aero coefficients. Rows: inflations. Column: speeds.
 
+if exp_value.wing == "hard"
+    plot_hard_wing;
+end
+
 %% CL / CD: presenting one plot per selected speed and all inflations, against AoA
 
 % threshold = 3000;
