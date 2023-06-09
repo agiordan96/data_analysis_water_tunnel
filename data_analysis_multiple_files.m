@@ -153,6 +153,7 @@ div = dyn_pressure .* S; % matrix leading to aero coefficients. Rows: inflations
 % 
 %     [status, msg, msgID] = mkdir('../pic/CL_over_CD_plot/'); % saving-folder creation
 %     Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
+%     disp(sel_speed(j))
 % 
 %     clear k1 k2 k3 k4 k5
 % 
@@ -281,6 +282,7 @@ div = dyn_pressure .* S; % matrix leading to aero coefficients. Rows: inflations
 % % 
 % %     [status, msg, msgID] = mkdir('../pic/CD_over_CL_plot/'); % saving-folder creation
 % %     Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
+%       disp(sel_speed(j))
 % % 
 % %     clear k1 k2 k3 k4 k5
 % % 
@@ -414,6 +416,7 @@ for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plot
     [status, msg, msgID] = mkdir('../pic/CL_plot/');
 
     Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
+    disp(sel_speed(j))
     
     clear k1 k2 k3 k4 k5
     
@@ -517,7 +520,7 @@ for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plot
 %     [status, msg, msgID] = mkdir('../pic_notitle_paper/CD_plot/'); % saving-folder creation
     [status, msg, msgID] = mkdir('../pic/CD_plot/');
     Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
-    sel_speed(j)
+    disp(sel_speed(j))
     disp('\n')
     clear k1 k2 k3 k4 k5
 
