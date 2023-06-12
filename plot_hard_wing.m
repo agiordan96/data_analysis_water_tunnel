@@ -6,9 +6,22 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
 
     threshold = 3000;
 
+    [status, msg, msgID] = mkdir('../pic_hardwing/CL_over_CD_plot/'); % saving-folder creation
+
+     % checking and printing whether chosen path is accessible
+        
+     if ~isfolder('..')
+         error('Corrupt or very very old file system, missing .. directory entry')
+     elseif ~isfolder('../pic_hardwing')
+         error('No folder ../data_analysis_soft_wing')
+     elseif ~isfolder('../pic/CL_over_CD_plot')
+         error('No folder ../pic/CL_over_CD_plot')
+     else
+         fprintf('folder path ../pic/CL_over_CD_plot/ is okay')
+     end
+
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
     
-        [status, msg, msgID] = mkdir('../pic_hardwing/CL_over_CD_plot/'); % saving-folder creation
         Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
         disp(sel_speed(j))
     
@@ -47,18 +60,6 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
         annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, 'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex' ) % printing Re on plots
         hold off
         saveas(gcf, ['../pic_hardwing/CL_over_CD_plot/', 'CL_over_CD_plot_#', num2str(j), 'flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
-    
-    % checking and printing whether chosen path is accessible
-        
-        if ~isfolder('..')
-            error('Corrupt or very very old file system, missing .. directory entry')
-        elseif ~isfolder('../pic_hardwing')
-            error('No folder ../data_analysis_soft_wing')
-        elseif ~isfolder('../pic/CL_over_CD_plot')
-            error('No folder ../pic/CL_over_CD_plot')
-        else
-            fprintf('folder path ../pic/CL_over_CD_plot/ is okay')
-        end
     
     end
     
@@ -193,11 +194,23 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
     % % 
        
     %% CL: presenting one plot per selected speed and all inflations, against AoA
+
+    %   [status, msg, msgID] = mkdir('../pic_notitle_paper/CL_plot/'); % saving-folder creation
+    [status, msg, msgID] = mkdir('../pic_hardwing/CL_plot/');
+
+   % checking and printing whether chosen path is accessible
+        
+   if ~isfolder('..')
+       error('Corrupt or very very old file system, missing .. directory entry')
+    elseif ~isfolder('../pic_hardwing')
+       error('No folder ../data_analysis_soft_wing')
+    elseif ~isfolder('../pic_hardwing/CL_plot')
+       error('No folder ../pic_hardwing/CL_plot')
+    else
+       fprintf('folder path ../pic_hardwing/CL_plot/ is okay \n')
+    end
     
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
-    
-    %   [status, msg, msgID] = mkdir('../pic_notitle_paper/CL_plot/'); % saving-folder creation
-        [status, msg, msgID] = mkdir('../pic_hardwing/CL_plot/');
     
         Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
         disp(sel_speed(j))
@@ -237,27 +250,29 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
         hold off
         %saveas(gcf, ['../pic_notitle_paper_hardwing/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
         saveas(gcf, ['../pic_hardwing/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
-        
-        % checking and printing whether chosen path is accessible
-        
-        if ~isfolder('..')
-            error('Corrupt or very very old file system, missing .. directory entry')
-        elseif ~isfolder('../pic_hardwing')
-            error('No folder ../data_analysis_soft_wing')
-        elseif ~isfolder('../pic_hardwing/CL_plot')
-            error('No folder ../pic_hardwing/CL_plot')
-        else
-            fprintf('folder path ../pic_hardwing/CL_plot/ is okay \n')
-        end
 
     end
    
     %% CD: presenting one plot per selected speed and all inflations, against AoA
+
+    %   [status, msg, msgID] = mkdir('../pic_notitle_paper/CD_plot/'); % saving-folder creation
+    [status, msg, msgID] = mkdir('../pic_hardwing/CD_plot/');
+
+    % checking and printing whether chosen path is accessible
+        
+    if ~isfolder('..')
+            error('Corrupt or very very old file system, missing .. directory entry')
+    elseif ~isfolder('../pic_hardwing')
+            error('No folder ../data_analysis_soft_wing')
+    elseif ~isfolder('../pic_hardwing/CD_plot')
+            error('No folder ../pic_hardwing/CD_plot')
+    else
+            fprintf('folder path ../pic_hardwing/CD_plot/ is okay')
+    end
     
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
     
-    %   [status, msg, msgID] = mkdir('../pic_notitle_paper/CD_plot/'); % saving-folder creation
-        [status, msg, msgID] = mkdir('../pic_hardwing/CD_plot/');
+
         Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
         disp(sel_speed(j))
         disp('\n')
@@ -295,18 +310,6 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
         annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, 'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex' ) % printing Re on plots
         hold off
         saveas(gcf, ['../pic_hardwing/CD_plot/','/CD_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
-
-        % checking and printing whether chosen path is accessible
-        
-        if ~isfolder('..')
-            error('Corrupt or very very old file system, missing .. directory entry')
-        elseif ~isfolder('../pic_hardwing')
-            error('No folder ../data_analysis_soft_wing')
-        elseif ~isfolder('../pic_hardwing/CD_plot')
-            error('No folder ../pic_hardwing/CD_plot')
-        else
-            fprintf('folder path ../pic_hardwing/CD_plot/ is okay \n')
-        end
 
     end
     
