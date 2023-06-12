@@ -9,7 +9,7 @@ set(groot,'DefaultLineLineWidth',2.5)
 
 %% data reading
 
-MyFolderInfo = dir('force_torque_measurements');
+MyFolderInfo = dir('force_torque_measurements_rigid');
 
 exp_value  = struct;
 
@@ -35,11 +35,19 @@ torque.inflation = zeros(length(MyFolderInfo), 1);
 
 for k = 1:length(MyFolderInfo) 
 
-    if MyFolderInfo(k).name == '.' 
+%     if MyFolderInfo(k).name == '.' 
+%         continue
+%     end
+% 
+%     if MyFolderInfo(k).name == ".DS_Store"
+%         continue
+%     end
+
+    if length(MyFolderInfo(k).name) < 4
         continue
     end
 
-    if MyFolderInfo(k).name == ".DS_Store" 
+    if MyFolderInfo(k).name(1:4) ~= "hard" && MyFolderInfo(k).name(1:4) ~= "rigi"
         continue
     end
 
