@@ -148,7 +148,7 @@ dyn_pressure = 0.5 * rho .* sel_speed .^ 2; % vector, calculation of dynamic pre
 div = dyn_pressure .* S; % matrix leading to aero coefficients. Rows: inflations. Column: speeds.
 
 if exp_value.wingtype(1, 1:4) == "hard"
-    plot_hard_wing(exp_value,);
+    plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity);
 end
 
 %% CL / CD: presenting one plot per selected speed and all inflations, against AoA
