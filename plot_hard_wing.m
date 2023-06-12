@@ -1,4 +1,4 @@
-function [] = plot_hard_wing(exp_value, sel_speed, dyn_pressure, div, chord, kin_viscosity, S)
+function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
     
     % plots data relative to hard wing type. No inflations present / displayed.
     
