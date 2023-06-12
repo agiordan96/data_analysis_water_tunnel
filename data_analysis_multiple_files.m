@@ -141,7 +141,7 @@ close all
 format short
 
 %sel_speed = [.10, .15, .20, .25, .30, .40, .50];
-sel_speed = [.10, .15, .20, .25, .30, .40];
+sel_speed = [.10, .25];
 sel_inflation = [0, 30, 60, 90, 120];
 
 dyn_pressure = 0.5 * rho .* sel_speed .^ 2; % vector, calculation of dynamic pressure
@@ -169,8 +169,8 @@ end
 %     legend('Location','north','Orientation','horizontal','fontsize', 16)
 %     hold on
 %     grid on
-%     xlabel('AoA [deg]','fontweight','bold','fontsize', 20);
-%     ylabel('CL / CD [ ]','fontweight','bold','fontsize', 20);
+%     xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
+%     ylabel('CL / CD [ ]','fontweight','bold','fontsize', 30);
 %     xlim([-10 35])
 % 
 %     for k = 1:length(exp_value.f_avg)
@@ -298,8 +298,8 @@ end
 % %     legend('Location','north','Orientation','horizontal','fontsize', 16)
 % %     hold on
 % %     grid on
-% %     xlabel('AoA [deg]','fontweight','bold','fontsize', 20);
-% %     ylabel('CD / CL [ ]','fontweight','bold','fontsize', 20);
+% %     xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
+% %     ylabel('CD / CL [ ]','fontweight','bold','fontsize', 30);
 % %     xlim([-10 35])
 % %     ylim([0 +1])
 % % 
@@ -536,8 +536,8 @@ for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plot
     legend('Location','north','Orientation','horizontal','fontsize', 22, 'LineWidth', 2)
     hold on
     grid on
-    xlabel('AoA [deg]','fontweight','bold','fontsize', 20);
-    ylabel('CD [ ]','fontweight','bold','fontsize', 20);
+    xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
+    ylabel('CD [ ]','fontweight','bold','fontsize', 30);
     xlim([-10 25])
     ylim([-0.15 2])
     ax = gca;
