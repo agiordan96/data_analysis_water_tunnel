@@ -9,7 +9,9 @@ set(groot,'DefaultLineLineWidth',2.5)
 
 %% data reading
 
-MyFolderInfo = dir('force_torque_measurements_rigid');
+prompt = "Enter data directory's name\n";
+MyFolder = (input(prompt, "s"));
+MyFolderInfo = dir(MyFolder);
 
 exp_value  = struct;
 
@@ -43,7 +45,7 @@ for k = 1:length(MyFolderInfo)
         continue
     end
 
-    exp_table = readtable("force_torque_measurements_rigid/" + MyFolderInfo(k).name, 'Delimiter', ', ', "Range", "D:I");
+    exp_table = readtable(MyFolder + "/" + MyFolderInfo(k).name, 'Delimiter', ', ', "Range", "D:I");
 
     exp_value.f_avg(k, :) = mean(exp_table{1:end, 1:3});  % average force vector for all of wing's config.
     exp_value.f_std(k, :) = std(exp_table{1:end, 1:3});   % standard dev for each force component of every wing config.
@@ -145,8 +147,8 @@ sel_inflation = [0, 30, 60, 90, 120];
 dyn_pressure = 0.5 * rho .* sel_speed .^ 2; % vector, calculation of dynamic pressure
 div = dyn_pressure .* S; % matrix leading to aero coefficients. Rows: inflations. Column: speeds.
 
-if exp_value.wing == "hard"
-    plot_hard_wing;
+if exp_value.wingtype(1, 1:4) == "hard"
+    plot_hard_wing(exp_value,);
 end
 
 %% CL / CD: presenting one plot per selected speed and all inflations, against AoA
