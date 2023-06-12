@@ -234,6 +234,8 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
              end
         end
 
+        str_annotation = sprintf('Re = %.2e', Re);
+        annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, 'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex' ) % printing Re on plots
         hold off
         %saveas(gcf, ['../pic_notitle_paper_hardwing/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
         saveas(gcf, ['../pic_hardwing/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
@@ -279,11 +281,13 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
              end
         end
         
+        str_annotation = sprintf('Re = %.2e', Re);
+        annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, 'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex' ) % printing Re on plots
         hold off
         saveas(gcf, ['../pic_hardwing/CD_plot/','/CD_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
 
     end
-    % 
+    
     % %% CM: presenting one plot per selected speed and all inflations, against AoA
     % 
     % for j = 1:length(sel_speed)
