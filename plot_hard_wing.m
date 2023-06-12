@@ -5,7 +5,7 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
     %% CL / CD: presenting one plot per selected speed against AoA
 
     threshold = 3000;
-    
+
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
     
         [status, msg, msgID] = mkdir('../pic_hardwing/CL_over_CD_plot/'); % saving-folder creation
@@ -21,7 +21,7 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
         grid on
         xlabel('AoA [deg]','fontweight','bold','fontsize', 20);
         ylabel('CL / CD [ ]','fontweight','bold','fontsize', 20);
-        xlim([-10 35])
+        xlim([-10 30])
     
         for k = 1:length(exp_value.f_avg)
              if (exp_value.vel(k) == sel_speed(j))
@@ -52,17 +52,17 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
         
         if ~isfolder('..')
             error('Corrupt or very very old file system, missing .. directory entry')
-        elseif ~isfolder('../pic')
-            error('No folder ../data_analysis')
+        elseif ~isfolder('../pic_hardwing')
+            error('No folder ../data_analysis_soft_wing')
         elseif ~isfolder('../pic/CL_over_CD_plot')
             error('No folder ../pic/CL_over_CD_plot')
         else
-            fprintf('folder path ../pic/CL_plot/ is okay \n')
+            fprintf('folder path ../pic/CL_over_CD_plot/ is okay')
         end
     
     end
     
-    % % %% CD / CL: presenting one plot per selected speed and all inflations, against AoA
+%% CD / CL: presenting one plot per selected speed and all inflations, against AoA
     % % 
     % % for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
     % % 
@@ -182,7 +182,7 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
     % %     if ~isfolder('..')
     % %         error('Corrupt or very very old file system, missing .. directory entry')
     % %     elseif ~isfolder('../pic')
-    % %         error('No folder ../data_analysis')
+    % %         error('No folder ../data_analysis_soft_wing')
     % %     elseif ~isfolder('../pic/CL_over_CD_plot')
     % %         error('No folder ../pic/CL_over_CD_plot')
     % %     else
@@ -191,8 +191,7 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
     % % 
     % % end
     % % 
-    
-    
+       
     %% CL: presenting one plot per selected speed and all inflations, against AoA
     
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
@@ -202,10 +201,9 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
     
         Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
         disp(sel_speed(j))
-        disp('\n')
-        
+             
         figure('Position', [200, 200, 1000, 1000])
-    
+        
         title(['CL plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight','bold','fontsize', 24)
         hold on
         grid on
@@ -214,7 +212,7 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
         ax = gca;
         ax.XAxis.LineWidth = 2;
         ax.YAxis.LineWidth = 2;
-        xlim([-10 25])
+        xlim([-10 30])
         ylim([0 0.8])
     
         clear k1
@@ -240,6 +238,18 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
         %saveas(gcf, ['../pic_notitle_paper_hardwing/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
         saveas(gcf, ['../pic_hardwing/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
         
+        % checking and printing whether chosen path is accessible
+        
+        if ~isfolder('..')
+            error('Corrupt or very very old file system, missing .. directory entry')
+        elseif ~isfolder('../pic_hardwing')
+            error('No folder ../data_analysis_soft_wing')
+        elseif ~isfolder('../pic_hardwing/CL_plot')
+            error('No folder ../pic_hardwing/CL_plot')
+        else
+            fprintf('folder path ../pic_hardwing/CL_plot/ is okay \n')
+        end
+
     end
    
     %% CD: presenting one plot per selected speed and all inflations, against AoA
@@ -260,7 +270,7 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
         grid on
         xlabel('AoA [deg]','fontweight','bold','fontsize', 20);
         ylabel('CD [ ]','fontweight','bold','fontsize', 20);
-        xlim([-10 25])
+        xlim([-10 30])
         ylim([-5 2])
         ax = gca;
         ax.XAxis.LineWidth = 2;
@@ -286,9 +296,21 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
         hold off
         saveas(gcf, ['../pic_hardwing/CD_plot/','/CD_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
 
+        % checking and printing whether chosen path is accessible
+        
+        if ~isfolder('..')
+            error('Corrupt or very very old file system, missing .. directory entry')
+        elseif ~isfolder('../pic_hardwing')
+            error('No folder ../data_analysis_soft_wing')
+        elseif ~isfolder('../pic_hardwing/CD_plot')
+            error('No folder ../pic_hardwing/CD_plot')
+        else
+            fprintf('folder path ../pic_hardwing/CD_plot/ is okay \n')
+        end
+
     end
     
-    % %% CM: presenting one plot per selected speed and all inflations, against AoA
+%% CM: presenting one plot per selected speed and all inflations, against AoA
     % 
     % for j = 1:length(sel_speed)
     %     dyn_pressure = 0.5 * rho * sel_speed(j) ^ 2; % calculation of dynamic pressure
@@ -299,7 +321,7 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
     %     grid on
     %     xlabel('AoA [deg]')
     %     ylabel('CL / CD')
-    %     xlim([-10 35])
+    %     xlim([-10 30])
     %     ylim([-10 10])
     % 
     %     for k = 1:length(MyFolderInfo)
@@ -322,7 +344,7 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
     % end
     % 
     % 
-    % %% Lift: presenting one plot per selected speed and all inflations, against AoA
+%% Lift: presenting one plot per selected speed against AoA
     % 
     % for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
     % 
@@ -408,7 +430,7 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
     % 
     % end
     % 
-    % %% Drag: presenting one plot per selected speed and all inflations, against AoA
+%% Drag: presenting one plot per selected speed, against AoA
     % 
     % for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
     % 
@@ -492,7 +514,7 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
     % 
     % end
     % 
-    % %% Torque: z direction
+%% Torque: z direction
     % 
     % for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
     % 
