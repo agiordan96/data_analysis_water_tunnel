@@ -1,6 +1,6 @@
 function [] = plot_hard_wing(exp_value, sel_speed, dyn_pressure, div, chord, kin_viscosity, S)
-    % plots data relative to hard wing type. No inflations are
-    % displayed.
+    
+    % plots data relative to hard wing type. No inflations present / displayed.
     
     %% CL / CD: presenting one plot per selected speed against AoA
 
@@ -17,7 +17,6 @@ function [] = plot_hard_wing(exp_value, sel_speed, dyn_pressure, div, chord, kin
         figure('Position', [200, 200, 1000, 1000])
     
         title(['CL / CD plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight', 'bold', 'fontsize', 24)
-        legend('Location','north','Orientation','horizontal','fontsize', 16)
         hold on
         grid on
         xlabel('AoA [deg]','fontweight','bold','fontsize', 20);
@@ -76,7 +75,6 @@ function [] = plot_hard_wing(exp_value, sel_speed, dyn_pressure, div, chord, kin
     % %     figure('Position', [200, 200, 1000, 1000])
     % % 
     % %     title(['CD / CL plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight', 'bold', 'fontsize', 24)
-    % %     legend('Location','north','Orientation','horizontal','fontsize', 16)
     % %     hold on
     % %     grid on
     % %     xlabel('AoA [deg]','fontweight','bold','fontsize', 20);
@@ -209,7 +207,6 @@ function [] = plot_hard_wing(exp_value, sel_speed, dyn_pressure, div, chord, kin
         figure('Position', [200, 200, 1000, 1000])
     
         title(['CL plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight','bold','fontsize', 24)
-        legend('Location','north','Orientation','horizontal','fontsize', 22, 'LineWidth', 2)
         hold on
         grid on
         xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
@@ -257,7 +254,6 @@ function [] = plot_hard_wing(exp_value, sel_speed, dyn_pressure, div, chord, kin
         figure('Position', [200, 200, 1000, 1000])
     
         title(['CD plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))], 'fontweight','bold','fontsize', 24)
-        legend('Location','north','Orientation','horizontal','fontsize', 22, 'LineWidth', 2)
         hold on
         grid on
         xlabel('AoA [deg]','fontweight','bold','fontsize', 20);
@@ -316,7 +312,6 @@ function [] = plot_hard_wing(exp_value, sel_speed, dyn_pressure, div, chord, kin
     %          end
     %     end
     %     
-    %     legend({'inf. = 0 mL', 'inf. = 60 mL', 'inf. = 90 mL', 'inf. = 120 mL', 'inf. = 30 mL'}, ... 
     %      'Location','northwest','Orientation','horizontal')
     %     hold off
     % 
@@ -336,7 +331,6 @@ function [] = plot_hard_wing(exp_value, sel_speed, dyn_pressure, div, chord, kin
     %     figure('Position', [200, 200, 1000, 1000])
     % 
     %     title(['Lift plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight','bold','fontsize', 24)
-    %     legend('Location','north','Orientation','horizontal','fontsize', 22, 'LineWidth', 2)
     %     hold on
     %     grid on
     %     xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
@@ -423,7 +417,7 @@ function [] = plot_hard_wing(exp_value, sel_speed, dyn_pressure, div, chord, kin
     %     figure('Position', [200, 200, 1000, 1000])
     % 
     %     title(['Drag plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight','bold','fontsize', 24)
-    %     legend('Location','north','Orientation','horizontal','fontsize', 22, 'LineWidth', 2)
+
     %     hold on
     %     grid on
     %     xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
@@ -507,7 +501,6 @@ function [] = plot_hard_wing(exp_value, sel_speed, dyn_pressure, div, chord, kin
     %     figure('Position', [200, 200, 1000, 1000])
     % 
     %     title(['TorqueZ plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight','bold','fontsize', 24)
-    %     legend('Location','north','Orientation','horizontal','fontsize', 22, 'LineWidth', 2)
     %     hold on
     %     grid on
     %     xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
