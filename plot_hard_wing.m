@@ -17,7 +17,7 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
      elseif ~isfolder('../pic/CL_over_CD_plot')
          error('No folder ../pic/CL_over_CD_plot')
      else
-         fprintf('folder path ../pic/CL_over_CD_plot/ is okay')
+         fprintf('folder path ../pic/CL_over_CD_plot/ is okay \n')
      end
 
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
@@ -32,8 +32,8 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
         title(['CL / CD plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight', 'bold', 'fontsize', 24)
         hold on
         grid on
-        xlabel('AoA [deg]','fontweight','bold','fontsize', 20);
-        ylabel('CL / CD [ ]','fontweight','bold','fontsize', 20);
+        xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
+        ylabel('CL / CD [ ]','fontweight','bold','fontsize', 30);
         xlim([-10 30])
     
         for k = 1:length(exp_value.f_avg)
@@ -78,8 +78,8 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
     % %     title(['CD / CL plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight', 'bold', 'fontsize', 24)
     % %     hold on
     % %     grid on
-    % %     xlabel('AoA [deg]','fontweight','bold','fontsize', 20);
-    % %     ylabel('CD / CL [ ]','fontweight','bold','fontsize', 20);
+    % %     xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
+    % %     ylabel('CD / CL [ ]','fontweight','bold','fontsize', 30);
     % %     xlim([-10 35])
     % %     ylim([0 +1])
     % % 
@@ -267,7 +267,7 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
     elseif ~isfolder('../pic_hardwing/CD_plot')
             error('No folder ../pic_hardwing/CD_plot')
     else
-            fprintf('folder path ../pic_hardwing/CD_plot/ is okay')
+            fprintf('folder path ../pic_hardwing/CD_plot/ is okay \n')
     end
     
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
@@ -275,7 +275,6 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
 
         Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
         disp(sel_speed(j))
-        disp('\n')
         clear k1
     
         figure('Position', [200, 200, 1000, 1000])
@@ -283,10 +282,10 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
         title(['CD plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))], 'fontweight','bold','fontsize', 24)
         hold on
         grid on
-        xlabel('AoA [deg]','fontweight','bold','fontsize', 20);
-        ylabel('CD [ ]','fontweight','bold','fontsize', 20);
+        xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
+        ylabel('CD [ ]','fontweight','bold','fontsize', 30);
         xlim([-10 30])
-        ylim([-5 2])
+        ylim([-1.3 2])
         ax = gca;
         ax.XAxis.LineWidth = 2;
         ax.YAxis.LineWidth = 2;
