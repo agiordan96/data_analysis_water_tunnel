@@ -245,7 +245,7 @@ function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
     
     %   [status, msg, msgID] = mkdir('../pic_notitle_paper/CD_plot/'); % saving-folder creation
-        [status, msg, msgID] = mkdir('../pic/CD_plot/');
+        [status, msg, msgID] = mkdir('../pic_hardwing/CD_plot/');
         Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
         disp(sel_speed(j))
         disp('\n')
