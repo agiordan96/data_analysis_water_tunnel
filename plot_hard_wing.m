@@ -1,8 +1,14 @@
-function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity)
+function [] = plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity, sensor_orientation)
     
     % plots data relative to hard wing type. No inflations present / displayed.
     
-    %% CL / CD: presenting one plot per selected speed against AoA
+%% Renaming variables for typing reasons
+
+drag_dir = sensor_orientation.drag_dir;
+lift_dir = sensor_orientation.lift_dir;
+lat_dir = sensor_orientation.lat_dir;   
+
+%% CL / CD: presenting one plot per selected speed against AoA
 
     threshold = 3000;
 
