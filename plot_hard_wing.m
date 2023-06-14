@@ -8,6 +8,30 @@ drag_dir = sensor_orientation.drag_dir;
 lift_dir = sensor_orientation.lift_dir;
 lat_dir = sensor_orientation.lat_dir;   
 
+%% Plot choice to increase performance
+
+CL_CD_prompt = "CL / CD plot: yes (1) or no (0)\n";
+CL_prompt = "CL plot: yes (1) or no (0)\n";
+CD_prompt = "CD plot: yes (1) or no (0)\n";
+
+CL_CD_plot = (input(CL_CD_prompt, 's'));
+CL_plot = (input(CL_prompt, 's'));
+CD_plot = (input(CD_prompt, 's'));
+
+% default value in case of repeated procedure (for user's agility only)
+
+if CL_CD_plot == "" 
+    CL_CD_plot = 0;    % enter default value here
+end
+
+if CL_plot == "" 
+   CL_plot = 0;    % enter default value here
+end
+
+if CD_plot == "" 
+   CD_plot = 0;     % enter default value here
+end
+
 %% CL / CD: presenting one plot per selected speed against AoA
 
     threshold = 3000;
