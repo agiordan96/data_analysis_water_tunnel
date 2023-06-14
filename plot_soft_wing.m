@@ -755,3 +755,7 @@ end
 %     saveas(gcf, ['./Torque_pic/TorqueZ/', 'TorqueZ#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
 % 
 % end
+
+%% Plots closure
+
+close all
