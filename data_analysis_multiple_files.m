@@ -23,17 +23,17 @@ exp_value.aoa = zeros(length(MyFolderInfo), 1);
 exp_value.vel = zeros(length(MyFolderInfo), 1);
 exp_value.inflation = zeros(length(MyFolderInfo), 1);
 
-force.avg = zeros(length(MyFolderInfo), 3);
-force.std = zeros(length(MyFolderInfo), 3);
-force.aoa = zeros(length(MyFolderInfo), 1);
-force.vel = zeros(length(MyFolderInfo), 1);
-force.inflation = zeros(length(MyFolderInfo), 1);
-
-torque.avg = zeros(length(MyFolderInfo), 3);
-torque.std = zeros(length(MyFolderInfo), 3);
-torque.aoa = zeros(length(MyFolderInfo), 1);
-torque.vel = zeros(length(MyFolderInfo), 1);
-torque.inflation = zeros(length(MyFolderInfo), 1);
+% force.avg = zeros(length(MyFolderInfo), 3);
+% force.std = zeros(length(MyFolderInfo), 3);
+% force.aoa = zeros(length(MyFolderInfo), 1);
+% force.vel = zeros(length(MyFolderInfo), 1);
+% force.inflation = zeros(length(MyFolderInfo), 1);
+% 
+% torque.avg = zeros(length(MyFolderInfo), 3);
+% torque.std = zeros(length(MyFolderInfo), 3);
+% torque.aoa = zeros(length(MyFolderInfo), 1);
+% torque.vel = zeros(length(MyFolderInfo), 1);
+% torque.inflation = zeros(length(MyFolderInfo), 1);
 
 for k = 1:length(MyFolderInfo) 
 
@@ -149,6 +149,10 @@ div = dyn_pressure .* S; % matrix leading to aero coefficients. Rows: inflations
 
 if exp_value.wingtype(1, 1:4) == "hard"
     plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity);
+end
+
+if exp_value.wingtype(1, 1:4) == "soft"
+    plot_soft_wing(exp_value, sel_speed, div, chord, kin_viscosity);
 end
 
 %% CL / CD: presenting one plot per selected speed and all inflations, against AoA
