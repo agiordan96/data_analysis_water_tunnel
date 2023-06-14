@@ -41,6 +41,11 @@ end
 
 prompt = "Enter data directory's name\n";
 MyFolder = (input(prompt, "s"));
+
+if MyFolder == "" 
+    MyFolder = "force_torque_measurements";    % enter default value here
+end
+
 MyFolderInfo = dir(MyFolder);
 
 exp_value  = struct;
