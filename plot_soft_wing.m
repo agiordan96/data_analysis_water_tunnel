@@ -2,7 +2,7 @@ function [] = plot_soft_wing(exp_value, sel_speed, div, chord, kin_viscosity)
     
     % plots data relative to soft wing type. All inflations displayed.
     
-    %% CL / CD: presenting one plot per selected speed and all inflations, against AoA
+%% CL / CD: presenting one plot per selected speed and all inflations, against AoA
 
 % threshold = 3000;
 % 
@@ -25,9 +25,6 @@ function [] = plot_soft_wing(exp_value, sel_speed, div, chord, kin_viscosity)
 %     xlim([-10 35])
 % 
 %     for k = 1:length(exp_value.f_avg)
-%         if k == 87 
-%             continue
-%         end
 % 
 %          if (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(1))
 %              if (exp_value.f_avg(k, 2) / exp_value.f_avg(k, 1)) > threshold
@@ -155,9 +152,6 @@ function [] = plot_soft_wing(exp_value, sel_speed, div, chord, kin_viscosity)
 % %     ylim([0 +1])
 % % 
 % %     for k = 1:length(exp_value.f_avg)
-% %         if k == 87 
-% %             continue
-% %         end
 % % 
 % %          if (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(1))
 % %              if (exp_value.f_avg(k, 2) / exp_value.f_avg(k, 1)) > threshold
@@ -269,7 +263,7 @@ function [] = plot_soft_wing(exp_value, sel_speed, div, chord, kin_viscosity)
 
 for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 
-%     [status, msg, msgID] = mkdir('../pic_notitle_paper/CL_plot/'); % saving-folder creation
+%   [status, msg, msgID] = mkdir('../pic_notitle_paper/CL_plot/'); % saving-folder creation
     [status, msg, msgID] = mkdir('../pic/CL_plot/');
 
     Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
@@ -292,9 +286,6 @@ for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plot
     ylim([0 0.8])
 
     for k = 1:length(exp_value.f_avg)
-        if k == 87 
-            continue
-        end
 
          if (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(1))
             if exist('k1','var') == 0
@@ -526,9 +517,6 @@ end
 % %   ylim([-0.75 1.75])
 % 
 %     for k = 1:length(exp_value.f_avg)
-%         if k == 87 
-%             continue
-%         end
 % 
 %          if (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(1))
 %             if exist('k1','var') == 0
