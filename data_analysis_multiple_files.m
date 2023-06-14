@@ -7,6 +7,36 @@ format long
 set(groot,'DefaultAxesFontSize', 24)
 set(groot,'DefaultLineLineWidth',2.5)
 
+%% sensor orientation
+
+% to define sensor orientation, enter from keyboard what versor of the
+% right-handed triad is the given force parallel to. 
+% (1 --> X; 2 --> Y; 3--> Z)
+
+sensor_orientation = struct; 
+
+promptdrag = "Enter drag direction\n";
+promptlift = "Enter lift direction\n";
+promptlat = "Enter lat direction\n";
+
+sensor_orientation.drag_dir = (input(promptdrag, 's'));
+sensor_orientation.lift_dir = (input(promptlift, 's'));
+sensor_orientation.lat_dir = (input(promptlat, 's'));
+
+% default data in case of repeated experiment (for user's agility only)
+
+if sensor_orientation.drag_dir == "" 
+    sensor_orientation.drag_dir = 2;    % enter default value here
+end
+
+if sensor_orientation.lift_dir == "" 
+    sensor_orientation.lift_dir = 1;    % enter default value here
+end
+
+if sensor_orientation.lat_dir == "" 
+    sensor_orientation.lat_dir = 3;     % enter default value here
+end
+
 %% data reading
 
 prompt = "Enter data directory's name\n";
@@ -136,9 +166,9 @@ dyn_pressure = 0.5 * rho .* sel_speed .^ 2; % vector, calculation of dynamic pre
 div = dyn_pressure .* S; % matrix leading to aero coefficients. Rows: inflations. Column: speeds.
 
 if exp_value.wingtype(1, 1:4) == "hard"
-    plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity);
+    plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity, sensor_orientation);
 end
 
 if exp_value.wingtype(1, 1:4) == "soft"
-    plot_soft_wing(exp_value, sel_speed, div, chord, kin_viscosity);
+    plot_soft_wing(exp_value, sel_speed, div, chord, kin_viscosity, sensor_orientation);
 end
