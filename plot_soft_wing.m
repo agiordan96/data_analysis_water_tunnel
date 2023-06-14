@@ -350,7 +350,8 @@ for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plot
     %annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, ...
      %      'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex') % printing Re on plots
     hold off
-    saveas(gcf, ['./pic_notitle_paper/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+    %saveas(gcf, ['./pic_notitle_paper/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+    saveas(gcf, ['./pic/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
     
 % checking and printing whether chosen path is accessible
     
@@ -448,7 +449,8 @@ for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plot
     end
     
     hold off
-    saveas(gcf, ['./pic_notitle_paper/CD_plot/','/CD_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+    %saveas(gcf, ['./pic_notitle_paper/CD_plot/','/CD_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+    saveas(gcf, ['./pic/CD_plot/','/CD_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
 
 % checking and printing whether chosen path is accessible
 
