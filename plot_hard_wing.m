@@ -55,7 +55,7 @@ lat_dir = sensor_orientation.lat_dir;
                  else
                     errorbar(exp_value.aoa(k), exp_value.f_avg(k, lift_dir) / exp_value.f_avg(k, drag_dir), exp_value.f_std(k, lift_dir) / exp_value.f_std(k, 1), 'ob', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
                     x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
-                    y_vec = [exp_value.f_avg(k, lift_dir) / exp_value.f_avg(k, drag_dir), exp_value.f_avg(k, lift_dir) / exp_value.f_avg(k, drag_dir)];
+                    y_vec = [exp_value.f_avg(k1, lift_dir) / exp_value.f_avg(k1, drag_dir), exp_value.f_avg(k, lift_dir) / exp_value.f_avg(k, drag_dir)];
                     plot(x_vec, y_vec, '--b', 'HandleVisibility','off')
                 end
                 k1 = k;
@@ -107,7 +107,7 @@ lat_dir = sensor_orientation.lat_dir;
     % %             else
     % %                 errorbar(exp_value.aoa(k), exp_value.f_avg(k, drag_dir) / exp_value.f_avg(k, lift_dir), exp_value.f_std(k, 1) / exp_value.f_std(k, lift_dir), 'or', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'r', 'LineWidth', 1, MarkerEdgeColor = 'red')
     % %                 x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
-    % %                 y_vec = [exp_value.f_avg(k, drag_dir) / exp_value.f_avg(k, lift_dir), exp_value.f_avg(k, drag_dir) / exp_value.f_avg(k, lift_dir)];
+    % %                 y_vec = [exp_value.f_avg(k1, drag_dir) / exp_value.f_avg(k, lift_dir), exp_value.f_avg(k, drag_dir) / exp_value.f_avg(k, lift_dir)];
     % %                 plot(x_vec, y_vec, '--r', 'HandleVisibility','off')
     % %             end
     % %             k1 = k;
@@ -232,7 +232,7 @@ lat_dir = sensor_orientation.lat_dir;
         ax.XAxis.LineWidth = 2;
         ax.YAxis.LineWidth = 2;
         xlim([-10 30])
-        ylim([0 0.8])
+        ylim([-1.3 2])
     
         clear k1
 
@@ -244,7 +244,7 @@ lat_dir = sensor_orientation.lat_dir;
                 else
                     errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, lift_dir) / div(1, j)), exp_value.f_std(k, lift_dir) / div(1, j), 'ob', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
                     x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
-                    y_vec = [(-exp_value.f_avg(k, lift_dir) / div(1, j)), (-exp_value.f_avg(k, lift_dir) / div(1, j))];
+                    y_vec = [(-exp_value.f_avg(k1, lift_dir) / div(1, j)), (-exp_value.f_avg(k, lift_dir) / div(1, j))];
                     plot(x_vec, y_vec, '--b', 'HandleVisibility','off')
                 end
                 k1 = k;
@@ -304,7 +304,7 @@ lat_dir = sensor_orientation.lat_dir;
                 else
                     errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(1, j)), exp_value.f_std(k) / div(1, j), 'ob', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
                     x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
-                    y_vec = [(-exp_value.f_avg(k, drag_dir) / div(1, j)), (-exp_value.f_avg(k, drag_dir) / div(1, j))];
+                    y_vec = [(-exp_value.f_avg(k1, drag_dir) / div(1, j)), (-exp_value.f_avg(k, drag_dir) / div(1, j))];
                     plot(x_vec, y_vec, '--b', 'HandleVisibility','off')
                 end
                 k1 = k;
@@ -386,7 +386,7 @@ lat_dir = sensor_orientation.lat_dir;
     %             else
     %                 errorbar(exp_value.aoa(k), -exp_value.f_avg(k, lift_dir), exp_value.f_std(k, lift_dir), 'or', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'r', 'LineWidth', 1, MarkerEdgeColor = 'red')
     %                 x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
-    %                 y_vec = [-exp_value.f_avg(k, lift_dir)  , (-exp_value.f_avg(k, lift_dir))];
+    %                 y_vec = [-exp_value.f_avg(k1, lift_dir)  , (-exp_value.f_avg(k, lift_dir))];
     %                 plot(x_vec, y_vec, '--r', 'HandleVisibility','off')
     %             end
     %             k1 = k;
@@ -470,7 +470,7 @@ lat_dir = sensor_orientation.lat_dir;
     %             else
     %                 errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir))  , exp_value.f_std(k, 1), 'or', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'r', 'LineWidth', 1, MarkerEdgeColor = 'red')
     %                 x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
-    %                 y_vec = [(-exp_value.f_avg(k, drag_dir))  , (-exp_value.f_avg(k, drag_dir))  ];
+    %                 y_vec = [(-exp_value.f_avg(k1, drag_dir))  , (-exp_value.f_avg(k, drag_dir))  ];
     %                 plot(x_vec, y_vec, '--r', 'HandleVisibility','off')
     %             end
     %             k1 = k;
