@@ -23,7 +23,7 @@ sensor_orientation.drag_dir = (input(promptdrag, 's'));
 sensor_orientation.lift_dir = (input(promptlift, 's'));
 sensor_orientation.lat_dir = (input(promptlat, 's'));
 
-% default data in case of repeated experiment (for user's agility only)
+% default value in case of repeated experiment (for user's agility only)
 
 if sensor_orientation.drag_dir == "" 
     sensor_orientation.drag_dir = 2;    % enter default value here
@@ -41,6 +41,8 @@ end
 
 prompt = "Enter data directory's name\n";
 MyFolder = (input(prompt, "s"));
+
+% default data in case of repeated experiment (for user's agility only)
 
 if MyFolder == "" 
     MyFolder = "force_torque_measurements";    % enter default value here
