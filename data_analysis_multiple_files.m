@@ -165,8 +165,8 @@ disp('data processing completed')
 close all
 format short
 
-sel_speed = [.10, .15, .20, .25, .30, .40];
-% sel_speed = [.10, .25];
+% sel_speed = [.10, .15, .20, .25, .30, .40];
+sel_speed = [.10, .25];
 sel_inflation = [0, 30, 60, 90, 120];
 
 dyn_pressure = 0.5 * rho .* sel_speed .^ 2; % vector, calculation of dynamic pressure
