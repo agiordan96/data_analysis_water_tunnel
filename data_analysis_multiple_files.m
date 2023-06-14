@@ -45,7 +45,7 @@ MyFolder = (input(prompt, "s"));
 % default data in case of repeated experiment (for user's agility only)
 
 if MyFolder == "" 
-    MyFolder = "force_torque_measurements";    % enter default value here
+    MyFolder = "force_torque_measurements";    % enter default value here force_torque_measurements
 end
 
 MyFolderInfo = dir(MyFolder);
@@ -177,5 +177,5 @@ if exp_value.wingtype(1, 1:4) == "hard"
 end
 
 if exp_value.wingtype(1, 1:4) == "soft"
-    plot_soft_wing(exp_value, sel_speed, div, chord, kin_viscosity, sensor_orientation);
+    plot_soft_wing(exp_value, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
 end

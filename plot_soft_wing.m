@@ -1,4 +1,4 @@
-function [] = plot_soft_wing(exp_value, sel_speed, div, chord, kin_viscosity, sensor_orientation)
+function [] = plot_soft_wing(exp_value, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation)
     
     % plots data relative to soft wing type. All inflations displayed.
 
@@ -140,7 +140,7 @@ lat_dir = sensor_orientation.lat_dir;
 % % 
 % % for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 % % 
-% %     [status, msg, msgID] = mkdir('../pic/CD_over_CL_plot/'); % saving-folder creation
+% %     [status, msg, msgID] = mkdir('./pic/CD_over_CL_plot/'); % saving-folder creation
 % %     Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
 %       disp(sel_speed(j))
 % % 
@@ -247,7 +247,7 @@ lat_dir = sensor_orientation.lat_dir;
 % %     str_annotation = sprintf('Re = %.2e', Re);
 % %     annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, 'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex' ) % printing Re on plots
 % %     hold off
-% %     saveas(gcf, ['../pic/CD_over_CL_plot/', 'CD_over_CL_plot_#', num2str(j), 'flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+% %     saveas(gcf, ['./pic/CD_over_CL_plot/', 'CD_over_CL_plot_#', num2str(j), 'flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
 % % 
 % % % checking and printing whether chosen path is accessible
 % %     
@@ -267,8 +267,8 @@ lat_dir = sensor_orientation.lat_dir;
 
 %% CL: presenting one plot per selected speed and all inflations, against AoA
 
-%   [status, msg, msgID] = mkdir('../pic_notitle_paper/CL_plot/'); % saving-folder creation
-    [status, msg, msgID] = mkdir('../pic/CL_plot/');
+%   [status, msg, msgID] = mkdir('./pic_notitle_paper/CL_plot/'); % saving-folder creation
+    [status, msg, msgID] = mkdir('./pic/CL_plot/');
 
 for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 
@@ -350,7 +350,7 @@ for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plot
     %annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, ...
      %      'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex') % printing Re on plots
     hold off
-    saveas(gcf, ['../pic_notitle_paper/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+    saveas(gcf, ['./pic_notitle_paper/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
     
 % checking and printing whether chosen path is accessible
     
@@ -370,7 +370,7 @@ end
 %% CD: presenting one plot per selected speed and all inflations, against AoA
 
 %     [status, msg, msgID] = mkdir('../pic_notitle_paper/CD_plot/'); % saving-folder creation
-[status, msg, msgID] = mkdir('../pic/CD_plot/');
+[status, msg, msgID] = mkdir('./pic/CD_plot/');
 
 for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 
@@ -448,7 +448,7 @@ for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plot
     end
     
     hold off
-    saveas(gcf, ['../pic_notitle_paper/CD_plot/','/CD_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+    saveas(gcf, ['./pic_notitle_paper/CD_plot/','/CD_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
 
 % checking and printing whether chosen path is accessible
 
@@ -501,7 +501,7 @@ end
 % 
 % %% Lift: presenting one plot per selected speed and all inflations, against AoA
 
-%     [status, msg, msgID] = mkdir('../Force_pic/Lift/'); % saving-folder creation
+%     [status, msg, msgID] = mkdir('./Force_pic/Lift/'); % saving-folder creation
 % 
 % for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 % 
@@ -580,13 +580,13 @@ end
 %     end
 %     
 %     hold off
-%     saveas(gcf, ['../Force_pic/Lift/', 'Lift_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+%     saveas(gcf, ['./Force_pic/Lift/', 'Lift_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
 % 
 % end
 % 
 % %% Drag: presenting one plot per selected speed and all inflations, against AoA
 
-%     [status, msg, msgID] = mkdir('../Force_pic/Drag/'); % saving-folder creation
+%     [status, msg, msgID] = mkdir('./Force_pic/Drag/'); % saving-folder creation
 % 
 % for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 % 
@@ -665,13 +665,13 @@ end
 %     end
 %     
 %     hold off
-%     saveas(gcf, ['../Force_pic/Drag/', 'Drag_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+%     saveas(gcf, ['./Force_pic/Drag/', 'Drag_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
 % 
 % end
 % 
 % %% Torque: z direction
 
-%     [status, msg, msgID] = mkdir('../Torque_pic/TorqueZ/'); % saving-folder creation
+%     [status, msg, msgID] = mkdir('./Torque_pic/TorqueZ/'); % saving-folder creation
 % 
 % for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 % 
@@ -750,6 +750,6 @@ end
 %     end
 %     
 %     hold off
-%     saveas(gcf, ['../Torque_pic/TorqueZ/', 'TorqueZ#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+%     saveas(gcf, ['./Torque_pic/TorqueZ/', 'TorqueZ#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
 % 
 % end
