@@ -226,7 +226,7 @@ end
     %% CL: presenting one plot per selected speed and all inflations, against AoA
 
     %   [status, msg, msgID] = mkdir('../pic_notitle_paper/CL_plot/'); % saving-folder creation
-    [status, msg, msgID] = mkdir('../pic_hardwing/CL_plot/');
+    [status, msg, msgID] = mkdir('./pic_hardwing/CL_plot/');
 
    % checking and printing whether chosen path is accessible
         
@@ -286,7 +286,7 @@ end
     %% CD: presenting one plot per selected speed and all inflations, against AoA
 
     %   [status, msg, msgID] = mkdir('../pic_notitle_paper/CD_plot/'); % saving-folder creation
-    [status, msg, msgID] = mkdir('../pic_hardwing/CD_plot/');
+    [status, msg, msgID] = mkdir('./pic_hardwing/CD_plot/');
 
     % checking and printing whether chosen path is accessible
         
