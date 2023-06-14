@@ -267,10 +267,10 @@ lat_dir = sensor_orientation.lat_dir;
 
 %% CL: presenting one plot per selected speed and all inflations, against AoA
 
-for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
-
 %   [status, msg, msgID] = mkdir('../pic_notitle_paper/CL_plot/'); % saving-folder creation
     [status, msg, msgID] = mkdir('../pic/CL_plot/');
+
+for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 
     Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
     disp(sel_speed(j))
@@ -369,10 +369,11 @@ end
 
 %% CD: presenting one plot per selected speed and all inflations, against AoA
 
+%     [status, msg, msgID] = mkdir('../pic_notitle_paper/CD_plot/'); % saving-folder creation
+[status, msg, msgID] = mkdir('../pic/CD_plot/');
+
 for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 
-%     [status, msg, msgID] = mkdir('../pic_notitle_paper/CD_plot/'); % saving-folder creation
-    [status, msg, msgID] = mkdir('../pic/CD_plot/');
     Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
     disp(sel_speed(j))
     clear k1 k2 k3 k4 k5
@@ -499,10 +500,11 @@ end
 % 
 % 
 % %% Lift: presenting one plot per selected speed and all inflations, against AoA
+
+%     [status, msg, msgID] = mkdir('../Force_pic/Lift/'); % saving-folder creation
 % 
 % for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 % 
-%     [status, msg, msgID] = mkdir('../Force_pic/Lift/'); % saving-folder creation
 %     
 %     Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
 %     
@@ -583,10 +585,11 @@ end
 % end
 % 
 % %% Drag: presenting one plot per selected speed and all inflations, against AoA
+
+%     [status, msg, msgID] = mkdir('../Force_pic/Drag/'); % saving-folder creation
 % 
 % for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 % 
-%     [status, msg, msgID] = mkdir('../Force_pic/Drag/'); % saving-folder creation
 %     
 %     Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
 %     
@@ -667,10 +670,11 @@ end
 % end
 % 
 % %% Torque: z direction
+
+%     [status, msg, msgID] = mkdir('../Torque_pic/TorqueZ/'); % saving-folder creation
 % 
 % for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 % 
-%     [status, msg, msgID] = mkdir('../Torque_pic/TorqueZ/'); % saving-folder creation
 %     
 %     Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
 %     
