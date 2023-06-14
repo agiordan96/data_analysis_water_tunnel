@@ -12,18 +12,18 @@ lat_dir = sensor_orientation.lat_dir;
 
     threshold = 3000;
 
-    [status, msg, msgID] = mkdir('../pic_hardwing/CL_over_CD_plot/'); % saving-folder creation
+    [status, msg, msgID] = mkdir('./pic_hardwing/CL_over_CD_plot/'); % saving-folder creation
 
      % checking and printing whether chosen path is accessible
         
      if ~isfolder('..')
          error('Corrupt or very very old file system, missing .. directory entry')
-     elseif ~isfolder('../pic_hardwing')
+     elseif ~isfolder('./pic_hardwing')
          error('No folder ../data_analysis_soft_wing')
-     elseif ~isfolder('../pic/CL_over_CD_plot')
-         error('No folder ../pic/CL_over_CD_plot')
+     elseif ~isfolder('./pic_hardwing/CL_over_CD_plot')
+         error('No folder ./pic_hardwing/CL_over_CD_plot')
      else
-         fprintf('folder path ../pic/CL_over_CD_plot/ is okay \n')
+         fprintf('folder path ./pic_hardwing/CL_over_CD_plot/ is okay \n')
      end
 
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
@@ -65,7 +65,7 @@ lat_dir = sensor_orientation.lat_dir;
         str_annotation = sprintf('Re = %.2e', Re);
         annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, 'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex' ) % printing Re on plots
         hold off
-        saveas(gcf, ['../pic_hardwing/CL_over_CD_plot/', 'CL_over_CD_plot_#', num2str(j), 'flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+        saveas(gcf, ['./pic_hardwing/CL_over_CD_plot/', 'CL_over_CD_plot_#', num2str(j), 'flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
     
     end
     
@@ -208,12 +208,12 @@ lat_dir = sensor_orientation.lat_dir;
         
    if ~isfolder('..')
        error('Corrupt or very very old file system, missing .. directory entry')
-    elseif ~isfolder('../pic_hardwing')
+    elseif ~isfolder('./pic_hardwing')
        error('No folder ../data_analysis_soft_wing')
-    elseif ~isfolder('../pic_hardwing/CL_plot')
-       error('No folder ../pic_hardwing/CL_plot')
+    elseif ~isfolder('./pic_hardwing/CL_plot')
+       error('No folder ./pic_hardwing/CL_plot')
     else
-       fprintf('folder path ../pic_hardwing/CL_plot/ is okay \n')
+       fprintf('folder path ./pic_hardwing/CL_plot/ is okay \n')
     end
     
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
@@ -254,8 +254,8 @@ lat_dir = sensor_orientation.lat_dir;
         str_annotation = sprintf('Re = %.2e', Re);
         annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, 'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex' ) % printing Re on plots
         hold off
-        %saveas(gcf, ['../pic_notitle_paper_hardwing/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
-        saveas(gcf, ['../pic_hardwing/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+        %saveas(gcf, ['./pic_notitle_paper_hardwing/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+        saveas(gcf, ['./pic_hardwing/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
 
     end
    
@@ -268,12 +268,12 @@ lat_dir = sensor_orientation.lat_dir;
         
     if ~isfolder('..')
             error('Corrupt or very very old file system, missing .. directory entry')
-    elseif ~isfolder('../pic_hardwing')
+    elseif ~isfolder('./pic_hardwing')
             error('No folder ../data_analysis_soft_wing')
-    elseif ~isfolder('../pic_hardwing/CD_plot')
-            error('No folder ../pic_hardwing/CD_plot')
+    elseif ~isfolder('./pic_hardwing/CD_plot')
+            error('No folder ./pic_hardwing/CD_plot')
     else
-            fprintf('folder path ../pic_hardwing/CD_plot/ is okay \n')
+            fprintf('folder path ./pic_hardwing/CD_plot/ is okay \n')
     end
     
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
@@ -314,7 +314,7 @@ lat_dir = sensor_orientation.lat_dir;
         str_annotation = sprintf('Re = %.2e', Re);
         annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, 'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex' ) % printing Re on plots
         hold off
-        saveas(gcf, ['../pic_hardwing/CD_plot/','/CD_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+        saveas(gcf, ['./pic_hardwing/CD_plot/','/CD_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
 
     end
     
@@ -356,7 +356,7 @@ lat_dir = sensor_orientation.lat_dir;
     % 
     % for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
     % 
-    %     [status, msg, msgID] = mkdir('../Force_pic/Lift/'); % saving-folder creation
+    %     [status, msg, msgID] = mkdir('./Force_pic/Lift/'); % saving-folder creation
     %     
     %     Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
     %     
@@ -434,7 +434,7 @@ lat_dir = sensor_orientation.lat_dir;
     %     end
     %     
     %     hold off
-    %     saveas(gcf, ['../Force_pic/Lift/', 'Lift_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+    %     saveas(gcf, ['./Force_pic/Lift/', 'Lift_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
     % 
     % end
     % 
@@ -442,7 +442,7 @@ lat_dir = sensor_orientation.lat_dir;
     % 
     % for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
     % 
-    %     [status, msg, msgID] = mkdir('../Force_pic/Drag/'); % saving-folder creation
+    %     [status, msg, msgID] = mkdir('./Force_pic/Drag/'); % saving-folder creation
     %     
     %     Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
     %     
@@ -518,7 +518,7 @@ lat_dir = sensor_orientation.lat_dir;
     %     end
     %     
     %     hold off
-    %     saveas(gcf, ['../Force_pic/Drag/', 'Drag_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+    %     saveas(gcf, ['./Force_pic/Drag/', 'Drag_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
     % 
     % end
     % 
@@ -526,7 +526,7 @@ lat_dir = sensor_orientation.lat_dir;
     % 
     % for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
     % 
-    %     [status, msg, msgID] = mkdir('../Torque_pic/TorqueZ/'); % saving-folder creation
+    %     [status, msg, msgID] = mkdir('./Torque_pic/TorqueZ/'); % saving-folder creation
     %     
     %     Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
     %     
@@ -601,7 +601,7 @@ lat_dir = sensor_orientation.lat_dir;
     %     end
     %     
     %     hold off
-    %     saveas(gcf, ['../Torque_pic/TorqueZ/', 'TorqueZ#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+    %     saveas(gcf, ['./Torque_pic/TorqueZ/', 'TorqueZ#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
     % 
     % end
 end
