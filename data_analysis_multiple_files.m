@@ -45,7 +45,7 @@ MyFolder = (input(prompt, "s"));
 % default data in case of repeated experiment (for user's agility only)
 
 if MyFolder == "" 
-    MyFolder = "force_torque_measurements";    % enter default value here force_torque_measurements
+    MyFolder = "soft_data_05062023";    % enter default value here force_torque_measurements
 end
 
 MyFolderInfo = dir(MyFolder);
