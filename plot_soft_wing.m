@@ -289,7 +289,7 @@ for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plot
     ax.XAxis.LineWidth = 2;
     ax.YAxis.LineWidth = 2;
     xlim([-10 25])
-    ylim([-0.15 2])
+    ylim([-0.2 2])
 
     for k = 1:length(exp_value.f_avg)
 
@@ -388,7 +388,7 @@ for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plot
     xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
     ylabel('CD [ ]','fontweight','bold','fontsize', 30);
     xlim([-10 25])
-    ylim([0 0.8])
+    ylim([-.1 0.8])
     ax = gca;
     ax.XAxis.LineWidth = 2;
     ax.YAxis.LineWidth = 2;
