@@ -288,7 +288,7 @@ for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plot
     ax = gca;
     ax.XAxis.LineWidth = 2;
     ax.YAxis.LineWidth = 2;
-    xlim([-10 25])
+    xlim([-10 30])
     ylim([-0.2 2])
 
     for k = 1:length(exp_value.f_avg)
@@ -387,7 +387,7 @@ for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plot
     grid on
     xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
     ylabel('CD [ ]','fontweight','bold','fontsize', 30);
-    xlim([-10 25])
+    xlim([-10 30])
     ylim([-.1 1.3])
     ax = gca;
     ax.XAxis.LineWidth = 2;
