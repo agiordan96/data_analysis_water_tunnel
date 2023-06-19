@@ -25,11 +25,11 @@ if CL_CD_plot == ""
 end
 
 if CL_plot == "" 
-   CL_plot = 0;    % enter default value here
+   CL_plot = 1;    % enter default value here
 end
 
 if CD_plot == "" 
-   CD_plot = 0;     % enter default value here
+   CD_plot = 1;     % enter default value here
 end
 
 %% CL / CD: presenting one plot per selected speed against AoA
