@@ -14,9 +14,12 @@ CL_CD_prompt = "CL / CD plot: yes (1) or no (0)\n";
 CL_prompt = "CL plot: yes (1) or no (0)\n";
 CD_prompt = "CD plot: yes (1) or no (0)\n";
 
+plot_type_prompt = "please type in <title> or <no_title>\n";
+
 CL_CD_plot = (input(CL_CD_prompt, 's'));
 CL_plot = (input(CL_prompt, 's'));
 CD_plot = (input(CD_prompt, 's'));
+plot_type = (input(plot_type_prompt, "s"));
 
 % default value in case of repeated procedure (for user's agility only)
 
@@ -31,6 +34,11 @@ end
 if CD_plot == "" 
    CD_plot = 1;     % enter default value here
 end
+
+%% Saving folder creation
+
+plot_choice_vec = [CL_CD_plot, CL_plot, CD_plot];
+create_fold_save_pic(plot_choice_vec, plot_type);
 
 %% CL / CD: presenting one plot per selected speed against AoA
 
