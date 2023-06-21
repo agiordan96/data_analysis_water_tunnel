@@ -51,6 +51,11 @@ if CL_plot == 1
     plot_CL(exp_value, sel_speed, div, chord, kin_viscosity, lift_dir, plot_type, 'png')
 end
 
+if CD_plot == 1
+    folder_checking(plot_type, 'CD');
+    plot_CL(exp_value, sel_speed, div, chord, kin_viscosity, lift_dir, plot_type, 'png')
+end
+
 %% CL / CD: presenting one plot per selected speed against AoA
 
     threshold = 3000;
@@ -242,124 +247,124 @@ end
     % % end
     % % 
        
-    %% CL: presenting one plot per selected speed and all inflations, against AoA
-
-    %   [status, msg, msgID] = mkdir('../pic_notitle_paper/CL_plot/'); % saving-folder creation
-    [status, msg, msgID] = mkdir('./pic_hardwing/CL_plot/');
-
-   % checking and printing whether chosen path is accessible
-        
-   if ~isfolder('..')
-       error('Corrupt or very very old file system, missing .. directory entry')
-    elseif ~isfolder('./pic_hardwing')
-       error('No folder ../data_analysis_soft_wing')
-    elseif ~isfolder('./pic_hardwing/CL_plot')
-       error('No folder ./pic_hardwing/CL_plot')
-    else
-       fprintf('folder path ./pic_hardwing/CL_plot/ is okay \n')
-    end
-    
-    for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
-    
-        Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
-        disp(sel_speed(j))
-             
-        figure('Position', [200, 200, 1000, 1000])
-        
-        title(['CL plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight','bold','fontsize', 24)
-        hold on
-        grid on
-        xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
-        ylabel('CL [ ]','fontweight','bold','fontsize', 30);
-        ax = gca;
-        ax.XAxis.LineWidth = 2;
-        ax.YAxis.LineWidth = 2;
-        xlim([-10 30])
-        ylim([-1.3 2])
-    
-        clear k1
-
-        for k = 1:length(exp_value.f_avg)
-    
-             if (exp_value.vel(k) == sel_speed(j))
-                if exist('k1','var') == 0
-                    errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, lift_dir) / div(1, j)), exp_value.f_std(k, lift_dir) / div(1, j), 'ob', 'DisplayName', 'neutral', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
-                else
-                    errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, lift_dir) / div(1, j)), exp_value.f_std(k, lift_dir) / div(1, j), 'ob', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
-                    x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
-                    y_vec = [(-exp_value.f_avg(k1, lift_dir) / div(1, j)), (-exp_value.f_avg(k, lift_dir) / div(1, j))];
-                    plot(x_vec, y_vec, '--b', 'HandleVisibility','off')
-                end
-                k1 = k;
-             end
-        end
-
-        str_annotation = sprintf('Re = %.2e', Re);
-        annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, 'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex' ) % printing Re on plots
-        hold off
-        %saveas(gcf, ['./pic_notitle_paper_hardwing/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
-        saveas(gcf, ['./pic_hardwing/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
-
-    end
-   
-    %% CD: presenting one plot per selected speed and all inflations, against AoA
-
-    %   [status, msg, msgID] = mkdir('../pic_notitle_paper/CD_plot/'); % saving-folder creation
-    [status, msg, msgID] = mkdir('./pic_hardwing/CD_plot/');
-
-    % checking and printing whether chosen path is accessible
-        
-    if ~isfolder('..')
-            error('Corrupt or very very old file system, missing .. directory entry')
-    elseif ~isfolder('./pic_hardwing')
-            error('No folder ../data_analysis_soft_wing')
-    elseif ~isfolder('./pic_hardwing/CD_plot')
-            error('No folder ./pic_hardwing/CD_plot')
-    else
-            fprintf('folder path ./pic_hardwing/CD_plot/ is okay \n')
-    end
-    
-    for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
-    
-
-        Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
-        disp(sel_speed(j))
-        clear k1
-    
-        figure('Position', [200, 200, 1000, 1000])
-    
-        title(['CD plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))], 'fontweight','bold','fontsize', 24)
-        hold on
-        grid on
-        xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
-        ylabel('CD [ ]','fontweight','bold','fontsize', 30);
-        xlim([-10 30])
-        ylim([-1.3 2])
-        ax = gca;
-        ax.XAxis.LineWidth = 2;
-        ax.YAxis.LineWidth = 2;
-    
-        for k = 1:length(exp_value.f_avg)
-    
-             if (exp_value.vel(k) == sel_speed(j)) 
-                if exist('k1','var') == 0
-                    errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(1, j)), exp_value.f_std(k) / div(1, j), 'ob', 'DisplayName', 'neutral', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
-                else
-                    errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(1, j)), exp_value.f_std(k) / div(1, j), 'ob', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
-                    x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
-                    y_vec = [(-exp_value.f_avg(k1, drag_dir) / div(1, j)), (-exp_value.f_avg(k, drag_dir) / div(1, j))];
-                    plot(x_vec, y_vec, '--b', 'HandleVisibility','off')
-                end
-                k1 = k;
-             end
-        end
-        
-        str_annotation = sprintf('Re = %.2e', Re);
-        annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, 'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex' ) % printing Re on plots
-        hold off
-        saveas(gcf, ['./pic_hardwing/CD_plot/','/CD_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
-
-    end
+%     %% CL: presenting one plot per selected speed, against AoA
+% 
+%     %   [status, msg, msgID] = mkdir('../pic_notitle_paper/CL_plot/'); % saving-folder creation
+%     [status, msg, msgID] = mkdir('./pic_hardwing/CL_plot/');
+% 
+%    % checking and printing whether chosen path is accessible
+%         
+%    if ~isfolder('..')
+%        error('Corrupt or very very old file system, missing .. directory entry')
+%     elseif ~isfolder('./pic_hardwing')
+%        error('No folder ../data_analysis_soft_wing')
+%     elseif ~isfolder('./pic_hardwing/CL_plot')
+%        error('No folder ./pic_hardwing/CL_plot')
+%     else
+%        fprintf('folder path ./pic_hardwing/CL_plot/ is okay \n')
+%     end
+%     
+%     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
+%     
+%         Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
+%         disp(sel_speed(j))
+%              
+%         figure('Position', [200, 200, 1000, 1000])
+%         
+%         title(['CL plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight','bold','fontsize', 24)
+%         hold on
+%         grid on
+%         xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
+%         ylabel('CL [ ]','fontweight','bold','fontsize', 30);
+%         ax = gca;
+%         ax.XAxis.LineWidth = 2;
+%         ax.YAxis.LineWidth = 2;
+%         xlim([-10 30])
+%         ylim([-1.3 2])
+%     
+%         clear k1
+% 
+%         for k = 1:length(exp_value.f_avg)
+%     
+%              if (exp_value.vel(k) == sel_speed(j))
+%                 if exist('k1','var') == 0
+%                     errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, lift_dir) / div(1, j)), exp_value.f_std(k, lift_dir) / div(1, j), 'ob', 'DisplayName', 'neutral', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
+%                 else
+%                     errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, lift_dir) / div(1, j)), exp_value.f_std(k, lift_dir) / div(1, j), 'ob', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
+%                     x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
+%                     y_vec = [(-exp_value.f_avg(k1, lift_dir) / div(1, j)), (-exp_value.f_avg(k, lift_dir) / div(1, j))];
+%                     plot(x_vec, y_vec, '--b', 'HandleVisibility','off')
+%                 end
+%                 k1 = k;
+%              end
+%         end
+% 
+%         str_annotation = sprintf('Re = %.2e', Re);
+%         annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, 'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex' ) % printing Re on plots
+%         hold off
+%         %saveas(gcf, ['./pic_notitle_paper_hardwing/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+%         saveas(gcf, ['./pic_hardwing/CL_plot/', 'CL_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+% 
+%     end
+%    
+%     %% CD: presenting one plot per selected speed, against AoA
+% 
+%     %   [status, msg, msgID] = mkdir('../pic_notitle_paper/CD_plot/'); % saving-folder creation
+%     [status, msg, msgID] = mkdir('./pic_hardwing/CD_plot/');
+% 
+%     % checking and printing whether chosen path is accessible
+%         
+%     if ~isfolder('..')
+%             error('Corrupt or very very old file system, missing .. directory entry')
+%     elseif ~isfolder('./pic_hardwing')
+%             error('No folder ../data_analysis_soft_wing')
+%     elseif ~isfolder('./pic_hardwing/CD_plot')
+%             error('No folder ./pic_hardwing/CD_plot')
+%     else
+%             fprintf('folder path ./pic_hardwing/CD_plot/ is okay \n')
+%     end
+%     
+%     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
+%     
+% 
+%         Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
+%         disp(sel_speed(j))
+%         clear k1
+%     
+%         figure('Position', [200, 200, 1000, 1000])
+%     
+%         title(['CD plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))], 'fontweight','bold','fontsize', 24)
+%         hold on
+%         grid on
+%         xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
+%         ylabel('CD [ ]','fontweight','bold','fontsize', 30);
+%         xlim([-10 30])
+%         ylim([-1.3 2])
+%         ax = gca;
+%         ax.XAxis.LineWidth = 2;
+%         ax.YAxis.LineWidth = 2;
+%     
+%         for k = 1:length(exp_value.f_avg)
+%     
+%              if (exp_value.vel(k) == sel_speed(j)) 
+%                 if exist('k1','var') == 0
+%                     errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(1, j)), exp_value.f_std(k) / div(1, j), 'ob', 'DisplayName', 'neutral', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
+%                 else
+%                     errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(1, j)), exp_value.f_std(k) / div(1, j), 'ob', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
+%                     x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
+%                     y_vec = [(-exp_value.f_avg(k1, drag_dir) / div(1, j)), (-exp_value.f_avg(k, drag_dir) / div(1, j))];
+%                     plot(x_vec, y_vec, '--b', 'HandleVisibility','off')
+%                 end
+%                 k1 = k;
+%              end
+%         end
+%         
+%         str_annotation = sprintf('Re = %.2e', Re);
+%         annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, 'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex' ) % printing Re on plots
+%         hold off
+%         saveas(gcf, ['./pic_hardwing/CD_plot/','/CD_plot_#', num2str(j), '_flow_speed_0_', num2str(100 * sel_speed(j))], 'png'); % saving plots in desired folder
+% 
+%     end
     
 %% CM: presenting one plot per selected speed and all inflations, against AoA
     % 
