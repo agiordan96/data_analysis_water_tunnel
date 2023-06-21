@@ -35,10 +35,21 @@ if CD_plot == ""
    CD_plot = 1;     % enter default value here
 end
 
+if plot_type == "" 
+    plot_type = 'title';    % enter default value here
+end
+
 %% Saving folder creation
 
 plot_choice_vec = [CL_CD_plot, CL_plot, CD_plot];
 create_fold_save_pic(plot_choice_vec, plot_type);
+
+%% Plotting
+
+if CL_plot == 1
+    folder_checking(plot_type, 'CL');
+    plot_CL(exp_value, sel_speed, div, chord, kin_viscosity, lift_dir, plot_type, 'png')
+end
 
 %% CL / CD: presenting one plot per selected speed against AoA
 

@@ -27,6 +27,7 @@ sensor_orientation.lat_dir = (input(promptlat, 's'));
 
 if sensor_orientation.drag_dir == "" 
     sensor_orientation.drag_dir = 2;    % enter default value here
+    disp('default value entered')
 end
 
 if sensor_orientation.lift_dir == "" 
@@ -45,7 +46,7 @@ MyFolder = (input(prompt, "s"));
 % default data in case of repeated experiment (for user's agility only)
 
 if MyFolder == "" 
-    MyFolder = "soft_data_05062023";    % enter default value here force_torque_measurements
+    MyFolder = "hard_data_05062023";    % enter default value here force_torque_measurements
 end
 
 MyFolderInfo = dir(MyFolder);
