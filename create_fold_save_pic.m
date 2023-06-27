@@ -4,23 +4,25 @@ function [] = create_fold_save_pic(folder_vec, plot_type)
 
 if folder_vec(1) == 1 
     if plot_type == "no_title"
-        [status, msg, msgID] = mkdir('./pic_no_title/CL/CD_plot/');
+        [status, msg, msgID] = mkdir(strcat('./pictures_wing/pic_hardwing/', date, '_', plot_type, '/', 'CL_CD_plot/'));
     else
-        [status, msg, msgID] = mkdir('./pic/CD_plot/CL/CD_plot/');
+        [status, msg, msgID] = mkdir(strcat('./pictures_wing/pic_hardwing/', date, '/CL_CD_plot/'));
     end
+end
 
-elseif folder_vec(2) == 1 
+if folder_vec(2) == 1 
     if plot_type == "no_title"
-        [status, msg, msgID] = mkdir('./pic_no_title/CL_plot/');
+        [status, msg, msgID] = mkdir(strcat('./pictures_wing/pic_hardwing/', date, '_', plot_type, '/', 'CL_plot/'));
     else
-        [status, msg, msgID] = mkdir('./pic/CL_plot/CL_plot/');
+        [status, msg, msgID] = mkdir(strcat('./pictures_wing/pic_hardwing/', date, '/CL_plot/'));
     end
+end
 
-elseif folder_vec(3) == 1 
+if folder_vec(3) == 1 
     if plot_type == "no_title"
-        [status, msg, msgID] = mkdir('./pic_no_title/CD_plot/');
+        [status, msg, msgID] = mkdir(strcat('./pictures_wing/pic_hardwing/', date, '_', plot_type, '/', 'CD_plot/'));
     else
-        [status, msg, msgID] = mkdir('./pic/CD_plot/CD_plot/');
+        [status, msg, msgID] = mkdir(strcat('./pictures_wing/pic_hardwing/', date, '/CD_plot/'));
     end
 
 end

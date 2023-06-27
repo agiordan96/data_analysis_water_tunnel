@@ -7,7 +7,7 @@ function [] = plot_CL(exp_value, sel_speed, div, chord, kin_viscosity, lift_dir,
     
         Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
         disp(sel_speed(j))
-             
+        
         figure('Position', [200, 200, 1000, 1000])
         
         if plot_type == "title"
@@ -45,7 +45,6 @@ function [] = plot_CL(exp_value, sel_speed, div, chord, kin_viscosity, lift_dir,
         annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, 'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex' ) % printing Re on plots
         hold off
         save_plot(gcf, plot_type, plot_variable, j, sel_speed(j), format)
-        
     end
 
 end

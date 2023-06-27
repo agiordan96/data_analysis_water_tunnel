@@ -27,15 +27,17 @@ sensor_orientation.lat_dir = (input(promptlat, 's'));
 
 if sensor_orientation.drag_dir == "" 
     sensor_orientation.drag_dir = 2;    % enter default value here
-    disp('default value entered')
+   %fprintf("default value entered: drag_dir = "); fprintf(sensor_orientation.drag_dir);
 end
 
 if sensor_orientation.lift_dir == "" 
     sensor_orientation.lift_dir = 1;    % enter default value here
+    %disp('default value entered: lift_dir = ', sensor_orientation.lift_dir)
 end
 
 if sensor_orientation.lat_dir == "" 
     sensor_orientation.lat_dir = 3;     % enter default value here
+    %disp('default value entered: lat_dir = ', sensor_orientation.lat_dir)
 end
 
 %% data reading
@@ -49,7 +51,7 @@ if MyFolder == ""
     MyFolder = "hard_data_05062023";    % enter default value here force_torque_measurements
 end
 
-MyFolderInfo = dir(MyFolder);
+MyFolderInfo = dir(MyFolder);   % directory information and file names
 
 exp_value  = struct;
 
@@ -67,7 +69,7 @@ for k = 1:length(MyFolderInfo)
         continue
     end
 
-    if MyFolderInfo(k).name(1:4) ~= "hard" && MyFolderInfo(k).name(1:4) ~= "soft"
+    if MyFolderInfo(k).name(1:4) ~= "hard" && MyFolderInfo(k).name(1:4) ~= "soft"   % skip files that are not hard nor soft
         continue
     end
 
@@ -76,7 +78,8 @@ for k = 1:length(MyFolderInfo)
     exp_value.f_avg(k, :) = mean(exp_table{1:end, 1:3});  % average force vector for all of wing's config.
     exp_value.f_std(k, :) = std(exp_table{1:end, 1:3});   % standard dev for each force component of every wing config.
     
-    exp_value.f_ratio(k, :) = mean(exp_table{1:end, 1:3});
+    exp_value.f_ratio(k, 1) = mean(exp_table{1:end, sensor_orientation.lift_dir} ./ exp_table{1:end, sensor_orientation.drag_dir});
+    exp_value.f_std_ratio(k, 1) = std(exp_table{1:end, sensor_orientation.lift_dir} ./ exp_table{1:end, sensor_orientation.drag_dir});
 
     exp_value.t_avg(k, :) = mean(exp_table{1:end, 4:6}); % average torque vector for all of wing's config.
     exp_value.t_std(k, :) = std(exp_table{1:end, 4:6});  % standard deviation for each torque component of every wing config.
@@ -166,8 +169,8 @@ disp('data processing completed')
 close all
 format short
 
-% sel_speed = [.10, .15, .20, .25, .30, .40];
-sel_speed = [.10, .25];
+sel_speed = [.10, .15, .20, .25, .30, .40];
+%sel_speed = [.10, .25];
 sel_inflation = [0, 30, 60, 90, 120];
 
 dyn_pressure = 0.5 * rho .* sel_speed .^ 2; % vector, calculation of dynamic pressure
