@@ -23,8 +23,8 @@ function [] = plot_CL(wingtype, sel_inflation, exp_value, sel_speed, div, chord,
             ax = gca;
             ax.XAxis.LineWidth = 2;
             ax.YAxis.LineWidth = 2;
-            ax.XAxis.TickValues = [-10 -5 0 5 7.5 10 12.5 15 20];
-           % xlim([-10 30])
+            ax.XAxis.TickValues = [-5 0 5 7.5 10 12.5 15];
+            xlim([-7.5 17.5])
             ylim([-1.3 2])
         
             clear k1
