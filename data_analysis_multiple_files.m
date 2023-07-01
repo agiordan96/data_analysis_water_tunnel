@@ -27,7 +27,7 @@ sensor_orientation.lat_dir = (input(promptlat, 's'));
 
 if sensor_orientation.drag_dir == "" 
     sensor_orientation.drag_dir = 2;    % enter default value here
-   %fprintf("default value entered: drag_dir = "); fprintf(sensor_orientation.drag_dir);
+    %fprintf("default value entered: drag_dir = "); fprintf(sensor_orientation.drag_dir);
 end
 
 if sensor_orientation.lift_dir == "" 
@@ -48,7 +48,7 @@ MyFolder = (input(prompt, "s"));
 % default data in case of repeated experiment (for user's agility only)
 
 if MyFolder == "" 
-    MyFolder = "hard_data_05062023";    % enter default value here force_torque_measurements
+    MyFolder = "soft_data_29062023";    % enter default value here
 end
 
 MyFolderInfo = dir(MyFolder);   % directory information and file names
@@ -57,11 +57,14 @@ exp_value  = struct;
 
 exp_value.f_avg = zeros(length(MyFolderInfo), 3);
 exp_value.f_std = zeros(length(MyFolderInfo), 3);
+exp_value.f_ratio = zeros(length(MyFolderInfo), 1);
+exp_value.f_std_ratio = zeros(length(MyFolderInfo), 1);
 exp_value.t_avg = zeros(length(MyFolderInfo), 3);
 exp_value.t_std = zeros(length(MyFolderInfo), 3);
 exp_value.aoa = zeros(length(MyFolderInfo), 1);
 exp_value.vel = zeros(length(MyFolderInfo), 1);
 exp_value.inflation = zeros(length(MyFolderInfo), 1);
+%exp_value.wingtype = zeros(length(MyFolderInfo), 1);
 
 for k = 1:length(MyFolderInfo) 
 
@@ -70,6 +73,18 @@ for k = 1:length(MyFolderInfo)
     end
 
     if MyFolderInfo(k).name(1:4) ~= "hard" && MyFolderInfo(k).name(1:4) ~= "soft"   % skip files that are not hard nor soft
+        continue
+    end
+    
+    if k == 126
+        continue
+    end
+
+    if k == 135
+        continue
+    end
+    
+    if k == 143
         continue
     end
 
@@ -84,24 +99,44 @@ for k = 1:length(MyFolderInfo)
     exp_value.t_avg(k, :) = mean(exp_table{1:end, 4:6}); % average torque vector for all of wing's config.
     exp_value.t_std(k, :) = std(exp_table{1:end, 4:6});  % standard deviation for each torque component of every wing config.
 
-    exp_value.wingtype(k, 1:4) = MyFolderInfo(k).name(1:4); % wing type.
+    exp_value.wingtype(k, 1) = string(MyFolderInfo(k).name(1:4)); % wing type.
 
     if MyFolderInfo(k).name(6:9) == "zero"  % wing angle of attack discrimination (char and int) --> lines 58 to 66
         exp_value.aoa(k) = 0;
-    elseif MyFolderInfo(k).name(6:9) == "neg5"
+    elseif MyFolderInfo(k).name(6:9) == "-005"
         exp_value.aoa(k) = -5;
     elseif MyFolderInfo(k).name(6:9) == "pos5"
         exp_value.aoa(k) = 5;
+    elseif MyFolderInfo(k).name(6:9) == "0007"
+        exp_value.aoa(k) = 7.5;    
     else
         exp_value.aoa(k) = str2double(MyFolderInfo(k).name(8:9));
     end
+
+%     if MyFolderInfo(k).name(6:9) == "0010" && MyFolderInfo(k).name(14:15) == "40"
+%         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
+%         fourier(exp_table,  sensor_orientation.lift_dir);
+%     end
+% 
+%     if MyFolderInfo(k).name(6:9) == "0025" && MyFolderInfo(k).name(14:15) == "30"
+%         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
+%         fourier(exp_table,  sensor_orientation.lift_dir);
+%     end
+% 
+%     if MyFolderInfo(k).name(6:9) == "0010" && MyFolderInfo(k).name(14:15) == "30"
+%         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
+%         fourier(exp_table,  sensor_orientation.lift_dir, str2double(MyFolderInfo(k).name(6:9)), str2double(MyFolderInfo(k).name(14:15)));
+%     end
 
     exp_value.vel(k) = str2double(MyFolderInfo(k).name(14:15)) / 100;   % flow velocity (m/s)
     exp_value.inflation(k) = str2double(MyFolderInfo(k).name(19:21));   % wing inflation
 
 end
 
+% fourier_transform_signal(exp_value, 10, 0.4, sensor_orientation.lift_dir);
+
 remove = (exp_value.f_avg(:, 1) == 0);
+
 fields = fieldnames(exp_value);
 for k = 1:numel(fields)
     exp_value.(fields{k})(remove, :) = [];
@@ -170,16 +205,18 @@ close all
 format short
 
 sel_speed = [.10, .15, .20, .25, .30, .40];
-%sel_speed = [.10, .25];
 sel_inflation = [0, 30, 60, 90, 120];
 
 dyn_pressure = 0.5 * rho .* sel_speed .^ 2; % vector, calculation of dynamic pressure
 div = dyn_pressure .* S; % matrix leading to aero coefficients. Rows: inflations. Column: speeds.
 
-if exp_value.wingtype(1, 1:4) == "hard"
-    plot_hard_wing(exp_value, sel_speed, div, chord, kin_viscosity, sensor_orientation);
-end
+% if exp_value.wingtype(1, 1:4) == "hard"
+%     plot_hard_wing(exp_value.wingtype(1, 1:4), exp_value, sel_speed, div, chord, kin_viscosity, sensor_orientation);
+% end
 
-if exp_value.wingtype(1, 1:4) == "soft"
-    plot_soft_wing(exp_value, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
-end
+%plot_soft_wing(exp_value.wingtype(1, 1:4), exp_value, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
+plot_soft_wing(exp_value.wingtype(1), exp_value, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
+
+% if exp_value.wingtype(1, 1:4) == "soft"
+%     plot_soft_wing(exp_value.wingtype(1, 1:4), exp_value, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
+% end
