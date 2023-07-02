@@ -27,28 +27,30 @@ sensor_orientation.lat_dir = (input(promptlat, 's'));
 
 if sensor_orientation.drag_dir == "" 
     sensor_orientation.drag_dir = 2;    % enter default value here
-    %fprintf("default value entered: drag_dir = "); fprintf(sensor_orientation.drag_dir);
+    fprintf('-> going for default value: drag_dir = %d\n', sensor_orientation.drag_dir); 
 end
 
 if sensor_orientation.lift_dir == "" 
     sensor_orientation.lift_dir = 1;    % enter default value here
-    %disp('default value entered: lift_dir = ', sensor_orientation.lift_dir)
+    fprintf('-> going for default value: lift_dir = %d\n', sensor_orientation.lift_dir); 
 end
 
 if sensor_orientation.lat_dir == "" 
     sensor_orientation.lat_dir = 3;     % enter default value here
-    %disp('default value entered: lat_dir = ', sensor_orientation.lat_dir)
+    fprintf('-> going for default value: lat_dir = %d\n', sensor_orientation.lat_dir); 
 end
 
 %% data reading
 
+fprintf('\n')
 prompt = "Enter data directory's name\n";
 MyFolder = (input(prompt, "s"));
 
 % default data in case of repeated experiment (for user's agility only)
 
 if MyFolder == "" 
-    MyFolder = "soft_data_30062023";    % enter default value here
+    MyFolder = "soft_data_30062023";   % enter default value here
+    fprintf('-> going for default value: data directory "%s"\n', MyFolder); 
 end
 
 MyFolderInfo = dir(MyFolder);   % directory information and file names
@@ -65,6 +67,8 @@ exp_value.aoa = zeros(length(MyFolderInfo), 1);
 exp_value.vel = zeros(length(MyFolderInfo), 1);
 exp_value.inflation = zeros(length(MyFolderInfo), 1);
 %exp_value.wingtype = zeros(length(MyFolderInfo), 1);
+
+fprintf('\nVariables allocated successfully\n'); 
 
 for k = 1:length(MyFolderInfo) 
 
@@ -154,7 +158,8 @@ end
 
 clear exp_table
 
-disp('data read complete')
+fprintf('%d files read successfully\n', length(exp_value.aoa)); 
+fprintf('\nData read completed\n'); 
 
 %% data sorting
 
@@ -164,7 +169,7 @@ exp_value = table2struct(sortedT,'ToScalar',true); % convert the table back to t
 
 clear T sortedT
 
-disp('data sorting completed')
+disp('\nData sorting completed')
 
 %% data processing
 
@@ -207,7 +212,7 @@ kin_viscosity = dyn_viscosity / rho; % m^2 * s
 tor_transposed = zeros(length(exp_value.t_avg), 3);
 tor_transposed(1:end, 1:3) = exp_value.t_avg(1:end, 1:3) + exp_value.f_avg(1:end, 1:3) * d;
 
-disp('data processing completed')
+disp('\nData processing completed')
 
 %% data visualization init.
 
