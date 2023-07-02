@@ -13,27 +13,28 @@ set(groot,'DefaultLineLineWidth',2.5)
 % right-handed triad is the given force parallel to. 
 % (1 --> X; 2 --> Y; 3--> Z)
 
+% default values in case of repeated experiment (for user's agility only)
+
 sensor_orientation = struct; 
 
 promptdrag = "Enter drag direction\n";
-promptlift = "Enter lift direction\n";
-promptlat = "Enter lat direction\n";
-
 sensor_orientation.drag_dir = (input(promptdrag, 's'));
-sensor_orientation.lift_dir = (input(promptlift, 's'));
-sensor_orientation.lat_dir = (input(promptlat, 's'));
-
-% default value in case of repeated experiment (for user's agility only)
 
 if sensor_orientation.drag_dir == "" 
     sensor_orientation.drag_dir = 2;    % enter default value here
     fprintf('-> going for default value: drag_dir = %d\n', sensor_orientation.drag_dir); 
 end
 
+promptlift = "Enter lift direction\n";
+sensor_orientation.lift_dir = (input(promptlift, 's'));
+
 if sensor_orientation.lift_dir == "" 
     sensor_orientation.lift_dir = 1;    % enter default value here
     fprintf('-> going for default value: lift_dir = %d\n', sensor_orientation.lift_dir); 
 end
+
+promptlat = "Enter lat direction\n";
+sensor_orientation.lat_dir = (input(promptlat, 's'));
 
 if sensor_orientation.lat_dir == "" 
     sensor_orientation.lat_dir = 3;     % enter default value here
@@ -66,7 +67,6 @@ exp_value.t_std = zeros(length(MyFolderInfo), 3);
 exp_value.aoa = zeros(length(MyFolderInfo), 1);
 exp_value.vel = zeros(length(MyFolderInfo), 1);
 exp_value.inflation = zeros(length(MyFolderInfo), 1);
-%exp_value.wingtype = zeros(length(MyFolderInfo), 1);
 
 fprintf('\nVariables allocated successfully\n'); 
 
