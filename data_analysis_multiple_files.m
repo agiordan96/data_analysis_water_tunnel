@@ -48,7 +48,7 @@ MyFolder = (input(prompt, "s"));
 % default data in case of repeated experiment (for user's agility only)
 
 if MyFolder == "" 
-    MyFolder = "soft_data_29062023";    % enter default value here
+    MyFolder = "soft_data_30062023";    % enter default value here
 end
 
 MyFolderInfo = dir(MyFolder);   % directory information and file names
@@ -88,6 +88,14 @@ for k = 1:length(MyFolderInfo)
         continue
     end
 
+    if k == 165
+        continue
+    end
+
+     if k == 173
+        continue
+    end
+
     exp_table = readtable(MyFolder + "/" + MyFolderInfo(k).name, 'Delimiter', ', ', "Range", "D:I");
 
     exp_value.f_avg(k, :) = mean(exp_table{1:end, 1:3});  % average force vector for all of wing's config.
@@ -108,7 +116,9 @@ for k = 1:length(MyFolderInfo)
     elseif MyFolderInfo(k).name(6:9) == "pos5"
         exp_value.aoa(k) = 5;
     elseif MyFolderInfo(k).name(6:9) == "0007"
-        exp_value.aoa(k) = 7.5;    
+        exp_value.aoa(k) = 7.5;  
+    elseif MyFolderInfo(k).name(6:9) == "0012"
+        exp_value.aoa(k) = 12.5;
     else
         exp_value.aoa(k) = str2double(MyFolderInfo(k).name(8:9));
     end
