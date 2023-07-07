@@ -78,4 +78,5 @@ function [] = create_fold_save_pic(wingtype, folder_vec, plot_type)
                 [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softhardwing/', date, '/CD_plot/'));
             end
         end
+    end
 end
