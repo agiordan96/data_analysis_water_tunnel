@@ -41,7 +41,7 @@ if sensor_orientation.lat_dir == ""
     fprintf('-> going for default value: lat_dir = %d\n', sensor_orientation.lat_dir); 
 end
 
-%% data reading
+%% data folder names acquisition
 
 fprintf('\n')
 prompt = "Enter soft wing data directory's name\n";
@@ -70,14 +70,15 @@ end
 
 % default data in case of repeated experiment (for user's agility only)
 
-if MyFileChord == "" 
-    MyFileChord = "chord_length";   % enter default value here
-    fprintf('-> going for default value: data directory "%s"\n', MyFileChord); 
-end
+% if MyFileChord == "" 
+%     MyFileChord = "chord_length";   % enter default value here
+%     fprintf('-> going for default value: data directory "%s"\n', MyFileChord); 
+% end
 
 MyFolderInfoSoft = dir(MyFolderSoft);   % directory information and file names for soft data
 MyFolderInfoHard = dir(MyFolderHard);   % directory information and file names for hard data
 
+%% variables initiation
 
 exp_value_soft  = struct;
 
@@ -92,8 +93,22 @@ exp_value_soft.vel = zeros(length(MyFolderInfoSoft), 1);
 exp_value_soft.inflation = zeros(length(MyFolderInfoSoft), 1);
 %exp_value_soft.chord = zeros(length(MyFolderInfo), 1);   % chord length file must have ordered data to reflect that of force value data
 
+exp_value_hard = struct;
+
+exp_value_hard.f_avg = zeros(length(MyFolderInfoSoft), 3);
+exp_value_hard.f_std = zeros(length(MyFolderInfoSoft), 3);
+exp_value_hard.f_ratio = zeros(length(MyFolderInfoSoft), 1);
+exp_value_hard.f_std_ratio = zeros(length(MyFolderInfoSoft), 1);
+exp_value_hard.t_avg = zeros(length(MyFolderInfoSoft), 3);
+exp_value_hard.t_std = zeros(length(MyFolderInfoSoft), 3);
+exp_value_hard.aoa = zeros(length(MyFolderInfoSoft), 1);
+exp_value_hard.vel = zeros(length(MyFolderInfoSoft), 1);
+exp_value_hard.inflation = zeros(length(MyFolderInfoSoft), 1);
+%exp_value_hard.chord = zeros(length(MyFolderInfo), 1);   % chord length file must have ordered data to reflect that of force value data
 
 fprintf('\nVariables allocated successfully\n\n'); 
+
+%% soft data read 
 
 for k = 1:length(MyFolderInfoSoft) 
 
@@ -101,12 +116,13 @@ for k = 1:length(MyFolderInfoSoft)
         continue
     end
 
-    if MyFolderInfoSoft(k).name(1:4) ~= "hard" && MyFolderInfoSoft(k).name(1:4) ~= "soft"   % skip files that are not hard nor soft
+    if MyFolderInfoSoft(k).name(1:4) ~= "soft"   % skip files that are not soft
         continue
     end
 
     exp_table = readtable(MyFolder + "/" + MyFolderInfoSoft(k).name, 'Delimiter', ', ', "Range", "D:I");
     %chord_table = readtable("./" + MyFileChord, 'Delimiter', ', ', "Range", "A:A");
+
     exp_value_soft.f_avg(k, :) = mean(exp_table{1:end, 1:3});  % average force vector for all of wing's config.
     exp_value_soft.f_std(k, :) = std(exp_table{1:end, 1:3});   % standard dev for each force component of every wing config.
     
@@ -122,6 +138,8 @@ for k = 1:length(MyFolderInfoSoft)
         exp_value_soft.aoa(k) = 0;
     elseif MyFolderInfoSoft(k).name(6:9) == "-005"
         exp_value_soft.aoa(k) = -5;
+    elseif MyFolderInfoSoft(k).name(6:9) == "neg5"
+        exp_value_soft.aoa(k) = -5;    
     elseif MyFolderInfoSoft(k).name(6:9) == "pos5"
         exp_value_soft.aoa(k) = 5;
     elseif MyFolderInfoSoft(k).name(6:9) == "0007"
@@ -163,37 +181,23 @@ end
 
 clear exp_table
 
-fprintf('%d files read successfully\n', length(exp_value_soft.aoa)); 
-fprintf('\n Data read completed\n'); 
+%% hard data read 
 
-exp_value_hard = struct;
+fprintf('%d hard data files read successfully\n', length(exp_value_soft.aoa));  
 
-exp_value_hard.f_avg = zeros(length(MyFolderInfoSoft), 3);
-exp_value_hard.f_std = zeros(length(MyFolderInfoSoft), 3);
-exp_value_hard.f_ratio = zeros(length(MyFolderInfoSoft), 1);
-exp_value_hard.f_std_ratio = zeros(length(MyFolderInfoSoft), 1);
-exp_value_hard.t_avg = zeros(length(MyFolderInfoSoft), 3);
-exp_value_hard.t_std = zeros(length(MyFolderInfoSoft), 3);
-exp_value_hard.aoa = zeros(length(MyFolderInfoSoft), 1);
-exp_value_hard.vel = zeros(length(MyFolderInfoSoft), 1);
-exp_value_hard.inflation = zeros(length(MyFolderInfoSoft), 1);
-%exp_value_hard.chord = zeros(length(MyFolderInfo), 1);   % chord length file must have ordered data to reflect that of force value data
+for k = 1:length(MyFolderInfoHard) 
 
-
-fprintf('\nVariables allocated successfully\n\n'); 
-
-for k = 1:length(MyFolderInfoSoft) 
-
-    if length(MyFolderInfoSoft(k).name) < 4
+    if length(MyFolderInfoHard(k).name) < 4
         continue
     end
 
-    if MyFolderInfoSoft(k).name(1:4) ~= "hard" && MyFolderInfoSoft(k).name(1:4) ~= "soft"   % skip files that are not hard nor soft
+    if MyFolderInfoHard(k).name(1:4) ~= "hard"   % skip files that are not hard
         continue
     end
 
-    exp_table = readtable(MyFolder + "/" + MyFolderInfoSoft(k).name, 'Delimiter', ', ', "Range", "D:I");
+    exp_table = readtable(MyFolder + "/" + MyFolderInfoHard(k).name, 'Delimiter', ', ', "Range", "D:I");
     %chord_table = readtable("./" + MyFileChord, 'Delimiter', ', ', "Range", "A:A");
+
     exp_value_hard.f_avg(k, :) = mean(exp_table{1:end, 1:3});  % average force vector for all of wing's config.
     exp_value_hard.f_std(k, :) = std(exp_table{1:end, 1:3});   % standard dev for each force component of every wing config.
     
@@ -209,6 +213,8 @@ for k = 1:length(MyFolderInfoSoft)
         exp_value_hard.aoa(k) = 0;
     elseif MyFolderInfoSoft(k).name(6:9) == "-005"
         exp_value_hard.aoa(k) = -5;
+    elseif MyFolderInfoSoft(k).name(6:9) == "neg5"
+        exp_value_soft.aoa(k) = -5;  
     elseif MyFolderInfoSoft(k).name(6:9) == "pos5"
         exp_value_hard.aoa(k) = 5;
     elseif MyFolderInfoSoft(k).name(6:9) == "0007"
@@ -251,11 +257,10 @@ end
 clear exp_table
 
 fprintf('%d files read successfully\n', length(exp_value_hard.aoa)); 
-fprintf('\nData read completed\n'); 
 
+fprintf('\ndata read completed\n'); 
 
-
-%% data sorting
+%% soft data sorting
 
 T = struct2table(exp_value_soft); % convert the struct array to a table
 sortedT = sortrows(T, 'aoa'); % sort the table by 'aoa'
@@ -263,7 +268,17 @@ exp_value_soft = table2struct(sortedT,'ToScalar',true); % convert the table back
 
 clear T sortedT
 
-fprintf('\n Data sorting completed')
+fprintf('\n soft data sorting completed')
+
+%% soft data sorting
+
+T = struct2table(exp_value_hard); % convert the struct array to a table
+sortedT = sortrows(T, 'aoa'); % sort the table by 'aoa'
+exp_value_hard = table2struct(sortedT,'ToScalar',true); % convert the table back to the struct array
+
+clear T sortedT
+
+fprintf('\n hard data sorting completed')
 
 %% data processing
 
