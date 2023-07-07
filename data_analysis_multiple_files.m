@@ -318,10 +318,13 @@ rho = 998; % kg / m^3 density of water @ 20 C
 dyn_viscosity = 10^(-3); % Pa * s
 kin_viscosity = dyn_viscosity / rho; % m^2 * s
 
-tor_transposed = zeros(length(exp_value_soft.t_avg), 3);
-tor_transposed(1:end, 1:3) = exp_value_soft.t_avg(1:end, 1:3) + exp_value_soft.f_avg(1:end, 1:3) * d;
+tor_transposed_soft = zeros(length(exp_value_soft.t_avg), 3);
+tor_transposed_soft(1:end, 1:3) = exp_value_soft.t_avg(1:end, 1:3) + exp_value_soft.f_avg(1:end, 1:3) * d;
 
-fprintf('\nData processing completed')
+tor_transposed_hard = zeros(length(exp_value_hard.t_avg), 3);
+tor_transposed_hard(1:end, 1:3) = exp_value_hard.t_avg(1:end, 1:3) + exp_value_hard.f_avg(1:end, 1:3) * d;
+
+fprintf('\n data processing completed')
 
 %% data visualization init.
 
@@ -340,6 +343,8 @@ div = dyn_pressure .* S; % matrix leading to aero coefficients. Rows: inflations
 
 %plot_soft_wing(exp_value_soft.wingtype(1, 1:4), exp_value_soft, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
 plot_soft_wing(exp_value_soft.wingtype(1), exp_value_soft, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
+
+plot_hard_wing(exp_value_hard.wingtype(1, 1:4), exp_value_hard, sel_speed, div, chord, kin_viscosity, sensor_orientation);
 
 % if exp_value_soft.wingtype(1, 1:4) == "soft"
 %     plot_soft_wing(exp_value_soft.wingtype(1, 1:4), exp_value_soft, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
