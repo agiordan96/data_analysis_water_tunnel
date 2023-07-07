@@ -50,8 +50,18 @@ MyFolder = (input(prompt, "s"));
 % default data in case of repeated experiment (for user's agility only)
 
 if MyFolder == "" 
-    MyFolder = "soft_data_30062023";   % enter default value here
+    MyFolder = "data_05072023";   % enter default value here
     fprintf('-> going for default value: data directory "%s"\n', MyFolder); 
+end
+
+prompt = "Enter chord length data file name\n";
+MyFileChord = (input(prompt, "s"));
+
+% default data in case of repeated experiment (for user's agility only)
+
+if MyFileChord == "" 
+    MyFileChord = "chord_length";   % enter default value here
+    fprintf('-> going for default value: data directory "%s"\n', MyFileChord); 
 end
 
 MyFolderInfo = dir(MyFolder);   % directory information and file names
@@ -67,8 +77,10 @@ exp_value.t_std = zeros(length(MyFolderInfo), 3);
 exp_value.aoa = zeros(length(MyFolderInfo), 1);
 exp_value.vel = zeros(length(MyFolderInfo), 1);
 exp_value.inflation = zeros(length(MyFolderInfo), 1);
+%exp_value.chord = zeros(length(MyFolderInfo), 1);   % chord length file must have ordered data to reflect that of force value data
 
-fprintf('\nVariables allocated successfully\n'); 
+
+fprintf('\nVariables allocated successfully\n\n'); 
 
 for k = 1:length(MyFolderInfo) 
 
@@ -79,29 +91,9 @@ for k = 1:length(MyFolderInfo)
     if MyFolderInfo(k).name(1:4) ~= "hard" && MyFolderInfo(k).name(1:4) ~= "soft"   % skip files that are not hard nor soft
         continue
     end
-    
-    if k == 126
-        continue
-    end
-
-    if k == 135
-        continue
-    end
-    
-    if k == 143
-        continue
-    end
-
-    if k == 165
-        continue
-    end
-
-     if k == 173
-        continue
-    end
 
     exp_table = readtable(MyFolder + "/" + MyFolderInfo(k).name, 'Delimiter', ', ', "Range", "D:I");
-
+    %chord_table = readtable("./" + MyFileChord, 'Delimiter', ', ', "Range", "A:A");
     exp_value.f_avg(k, :) = mean(exp_table{1:end, 1:3});  % average force vector for all of wing's config.
     exp_value.f_std(k, :) = std(exp_table{1:end, 1:3});   % standard dev for each force component of every wing config.
     
@@ -159,7 +151,7 @@ end
 clear exp_table
 
 fprintf('%d files read successfully\n', length(exp_value.aoa)); 
-fprintf('\nData read completed\n'); 
+fprintf('\n Data read completed\n'); 
 
 %% data sorting
 
@@ -169,7 +161,7 @@ exp_value = table2struct(sortedT,'ToScalar',true); % convert the table back to t
 
 clear T sortedT
 
-disp('\nData sorting completed')
+fprintf('\n Data sorting completed')
 
 %% data processing
 
@@ -212,7 +204,7 @@ kin_viscosity = dyn_viscosity / rho; % m^2 * s
 tor_transposed = zeros(length(exp_value.t_avg), 3);
 tor_transposed(1:end, 1:3) = exp_value.t_avg(1:end, 1:3) + exp_value.f_avg(1:end, 1:3) * d;
 
-disp('\nData processing completed')
+fprintf('\nData processing completed')
 
 %% data visualization init.
 
