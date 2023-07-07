@@ -21,9 +21,6 @@ CL_plot = (input(CL_prompt, "s"));
 CD_plot = (input(CD_prompt, "s"));
 plot_type = (input(plot_type_prompt, "s"));
 
-% CL_plot = double(CL_plot);
-% default value in case of repeated procedure (for user's agility only)
-
 if CL_CD_plot == "" 
     CL_CD_plot = 0;    % enter default value here
 end
