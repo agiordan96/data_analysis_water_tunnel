@@ -44,18 +44,29 @@ end
 %% data reading
 
 fprintf('\n')
-prompt = "Enter data directory's name\n";
-MyFolder = (input(prompt, "s"));
+prompt = "Enter soft wing data directory's name\n";
+MyFolderSoft = (input(prompt, "s"));
 
 % default data in case of repeated experiment (for user's agility only)
 
-if MyFolder == "" 
-    MyFolder = "data_05072023";   % enter default value here
-    fprintf('-> going for default value: data directory "%s"\n', MyFolder); 
+if MyFolderSoft == "" 
+    MyFolderSoft = "soft_data_05072023";   % enter default value here
+    fprintf('-> going for default value: data directory "%s"\n', MyFolderSoft); 
 end
 
-prompt = "Enter chord length data file name\n";
-MyFileChord = (input(prompt, "s"));
+fprintf('\n')
+prompt = "Enter rigid wing data directory's name\n";
+MyFolderHard = (input(prompt, "s"));
+
+% default data in case of repeated experiment (for user's agility only)
+
+if MyFolderHard == "" 
+    MyFolderHard = "hard_data_05072023";   % enter default value here
+    fprintf('-> going for default value: data directory "%s"\n', MyFolderHard); 
+end
+
+% prompt = "Enter chord length data file name\n";
+% MyFileChord = (input(prompt, "s"));
 
 % default data in case of repeated experiment (for user's agility only)
 
@@ -64,59 +75,61 @@ if MyFileChord == ""
     fprintf('-> going for default value: data directory "%s"\n', MyFileChord); 
 end
 
-MyFolderInfo = dir(MyFolder);   % directory information and file names
+MyFolderInfoSoft = dir(MyFolderSoft);   % directory information and file names for soft data
+MyFolderInfoHard = dir(MyFolderHard);   % directory information and file names for hard data
 
-exp_value  = struct;
 
-exp_value.f_avg = zeros(length(MyFolderInfo), 3);
-exp_value.f_std = zeros(length(MyFolderInfo), 3);
-exp_value.f_ratio = zeros(length(MyFolderInfo), 1);
-exp_value.f_std_ratio = zeros(length(MyFolderInfo), 1);
-exp_value.t_avg = zeros(length(MyFolderInfo), 3);
-exp_value.t_std = zeros(length(MyFolderInfo), 3);
-exp_value.aoa = zeros(length(MyFolderInfo), 1);
-exp_value.vel = zeros(length(MyFolderInfo), 1);
-exp_value.inflation = zeros(length(MyFolderInfo), 1);
-%exp_value.chord = zeros(length(MyFolderInfo), 1);   % chord length file must have ordered data to reflect that of force value data
+exp_value_soft  = struct;
+
+exp_value_soft.f_avg = zeros(length(MyFolderInfoSoft), 3);
+exp_value_soft.f_std = zeros(length(MyFolderInfoSoft), 3);
+exp_value_soft.f_ratio = zeros(length(MyFolderInfoSoft), 1);
+exp_value_soft.f_std_ratio = zeros(length(MyFolderInfoSoft), 1);
+exp_value_soft.t_avg = zeros(length(MyFolderInfoSoft), 3);
+exp_value_soft.t_std = zeros(length(MyFolderInfoSoft), 3);
+exp_value_soft.aoa = zeros(length(MyFolderInfoSoft), 1);
+exp_value_soft.vel = zeros(length(MyFolderInfoSoft), 1);
+exp_value_soft.inflation = zeros(length(MyFolderInfoSoft), 1);
+%exp_value_soft.chord = zeros(length(MyFolderInfo), 1);   % chord length file must have ordered data to reflect that of force value data
 
 
 fprintf('\nVariables allocated successfully\n\n'); 
 
-for k = 1:length(MyFolderInfo) 
+for k = 1:length(MyFolderInfoSoft) 
 
-    if length(MyFolderInfo(k).name) < 4
+    if length(MyFolderInfoSoft(k).name) < 4
         continue
     end
 
-    if MyFolderInfo(k).name(1:4) ~= "hard" && MyFolderInfo(k).name(1:4) ~= "soft"   % skip files that are not hard nor soft
+    if MyFolderInfoSoft(k).name(1:4) ~= "hard" && MyFolderInfoSoft(k).name(1:4) ~= "soft"   % skip files that are not hard nor soft
         continue
     end
 
-    exp_table = readtable(MyFolder + "/" + MyFolderInfo(k).name, 'Delimiter', ', ', "Range", "D:I");
+    exp_table = readtable(MyFolder + "/" + MyFolderInfoSoft(k).name, 'Delimiter', ', ', "Range", "D:I");
     %chord_table = readtable("./" + MyFileChord, 'Delimiter', ', ', "Range", "A:A");
-    exp_value.f_avg(k, :) = mean(exp_table{1:end, 1:3});  % average force vector for all of wing's config.
-    exp_value.f_std(k, :) = std(exp_table{1:end, 1:3});   % standard dev for each force component of every wing config.
+    exp_value_soft.f_avg(k, :) = mean(exp_table{1:end, 1:3});  % average force vector for all of wing's config.
+    exp_value_soft.f_std(k, :) = std(exp_table{1:end, 1:3});   % standard dev for each force component of every wing config.
     
-    exp_value.f_ratio(k, 1) = mean(exp_table{1:end, sensor_orientation.lift_dir} ./ exp_table{1:end, sensor_orientation.drag_dir});
-    exp_value.f_std_ratio(k, 1) = std(exp_table{1:end, sensor_orientation.lift_dir} ./ exp_table{1:end, sensor_orientation.drag_dir});
+    exp_value_soft.f_ratio(k, 1) = mean(exp_table{1:end, sensor_orientation.lift_dir} ./ exp_table{1:end, sensor_orientation.drag_dir});
+    exp_value_soft.f_std_ratio(k, 1) = std(exp_table{1:end, sensor_orientation.lift_dir} ./ exp_table{1:end, sensor_orientation.drag_dir});
 
-    exp_value.t_avg(k, :) = mean(exp_table{1:end, 4:6}); % average torque vector for all of wing's config.
-    exp_value.t_std(k, :) = std(exp_table{1:end, 4:6});  % standard deviation for each torque component of every wing config.
+    exp_value_soft.t_avg(k, :) = mean(exp_table{1:end, 4:6}); % average torque vector for all of wing's config.
+    exp_value_soft.t_std(k, :) = std(exp_table{1:end, 4:6});  % standard deviation for each torque component of every wing config.
 
-    exp_value.wingtype(k, 1) = string(MyFolderInfo(k).name(1:4)); % wing type.
+    exp_value_soft.wingtype(k, 1) = string(MyFolderInfoSoft(k).name(1:4)); % wing type.
 
-    if MyFolderInfo(k).name(6:9) == "zero"  % wing angle of attack discrimination (char and int) --> lines 58 to 66
-        exp_value.aoa(k) = 0;
-    elseif MyFolderInfo(k).name(6:9) == "-005"
-        exp_value.aoa(k) = -5;
-    elseif MyFolderInfo(k).name(6:9) == "pos5"
-        exp_value.aoa(k) = 5;
-    elseif MyFolderInfo(k).name(6:9) == "0007"
-        exp_value.aoa(k) = 7.5;  
-    elseif MyFolderInfo(k).name(6:9) == "0012"
-        exp_value.aoa(k) = 12.5;
+    if MyFolderInfoSoft(k).name(6:9) == "zero"  % wing angle of attack discrimination (char and int) --> lines 58 to 66
+        exp_value_soft.aoa(k) = 0;
+    elseif MyFolderInfoSoft(k).name(6:9) == "-005"
+        exp_value_soft.aoa(k) = -5;
+    elseif MyFolderInfoSoft(k).name(6:9) == "pos5"
+        exp_value_soft.aoa(k) = 5;
+    elseif MyFolderInfoSoft(k).name(6:9) == "0007"
+        exp_value_soft.aoa(k) = 7.5;  
+    elseif MyFolderInfoSoft(k).name(6:9) == "0012"
+        exp_value_soft.aoa(k) = 12.5;
     else
-        exp_value.aoa(k) = str2double(MyFolderInfo(k).name(8:9));
+        exp_value_soft.aoa(k) = str2double(MyFolderInfoSoft(k).name(8:9));
     end
 
 %     if MyFolderInfo(k).name(6:9) == "0010" && MyFolderInfo(k).name(14:15) == "40"
@@ -134,30 +147,119 @@ for k = 1:length(MyFolderInfo)
 %         fourier(exp_table,  sensor_orientation.lift_dir, str2double(MyFolderInfo(k).name(6:9)), str2double(MyFolderInfo(k).name(14:15)));
 %     end
 
-    exp_value.vel(k) = str2double(MyFolderInfo(k).name(14:15)) / 100;   % flow velocity (m/s)
-    exp_value.inflation(k) = str2double(MyFolderInfo(k).name(19:21));   % wing inflation
+    exp_value_soft.vel(k) = str2double(MyFolderInfoSoft(k).name(14:15)) / 100;   % flow velocity (m/s)
+    exp_value_soft.inflation(k) = str2double(MyFolderInfoSoft(k).name(19:21));   % wing inflation
 
 end
 
-% fourier_transform_signal(exp_value, 10, 0.4, sensor_orientation.lift_dir);
+% fourier_transform_signal(exp_value_soft, 10, 0.4, sensor_orientation.lift_dir);
 
-remove = (exp_value.f_avg(:, 1) == 0);
+remove = (exp_value_soft.f_avg(:, 1) == 0);
 
-fields = fieldnames(exp_value);
+fields = fieldnames(exp_value_soft);
 for k = 1:numel(fields)
-    exp_value.(fields{k})(remove, :) = [];
+    exp_value_soft.(fields{k})(remove, :) = [];
 end
 
 clear exp_table
 
-fprintf('%d files read successfully\n', length(exp_value.aoa)); 
+fprintf('%d files read successfully\n', length(exp_value_soft.aoa)); 
 fprintf('\n Data read completed\n'); 
+
+exp_value_hard = struct;
+
+exp_value_hard.f_avg = zeros(length(MyFolderInfoSoft), 3);
+exp_value_hard.f_std = zeros(length(MyFolderInfoSoft), 3);
+exp_value_hard.f_ratio = zeros(length(MyFolderInfoSoft), 1);
+exp_value_hard.f_std_ratio = zeros(length(MyFolderInfoSoft), 1);
+exp_value_hard.t_avg = zeros(length(MyFolderInfoSoft), 3);
+exp_value_hard.t_std = zeros(length(MyFolderInfoSoft), 3);
+exp_value_hard.aoa = zeros(length(MyFolderInfoSoft), 1);
+exp_value_hard.vel = zeros(length(MyFolderInfoSoft), 1);
+exp_value_hard.inflation = zeros(length(MyFolderInfoSoft), 1);
+%exp_value_hard.chord = zeros(length(MyFolderInfo), 1);   % chord length file must have ordered data to reflect that of force value data
+
+
+fprintf('\nVariables allocated successfully\n\n'); 
+
+for k = 1:length(MyFolderInfoSoft) 
+
+    if length(MyFolderInfoSoft(k).name) < 4
+        continue
+    end
+
+    if MyFolderInfoSoft(k).name(1:4) ~= "hard" && MyFolderInfoSoft(k).name(1:4) ~= "soft"   % skip files that are not hard nor soft
+        continue
+    end
+
+    exp_table = readtable(MyFolder + "/" + MyFolderInfoSoft(k).name, 'Delimiter', ', ', "Range", "D:I");
+    %chord_table = readtable("./" + MyFileChord, 'Delimiter', ', ', "Range", "A:A");
+    exp_value_hard.f_avg(k, :) = mean(exp_table{1:end, 1:3});  % average force vector for all of wing's config.
+    exp_value_hard.f_std(k, :) = std(exp_table{1:end, 1:3});   % standard dev for each force component of every wing config.
+    
+    exp_value_hard.f_ratio(k, 1) = mean(exp_table{1:end, sensor_orientation.lift_dir} ./ exp_table{1:end, sensor_orientation.drag_dir});
+    exp_value_hard.f_std_ratio(k, 1) = std(exp_table{1:end, sensor_orientation.lift_dir} ./ exp_table{1:end, sensor_orientation.drag_dir});
+
+    exp_value_hard.t_avg(k, :) = mean(exp_table{1:end, 4:6}); % average torque vector for all of wing's config.
+    exp_value_hard.t_std(k, :) = std(exp_table{1:end, 4:6});  % standard deviation for each torque component of every wing config.
+
+    exp_value_hard.wingtype(k, 1) = string(MyFolderInfoSoft(k).name(1:4)); % wing type.
+
+    if MyFolderInfoSoft(k).name(6:9) == "zero"  % wing angle of attack discrimination (char and int) --> lines 58 to 66
+        exp_value_hard.aoa(k) = 0;
+    elseif MyFolderInfoSoft(k).name(6:9) == "-005"
+        exp_value_hard.aoa(k) = -5;
+    elseif MyFolderInfoSoft(k).name(6:9) == "pos5"
+        exp_value_hard.aoa(k) = 5;
+    elseif MyFolderInfoSoft(k).name(6:9) == "0007"
+        exp_value_hard.aoa(k) = 7.5;  
+    elseif MyFolderInfoSoft(k).name(6:9) == "0012"
+        exp_value_hard.aoa(k) = 12.5;
+    else
+        exp_value_hard.aoa(k) = str2double(MyFolderInfoSoft(k).name(8:9));
+    end
+
+%     if MyFolderInfo(k).name(6:9) == "0010" && MyFolderInfo(k).name(14:15) == "40"
+%         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
+%         fourier(exp_table,  sensor_orientation.lift_dir);
+%     end
+% 
+%     if MyFolderInfo(k).name(6:9) == "0025" && MyFolderInfo(k).name(14:15) == "30"
+%         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
+%         fourier(exp_table,  sensor_orientation.lift_dir);
+%     end
+% 
+%     if MyFolderInfo(k).name(6:9) == "0010" && MyFolderInfo(k).name(14:15) == "30"
+%         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
+%         fourier(exp_table,  sensor_orientation.lift_dir, str2double(MyFolderInfo(k).name(6:9)), str2double(MyFolderInfo(k).name(14:15)));
+%     end
+
+    exp_value_hard.vel(k) = str2double(MyFolderInfoSoft(k).name(14:15)) / 100;   % flow velocity (m/s)
+    exp_value_hard.inflation(k) = str2double(MyFolderInfoSoft(k).name(19:21));   % wing inflation
+
+end
+
+% fourier_transform_signal(exp_value_hard, 10, 0.4, sensor_orientation.lift_dir);
+
+remove = (exp_value_hard.f_avg(:, 1) == 0);
+
+fields = fieldnames(exp_value_hard);
+for k = 1:numel(fields)
+    exp_value_hard.(fields{k})(remove, :) = [];
+end
+
+clear exp_table
+
+fprintf('%d files read successfully\n', length(exp_value_hard.aoa)); 
+fprintf('\nData read completed\n'); 
+
+
 
 %% data sorting
 
-T = struct2table(exp_value); % convert the struct array to a table
+T = struct2table(exp_value_soft); % convert the struct array to a table
 sortedT = sortrows(T, 'aoa'); % sort the table by 'aoa'
-exp_value = table2struct(sortedT,'ToScalar',true); % convert the table back to the struct array
+exp_value_soft = table2struct(sortedT,'ToScalar',true); % convert the table back to the struct array
 
 clear T sortedT
 
@@ -201,8 +303,8 @@ rho = 998; % kg / m^3 density of water @ 20 C
 dyn_viscosity = 10^(-3); % Pa * s
 kin_viscosity = dyn_viscosity / rho; % m^2 * s
 
-tor_transposed = zeros(length(exp_value.t_avg), 3);
-tor_transposed(1:end, 1:3) = exp_value.t_avg(1:end, 1:3) + exp_value.f_avg(1:end, 1:3) * d;
+tor_transposed = zeros(length(exp_value_soft.t_avg), 3);
+tor_transposed(1:end, 1:3) = exp_value_soft.t_avg(1:end, 1:3) + exp_value_soft.f_avg(1:end, 1:3) * d;
 
 fprintf('\nData processing completed')
 
@@ -217,13 +319,13 @@ sel_inflation = [0, 30, 60, 90, 120];
 dyn_pressure = 0.5 * rho .* sel_speed .^ 2; % vector, calculation of dynamic pressure
 div = dyn_pressure .* S; % matrix leading to aero coefficients. Rows: inflations. Column: speeds.
 
-% if exp_value.wingtype(1, 1:4) == "hard"
-%     plot_hard_wing(exp_value.wingtype(1, 1:4), exp_value, sel_speed, div, chord, kin_viscosity, sensor_orientation);
+% if exp_value_soft.wingtype(1, 1:4) == "hard"
+%     plot_hard_wing(exp_value_soft.wingtype(1, 1:4), exp_value_soft, sel_speed, div, chord, kin_viscosity, sensor_orientation);
 % end
 
-%plot_soft_wing(exp_value.wingtype(1, 1:4), exp_value, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
-plot_soft_wing(exp_value.wingtype(1), exp_value, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
+%plot_soft_wing(exp_value_soft.wingtype(1, 1:4), exp_value_soft, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
+plot_soft_wing(exp_value_soft.wingtype(1), exp_value_soft, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
 
-% if exp_value.wingtype(1, 1:4) == "soft"
-%     plot_soft_wing(exp_value.wingtype(1, 1:4), exp_value, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
+% if exp_value_soft.wingtype(1, 1:4) == "soft"
+%     plot_soft_wing(exp_value_soft.wingtype(1, 1:4), exp_value_soft, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
 % end
