@@ -53,6 +53,29 @@ function [] = create_fold_save_pic(wingtype, folder_vec, plot_type)
                 [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softwing/', date, '/CD_plot/'));
             end
         end
-    end
-
+    
+    elseif wingtype == "soft_hard"
+        if folder_vec(1) == 1 
+            if plot_type == "no_title"
+                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softhardwing/', date, '_', plot_type, '/', 'CL_CD_plot/'));
+            else
+                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softhardwing/', date, '/CL_CD_plot/'));
+            end
+        end
+        
+        if folder_vec(2) == 1 
+            if plot_type == "no_title"
+                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softhardwing/', date, '_', plot_type, '/', 'CL_plot/'));
+            else
+                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softhardwing/', date, '/CL_plot/'));
+            end
+        end
+        
+        if folder_vec(3) == 1 
+            if plot_type == "no_title"
+                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softhardwing/', date, '_', plot_type, '/', 'CD_plot/'));
+            else
+                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softhardwing/', date, '/CD_plot/'));
+            end
+        end
 end
