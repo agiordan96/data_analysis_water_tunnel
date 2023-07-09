@@ -159,6 +159,7 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
         clear k1 k2 k3 k4 k5 hard1
     
         figure('Position', [200, 200, 1000, 1000])
+        set(gcf, 'Position', [440 378 1240 840])
     
         if plot_type == "title"
             title(['CL / CD plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight', 'bold', 'fontsize', 24)
@@ -191,7 +192,7 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
             if (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(1))
                 if exist('k1','var') == 0
                             %errorbar(exp_value.aoa(k), exp_value.f_ratio(k), exp_value.f_std_ratio(k), 'or', 'DisplayName', 'neutral', 'CapSize', 18, 'MarkerFaceColor', 'r', 'LineWidth', 1, MarkerEdgeColor = 'red')
-                            scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18,'ok', 'DisplayName', 'neutral', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+                            scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18,'ok', 'DisplayName', '(dotted) neutral', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
                         else
                             %errorbar(exp_value.aoa(k), exp_value.f_ratio(k), exp_value.f_std_ratio(k), 'or', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'r', 'LineWidth', 1, MarkerEdgeColor = 'red')
                             scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18,'ok', 'HandleVisibility','off', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
