@@ -74,7 +74,7 @@ function [] = plot_CD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_sp
             ax = gca;
             ax.XAxis.TickValues = [-5 0 5 7.5 10 12.5 15];
             xlim([-7.5 17.5])
-            ylim([-.1 1.3])
+            ylim([-.1 1.1])
             ax.XAxis.LineWidth = 2;
             ax.YAxis.LineWidth = 2;
         
@@ -164,7 +164,7 @@ function [] = plot_CD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_sp
             ax = gca;
             ax.XAxis.TickValues = [-5 0 5 7.5 10 12.5 15];
             xlim([-7.5 17.5])
-            ylim([-.1 1.3])
+            ylim([-.1 1.08])
             ax.XAxis.LineWidth = 2;
             ax.YAxis.LineWidth = 2;
         
@@ -173,11 +173,11 @@ function [] = plot_CD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_sp
                 if k <= length(exp_value_hard.vel)
                     if (exp_value_hard.vel(k) == sel_speed(j))
                         if exist('hard1','var') == 0
-                            errorbar(exp_value_hard.aoa(k), (-exp_value_hard.f_avg(k, lift_dir) / div(1, j)), exp_value_hard.f_std(k, lift_dir) / div(1, j), 'ok', 'DisplayName', '(solid) rigid', 'CapSize', 18, 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+                            errorbar(exp_value_hard.aoa(k), (-exp_value_hard.f_avg(k, drag_dir) / div(1, j)), exp_value_hard.f_std(k, drag_dir) / div(1, j), 'ok', 'DisplayName', '(solid) rigid', 'CapSize', 18, 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
                         else
-                            errorbar(exp_value_hard.aoa(k), (-exp_value_hard.f_avg(k, lift_dir) / div(1, j)), exp_value_hard.f_std(k, lift_dir) / div(1, j), 'ok', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+                            errorbar(exp_value_hard.aoa(k), (-exp_value_hard.f_avg(k, drag_dir) / div(1, j)), exp_value_hard.f_std(k, drag_dir) / div(1, j), 'ok', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
                             x_vec = [exp_value_hard.aoa(hard1), exp_value_hard.aoa(k)];
-                            y_vec = [(-exp_value_hard.f_avg(hard1, lift_dir) / div(1, j)), (-exp_value_hard.f_avg(k, lift_dir) / div(1, j))];
+                            y_vec = [(-exp_value_hard.f_avg(hard1, drag_dir) / div(1, j)), (-exp_value_hard.f_avg(k, drag_dir) / div(1, j))];
                             plot(x_vec, y_vec, 'k', 'HandleVisibility', 'off')
                         end
                         hard1 = k;
@@ -186,22 +186,22 @@ function [] = plot_CD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_sp
         
                  if (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(1))
                     if exist('k1','var') == 0
-                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(1, j)), exp_value.f_std(k, drag_dir) / div(1, j), 'or', 'DisplayName', 'neutral', 'CapSize', 18, 'MarkerFaceColor', 'r', 'LineWidth', 1, MarkerEdgeColor = 'red')
+                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(1, j)), exp_value.f_std(k, drag_dir) / div(1, j), 'ok', 'DisplayName', '(dotted) neutral', 'CapSize', 18, 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
                     else
-                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(1, j)), exp_value.f_std(k, drag_dir) / div(1, j), 'or', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'r', 'LineWidth', 1, MarkerEdgeColor = 'red')
+                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(1, j)), exp_value.f_std(k, drag_dir) / div(1, j), 'ok', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
                         x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
                         y_vec = [(-exp_value.f_avg(k1, drag_dir) / div(1, j)), (-exp_value.f_avg(k, drag_dir) / div(1, j))];
-                        plot(x_vec, y_vec, ':r', 'HandleVisibility','off')
+                        plot(x_vec, y_vec, ':k', 'HandleVisibility','off')
                     end
                     k1 = k;
                  elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(2))
                      if exist('k2','var') == 0
-                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(2, j)), exp_value.f_std(k, drag_dir) / div(2, j), 'ok', 'DisplayName', '30 mL inf.', 'CapSize', 18, 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(2, j)), exp_value.f_std(k, drag_dir) / div(2, j), 'oc', 'DisplayName', '30 mL inf.', 'CapSize', 18, 'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
                      else
-                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(2, j)), exp_value.f_std(k, drag_dir) / div(2, j), 'ok', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(2, j)), exp_value.f_std(k, drag_dir) / div(2, j), 'oc', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
                         x_vec = [exp_value.aoa(k2), exp_value.aoa(k)];
                         y_vec = [(-exp_value.f_avg(k2, drag_dir)  / div(2, j)), (-exp_value.f_avg(k, drag_dir) / div(2, j))];
-                        plot(x_vec, y_vec, ':k', 'HandleVisibility','off')
+                        plot(x_vec, y_vec, ':c', 'HandleVisibility','off')
                     end
                     k2 = k;
                  elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(3))
