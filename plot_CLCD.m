@@ -204,11 +204,11 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
              elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(2))
                  if exist('k2','var') == 0
                  %errorbar(exp_value.aoa(k), exp_value.f_ratio(k), exp_value.f_std_ratio(k), 'ok', 'DisplayName', 'inf. = 60 mL', 'CapSize', 18, 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
-                 scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18,'ok', 'DisplayName', 'inf. = 60 mL', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+                 scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18,'oc', 'DisplayName', 'inf. = 60 mL', 'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
     
                  else
                     %errorbar(exp_value.aoa(k), exp_value.f_ratio(k), exp_value.f_std_ratio(k), 'ok', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
-                    scatter(exp_value.aoa(k), exp_value.f_ratio(k), 40,'ok', 'HandleVisibility','off', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+                    scatter(exp_value.aoa(k), exp_value.f_ratio(k), 40,'oc', 'HandleVisibility','off', 'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
                    
                     x_vec = [exp_value.aoa(k2), exp_value.aoa(k)];
                     y_vec = [exp_value.f_ratio(k2), exp_value.f_ratio(k)];
