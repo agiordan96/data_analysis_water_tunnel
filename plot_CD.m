@@ -150,6 +150,7 @@ function [] = plot_CD(wingtype, sel_inflation, exp_value, sel_speed, div, chord,
             clear k1 k2 k3 k4 k5 hard1
         
             figure('Position', [200, 200, 1000, 1000])
+            set(gcf, 'Position', [440 378 1240 840])
         
             if plot_type == "title"
                 title([plot_variable_printed_name, ' plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight','bold','fontsize', 24)
