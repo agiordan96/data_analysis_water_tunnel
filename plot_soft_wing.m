@@ -46,17 +46,17 @@ create_fold_save_pic(wingtype, plot_choice_vec, plot_type);
 
 if CL_CD_plot == 1
     %folder_checking(plot_type, 'CL_CD');
-    plot_CLCD(wingtype, sel_inflation, exp_value, sel_speed, chord, kin_viscosity, plot_type, 'png');
+    plot_CLCD(wingtype, sel_inflation, exp_value, [], sel_speed, chord, kin_viscosity, plot_type, 'png');
 end
 
 if CL_plot == 1
     %folder_checking(plot_type, 'CL');
-    plot_CL(wingtype, sel_inflation, exp_value, sel_speed, div, chord, kin_viscosity, lift_dir, plot_type, 'png');
+    plot_CL(wingtype, sel_inflation, exp_value, [], sel_speed, div, chord, kin_viscosity, lift_dir, plot_type, 'png');
 end
 
 if CD_plot == 1
     %folder_checking(plot_type, 'CD');
-    plot_CD(wingtype, sel_inflation, exp_value, sel_speed, div, chord, kin_viscosity, drag_dir, plot_type, 'png');
+    plot_CD(wingtype, sel_inflation, exp_value, [], sel_speed, div, chord, kin_viscosity, drag_dir, plot_type, 'png');
 end
 
 %% CL / CD: presenting one plot per selected speed and all inflations, against AoA
