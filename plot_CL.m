@@ -7,7 +7,7 @@ function [] = plot_CL(wingtype, sel_inflation, exp_value, exp_value_hard, sel_sp
 
         for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
         
-            Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
+            %Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
             disp(sel_speed(j))
             
             figure('Position', [200, 200, 1000, 1000])
