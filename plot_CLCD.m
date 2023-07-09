@@ -204,7 +204,7 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
              elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(2))
                  if exist('k2','var') == 0
                  %errorbar(exp_value.aoa(k), exp_value.f_ratio(k), exp_value.f_std_ratio(k), 'ok', 'DisplayName', 'inf. = 60 mL', 'CapSize', 18, 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
-                 scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18,'oc', 'DisplayName', 'inf. = 60 mL', 'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
+                 scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18,'oc', 'DisplayName', '30 mL inf.', 'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
     
                  else
                     %errorbar(exp_value.aoa(k), exp_value.f_ratio(k), exp_value.f_std_ratio(k), 'ok', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
@@ -219,7 +219,7 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
              elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(3))
                  if exist('k3','var') == 0
                  %errorbar(exp_value.aoa(k), exp_value.f_ratio(k), exp_value.f_std_ratio(k), 'om', 'DisplayName', 'inf. = 90 mL', 'CapSize', 18, 'MarkerFaceColor', 'm', 'LineWidth', 1, MarkerEdgeColor = 'magenta')
-                 scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18, 'om', 'DisplayName', 'inf. = 90 mL', 'MarkerFaceColor', 'm', 'LineWidth', 1, MarkerEdgeColor = 'magenta')
+                 scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18, 'om', 'DisplayName', '60 mL inf.', 'MarkerFaceColor', 'm', 'LineWidth', 1, MarkerEdgeColor = 'magenta')
                  else
                     %errorbar(exp_value.aoa(k), exp_value.f_ratio(k), exp_value.f_std_ratio(k), 'om', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'm', 'LineWidth', 1, MarkerEdgeColor = 'magenta')
                     scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18, 'om', 'HandleVisibility','off', 'MarkerFaceColor', 'm', 'LineWidth', 1, MarkerEdgeColor = 'magenta')
@@ -232,7 +232,7 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
              elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(4))
                  if exist('k4','var') == 0
                  %errorbar(exp_value.aoa(k), exp_value.f_ratio(k), exp_value.f_std_ratio(k), 'ob', 'DisplayName', 'inf. = 120 mL', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
-                 scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18,'ob', 'DisplayName', 'inf. = 120 mL', 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
+                 scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18,'ob', 'DisplayName', '90 mL inf.', 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
                  else
                     %errorbar(exp_value.aoa(k), exp_value.f_ratio(k), exp_value.f_std_ratio(k), 'ob', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
                     scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18,'ob', 'HandleVisibility','off', 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
@@ -245,10 +245,10 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
              elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(5))
                  if exist('k5','var') == 0
                 %errorbar(exp_value.aoa(k), exp_value.f_ratio(k), exp_value.f_std_ratio(k), 'og', 'DisplayName', 'inf. = 30 mL', 'CapSize', 18, 'MarkerFaceColor', 'g', 'LineWidth', 1, MarkerEdgeColor = 'green')
-                scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18,'og', 'DisplayName', 'inf. = 30 mL', 'MarkerFaceColor', 'g', 'LineWidth', 1, MarkerEdgeColor = 'green')
+                scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18,'og', 'DisplayName', '120 mL inf.', 'MarkerFaceColor', 'g', 'LineWidth', 1, MarkerEdgeColor = 'green')
                 else
                     %errorbar(exp_value.aoa(k), exp_value.f_ratio(k), exp_value.f_std_ratio(k), 'og', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'green')
-                    scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18, 'og', 'HandleVisibility','off', 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'green')
+                    scatter(exp_value.aoa(k), exp_value.f_ratio(k), 18, 'og', 'HandleVisibility','off', 'MarkerFaceColor', 'g', 'LineWidth', 1, MarkerEdgeColor = 'green')
                     x_vec = [exp_value.aoa(k5), exp_value.aoa(k)];
                     y_vec = [exp_value.f_ratio(k5), exp_value.f_ratio(k)];
                     plot(x_vec, y_vec, ':g', 'HandleVisibility','off')
