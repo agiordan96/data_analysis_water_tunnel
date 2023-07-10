@@ -13,8 +13,8 @@ lat_dir = sensor_orientation.lat_dir;
 CL_CD_prompt = "CL / CD plot: yes (1) or no (0)\n";
 CL_prompt = "CL plot: yes (1) or no (0)\n";
 CD_prompt = "CD plot: yes (1) or no (0)\n";
-avCL_avCD_prompt = "CD plot: yes (1) or no (0)\n";
-medianCL_CD_prompt = "CD plot: yes (1) or no (0)\n";
+avCL_avCD_prompt = "average CL / average CD plot: yes (1) or no (0)\n";
+medianCL_CD_prompt = "median CL / median CD plot: yes (1) or no (0)\n";
 
 plot_type_prompt = "please type in <title> or <no_title>\n";
 
