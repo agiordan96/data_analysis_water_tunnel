@@ -22,7 +22,7 @@ sensor_orientation.drag_dir = (input(promptdrag, 's'));
 
 if sensor_orientation.drag_dir == "" 
     sensor_orientation.drag_dir = 2;    % enter default value here
-    fprintf('-> going for default value: drag_dir = %d\n', sensor_orientation.drag_dir); 
+    fprintf('-> going for default value: drag_dir = %d\n\n', sensor_orientation.drag_dir); 
 end
 
 promptlift = "Enter lift direction\n";
@@ -30,20 +30,19 @@ sensor_orientation.lift_dir = (input(promptlift, 's'));
 
 if sensor_orientation.lift_dir == "" 
     sensor_orientation.lift_dir = 1;    % enter default value here
-    fprintf('-> going for default value: lift_dir = %d\n', sensor_orientation.lift_dir); 
+    fprintf('-> going for default value: lift_dir = %d\n\n', sensor_orientation.lift_dir); 
 end
 
 promptlat = "Enter lat direction\n";
 sensor_orientation.lat_dir = (input(promptlat, 's'));
 
 if sensor_orientation.lat_dir == "" 
-    sensor_orientation.lat_dir = 3;     % enter default value here
-    fprintf('-> going for default value: lat_dir = %d\n', sensor_orientation.lat_dir); 
+    sensor_orientation.lat_dir = 3;   % enter default value here
+    fprintf('-> going for default value: lat_dir = %d\n\n', sensor_orientation.lat_dir); 
 end
 
 %% data folder names acquisition
 
-fprintf('\n')
 prompt = "Enter soft wing data directory's name\n";
 MyFolderSoft = (input(prompt, "s"));
 
@@ -51,7 +50,7 @@ MyFolderSoft = (input(prompt, "s"));
 
 if MyFolderSoft == "" 
     MyFolderSoft = "soft_data_05072023";   % enter default value here
-    fprintf('-> going for default value: data directory "%s"\n', MyFolderSoft); 
+    fprintf('-> going for default value: data directory "%s"\n\n', MyFolderSoft); 
 end
 
 fprintf('\n')
@@ -62,7 +61,7 @@ MyFolderHard = (input(prompt, "s"));
 
 if MyFolderHard == "" 
     MyFolderHard = "hard_data_05062023";   % enter default value here
-    fprintf('-> going for default value: data directory "%s"\n', MyFolderHard); 
+    fprintf('-> going for default value: data directory "%s"\n\n', MyFolderHard); 
 end
 
 % prompt = "Enter chord length data file name\n";
@@ -104,7 +103,7 @@ exp_value_hard.aoa = zeros(length(MyFolderInfoHard), 1);
 exp_value_hard.vel = zeros(length(MyFolderInfoHard), 1);
 %exp_value_hard.chord = zeros(length(MyFolderInfoHard), 1);   % chord length file must have ordered data to reflect that of force value data
 
-fprintf('\nvariables allocated successfully\n\n'); 
+fprintf('\nvariables allocated successfully\n'); 
 
 %% soft data read 
 
@@ -122,6 +121,7 @@ for k = 1:length(MyFolderInfoSoft)
     %chord_table = readtable("./" + MyFileChord, 'Delimiter', ', ', "Range", "A:A");
 
     exp_value_soft.f_avg(k, :) = mean(exp_table{1:end, 1:3});  % average force vector for all of wing's config.
+    exp_value_soft.f_median(k, :) = median(exp_table{1:end, 1:3});  % median force vector for all of wing's config.
     exp_value_soft.f_std(k, :) = std(exp_table{1:end, 1:3});   % standard dev for each force component of every wing config.
     
     exp_value_soft.f_ratio(k, 1) = mean(exp_table{1:end, sensor_orientation.lift_dir} ./ exp_table{1:end, sensor_orientation.drag_dir});
@@ -197,6 +197,7 @@ for k = 1:length(MyFolderInfoHard)
     %chord_table = readtable("./" + MyFileChord, 'Delimiter', ', ', "Range", "A:A");
 
     exp_value_hard.f_avg(k, :) = mean(exp_table_hard{1:end, 1:3});  % average force vector for all of wing's config.
+    exp_value_hard.f_median(k, :) = median(exp_table_hard{1:end, 1:3});  % average force vector for all of wing's config.
     exp_value_hard.f_std(k, :) = std(exp_table_hard{1:end, 1:3});   % standard dev for each force component of every wing config.
     
     exp_value_hard.f_ratio(k, 1) = mean(exp_table_hard{1:end, sensor_orientation.lift_dir} ./ exp_table_hard{1:end, sensor_orientation.drag_dir});
@@ -255,7 +256,7 @@ clear exp_table
 
 fprintf('%d hard data files read successfully\n', length(exp_value_hard.aoa));  
 
-fprintf('\ndata read completed\n'); 
+fprintf('\ndata read completed\n\n'); 
 
 %% soft data sorting
 
@@ -321,7 +322,7 @@ tor_transposed_soft(1:end, 1:3) = exp_value_soft.t_avg(1:end, 1:3) + exp_value_s
 tor_transposed_hard = zeros(length(exp_value_hard.t_avg), 3);
 tor_transposed_hard(1:end, 1:3) = exp_value_hard.t_avg(1:end, 1:3) + exp_value_hard.f_avg(1:end, 1:3) * d;
 
-fprintf('data processing completed\n')
+fprintf('data processing completed\n\n')
 
 %% data visualization init.
 
