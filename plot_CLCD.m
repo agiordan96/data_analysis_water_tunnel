@@ -1,7 +1,7 @@
 function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_speed, div, chord, kin_viscosity, plot_type, format, lift_dir, drag_dir)
     % prints average of forces ratios
 
-    plot_variable = 'CL_CD';
+    plot_variable = 'av_CL_CD';
     plot_variable_printed_name = 'C_{L} / C_{D}';
 
     if wingtype == "hard"
@@ -9,7 +9,7 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
         for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
         
             Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
-            fprintf('plotting for Re = %.2d (vel = %.2d m/s)/n', Re, sel_speed(j))
+            fprintf('plotting for Re = %.2d (vel = %.2d m/s) \n', Re, sel_speed(j))
             
             figure('Position', [200, 200, 1000, 1000])
             
@@ -55,7 +55,7 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 
         Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
-        fprintf('plotting for Re = %.2d (vel = %.2d m/s)/n', Re, sel_speed(j))
+        fprintf('plotting for Re = %.2d (vel = %.2d m/s) \n', Re, sel_speed(j))
     
         clear k1 k2 k3 k4 k5
     
@@ -143,7 +143,7 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
     
         Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
-        fprintf('plotting for Re = %.2d (vel = %.2d m/s)/n', Re, sel_speed(j))
+        fprintf('plotting for Re = %.2d (vel = %.2d m/s) \n', Re, sel_speed(j))
     
         clear k1 k2 k3 k4 k5 hard1
     
