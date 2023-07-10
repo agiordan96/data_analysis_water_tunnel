@@ -8,7 +8,7 @@
         for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
         
             Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
-            disp(sel_speed(j))
+            fprintf('plotting for Re = %.2d (vel = %.2d m/s)/n', Re, sel_speed(j))
             
             figure('Position', [200, 200, 1000, 1000])
             
@@ -53,8 +53,8 @@
 
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 
-        %Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
-        disp(sel_speed(j))
+        Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
+        fprintf('plotting for Re = %.2d (vel = %.2d m/s)/n', Re, sel_speed(j))
     
         clear k1 k2 k3 k4 k5
     
@@ -153,8 +153,8 @@
 
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
     
-        %Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
-        disp(sel_speed(j))
+        Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
+        fprintf('plotting for Re = %.2d (vel = %.2d m/s)/n', Re, sel_speed(j))
     
         clear k1 k2 k3 k4 k5 hard1
     

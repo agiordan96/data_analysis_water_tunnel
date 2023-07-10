@@ -8,7 +8,7 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
         for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
         
             Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
-            disp(sel_speed(j))
+            fprintf('plotting for Re = %.2d (vel = %.2d m/s)/n', Re, sel_speed(j))
             
             figure('Position', [200, 200, 1000, 1000])
             
@@ -53,8 +53,8 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
 
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
 
-        %Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
-        disp(sel_speed(j))
+        Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
+        fprintf('plotting for Re = %.2d (vel = %.2d m/s)/n', Re, sel_speed(j))
     
         clear k1 k2 k3 k4 k5
     
@@ -153,8 +153,8 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
 
     for j = 1:length(sel_speed) % looping over flow speed to create fixed-speed plots
     
-        %Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
-        disp(sel_speed(j))
+        Re = sel_speed(j) * chord / kin_viscosity; % Reynolds number
+        fprintf('plotting for Re = %.2d (vel = %.2d m/s)/n', Re, sel_speed(j))
     
         clear k1 k2 k3 k4 k5 hard1
     
@@ -178,14 +178,14 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
            if k <= length(exp_value_hard.vel)
                     if (exp_value_hard.vel(k) == sel_speed(j))
                         if exist('hard1','var') == 0
-%                           scatter(exp_value_hard.aoa(k), -exp_value_hard.f_ratio(k), 18, 'ok', 'DisplayName', '(solid) rigid', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
-                            scatter(exp_value_hard.aoa(k), exp_value_hard.f_avg(k, lift_dir) / exp_value_hard.f_avg(k, drag_dir), 18, 'ok', 'DisplayName', '(solid) rigid', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+                          scatter(exp_value_hard.aoa(k), -exp_value_hard.f_ratio(k), 18, 'ok', 'DisplayName', '(solid) rigid', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+%                             scatter(exp_value_hard.aoa(k), exp_value_hard.f_avg(k, lift_dir) / exp_value_hard.f_avg(k, drag_dir), 18, 'ok', 'DisplayName', '(solid) rigid', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
                         else
-%                             scatter(exp_value_hard.aoa(k), -exp_value_hard.f_ratio(k), 18, 'ok', 'HandleVisibility','off', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
-                            scatter(exp_value_hard.aoa(k), exp_value_hard.f_avg(k, lift_dir) / exp_value_hard.f_avg(k, drag_dir), 18, 'ok', 'HandleVisibility','off', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+                            scatter(exp_value_hard.aoa(k), -exp_value_hard.f_ratio(k), 18, 'ok', 'HandleVisibility','off', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+%                             scatter(exp_value_hard.aoa(k), exp_value_hard.f_avg(k, lift_dir) / exp_value_hard.f_avg(k, drag_dir), 18, 'ok', 'HandleVisibility','off', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
                             x_vec = [exp_value_hard.aoa(hard1), exp_value_hard.aoa(k)];
-                            y_vec = [exp_value_hard.f_avg(hard1, lift_dir) / exp_value_hard.f_avg(hard1, drag_dir), exp_value_hard.f_avg(k, lift_dir) / exp_value_hard.f_avg(k, drag_dir)];
-                            %y_vec = [-exp_value_hard.f_ratio(hard1), -exp_value_hard.f_ratio(k)];
+                            %y_vec = [exp_value_hard.f_avg(hard1, lift_dir) / exp_value_hard.f_avg(hard1, drag_dir), exp_value_hard.f_avg(k, lift_dir) / exp_value_hard.f_avg(k, drag_dir)];
+                            y_vec = [-exp_value_hard.f_ratio(hard1), -exp_value_hard.f_ratio(k)];
                             plot(x_vec, y_vec, 'k', 'HandleVisibility', 'off')
                         end
                         hard1 = k;
