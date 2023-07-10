@@ -22,15 +22,15 @@ CD_plot = (input(CD_prompt, "s"));
 plot_type = (input(plot_type_prompt, "s"));
 
 if CL_CD_plot == "" 
-    CL_CD_plot = 0;    % enter default value here
+    CL_CD_plot = 1;    % enter default value here
 end
 
 if CL_plot == "" 
-   CL_plot = 1;    % enter default value here
+   CL_plot = 0;    % enter default value here
 end
 
 if CD_plot == "" 
-   CD_plot = 1;     % enter default value here
+   CD_plot = 0;     % enter default value here
 end
 
 if plot_type == "" 
@@ -46,7 +46,7 @@ create_fold_save_pic(wingtype, plot_choice_vec, plot_type);
 
 if CL_CD_plot == 1
     %folder_checking(plot_type, 'CL_CD');
-    plot_CLCD(wingtype, sel_inflation, exp_value_soft, exp_value_hard, sel_speed, chord, kin_viscosity, plot_type, 'png');
+    plot_CLCD(wingtype, sel_inflation, exp_value_soft, exp_value_hard, sel_speed, div, chord, kin_viscosity, plot_type, 'png', lift_dir, drag_dir);
 end
 
 if CL_plot == 1
