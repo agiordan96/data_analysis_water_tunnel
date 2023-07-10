@@ -19,27 +19,44 @@ plot_type_prompt = "please type in <title> or <no_title>\n";
 CL_CD_plot = (input(CL_CD_prompt, "s"));
 CL_plot = (input(CL_prompt, "s"));
 CD_plot = (input(CD_prompt, "s"));
+avCL_avCD_plot = (input(CD_prompt, "s"));
+medianCL_CD_plot = (input(CD_prompt, "s"));
+
 plot_type = (input(plot_type_prompt, "s"));
 
 if CL_CD_plot == "" 
-    CL_CD_plot = 1;    % enter default value here
+    CL_CD_plot = 0;    % enter default value here
+    fprintf('-> going for default value\n\n'); 
 end
 
 if CL_plot == "" 
-   CL_plot = 0;    % enter default value here
+   CL_plot = 1;    % enter default value here
+   fprintf('-> going for default value\n\n'); 
 end
 
 if CD_plot == "" 
    CD_plot = 0;     % enter default value here
+   fprintf('-> going for default value\n\n'); 
+end
+
+if avCL_avCD_plot == "" 
+   avCL_avCD_plot = 0;     % enter default value here
+   fprintf('-> going for default value\n\n'); 
+end
+
+if medianCL_CD_plot == "" 
+   medianCL_CD_plot = 0;     % enter default value here
+   fprintf('-> going for default value\n\n'); 
 end
 
 if plot_type == "" 
     plot_type = 'title';    % enter default value here
+    fprintf('-> going for default value: plotting %s plot\n\n', plot_type); 
 end
 
 %% Saving folder creation
 
-plot_choice_vec = [CL_CD_plot; CL_plot; CD_plot];
+plot_choice_vec = [CL_CD_plot; CL_plot; CD_plot; avCL_avCD_plot; medianCL_CD_plot];
 create_fold_save_pic(wingtype, plot_choice_vec, plot_type);
 
 %% Plotting
