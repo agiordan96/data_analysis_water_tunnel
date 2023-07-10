@@ -164,7 +164,7 @@ function [] = plot_CD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_sp
             ax = gca;
             ax.XAxis.TickValues = [-5 0 5 7.5 10 12.5 15];
             xlim([-7.5 17.5])
-            ylim([-.1 1.08])
+            ylim([-.1 1.12])
             ax.XAxis.LineWidth = 2;
             ax.YAxis.LineWidth = 2;
         
