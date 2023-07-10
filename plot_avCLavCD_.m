@@ -1,5 +1,6 @@
 function [] = plot_avCLavCD_(wingtype, sel_inflation, exp_value, exp_value_hard, sel_speed, div, chord, kin_viscosity, plot_type, format, lift_dir, drag_dir)
-    
+   % prints ratio of average forces
+
     plot_variable = 'CL_CD';
     plot_variable_printed_name = 'C_{L} / C_{D}';
 
