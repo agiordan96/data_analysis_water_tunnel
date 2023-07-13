@@ -1,4 +1,4 @@
-function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_speed, div, chord, kin_viscosity, plot_type, format, lift_dir, drag_dir)
+function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, exp_value_double, sel_speed, div, chord, kin_viscosity, plot_type, format, lift_dir, drag_dir)
     % prints average of forces ratios
 
     plot_variable = 'CL_CD';

@@ -1,4 +1,4 @@
-function [] = plot_soft_hard_wing(wingtype, exp_value_soft, exp_value_hard, exp_value_double, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation)
+function [] = plot_soft_hard_wing(wingtype, exp_value_soft, exp_value_hard, exp_value_double, sel_speed, sel_inflation, sel_inflation_double, div, chord, kin_viscosity, sensor_orientation)
 
 % plots data relative to soft wing type. All inflations displayed.
 
@@ -27,7 +27,7 @@ medianCL_CD_plot = (input(medianCL_CD_prompt, "s"));
 plot_type = (input(plot_type_prompt, "s"));
 
 if CL_CD_plot == "" 
-    CL_CD_plot = 1;    % enter default value here
+    CL_CD_plot = 0;    % enter default value here
     fprintf('-> going for default value\n\n'); 
 end
 
@@ -37,17 +37,17 @@ if CL_plot == ""
 end
 
 if CD_plot == "" 
-   CD_plot = 1;     % enter default value here
+   CD_plot = 0;     % enter default value here
    fprintf('-> going for default value\n\n'); 
 end
 
 if avCL_avCD_plot == "" 
-   avCL_avCD_plot = 1;     % enter default value here
+   avCL_avCD_plot = 0;     % enter default value here
    fprintf('-> going for default value\n\n'); 
 end
 
 if medianCL_CD_plot == "" 
-   medianCL_CD_plot = 1;     % enter default value here
+   medianCL_CD_plot = 0;     % enter default value here
    fprintf('-> going for default value\n\n'); 
 end
 
@@ -68,7 +68,7 @@ if CL_CD_plot == 1
 end
 
 if CL_plot == 1
-    plot_CL(wingtype, sel_inflation, exp_value_soft, exp_value_hard, exp_value_double, sel_speed, div, chord, kin_viscosity, lift_dir, plot_type, 'png');
+    plot_CL(wingtype, sel_inflation, sel_inflation_double, exp_value_soft, exp_value_hard, exp_value_double, sel_speed, div, chord, kin_viscosity, lift_dir, plot_type, 'png');
 end
 
 if CD_plot == 1
