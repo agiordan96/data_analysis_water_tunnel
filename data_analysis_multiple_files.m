@@ -60,9 +60,16 @@ MyFolderHard = (input(prompt, "s"));
 % default data in case of repeated experiment (for user's agility only)
 
 if MyFolderHard == "" 
-    MyFolderHard = "hard_data_05062023";   % enter default value here
+    MyFolderHard = "hard_data_12072023";   % enter default value here
     fprintf('-> going for default value: data directory "%s"\n\n', MyFolderHard); 
 end
+
+if MyFolderDouble == "" 
+    MyFolderDouble = "soft_data_12072023_25ms";   % enter default value here
+    fprintf('-> going for default value: data directory "%s"\n\n', MyFolderHard); 
+end
+
+
 
 % prompt = "Enter chord length data file name\n";
 % MyFileChord = (input(prompt, "s"));
@@ -76,6 +83,7 @@ end
 
 MyFolderInfoSoft = dir(MyFolderSoft);   % directory information and file names for soft data
 MyFolderInfoHard = dir(MyFolderHard);   % directory information and file names for hard data
+MyFolderInfoDouble = dir(MyFolderDouble);   % directory information and file names for hard data
 
 %% variables initiation
 
@@ -102,6 +110,18 @@ MyFolderInfoHardexp_value_hard.t_std = zeros(length(MyFolderInfoHard), 3);
 exp_value_hard.aoa = zeros(length(MyFolderInfoHard), 1);
 exp_value_hard.vel = zeros(length(MyFolderInfoHard), 1);
 %exp_value_hard.chord = zeros(length(MyFolderInfoHard), 1);   % chord length file must have ordered data to reflect that of force value data
+
+exp_value_double = struct;
+
+exp_value_double.f_avg = zeros(length(MyFolderInfoDouble), 3);
+exp_value_double.f_std = zeros(length(MyFolderInfoDouble), 3);
+exp_value_double.f_ratio = zeros(length(MyFolderInfoDouble), 1);
+exp_value_double.f_std_ratio = zeros(length(MyFolderInfoDouble), 1);
+MyFolderInfoHardexp_value_hard.t_std = zeros(length(MyFolderInfoDouble), 3);
+exp_value_double.aoa = zeros(length(MyFolderInfoDouble), 1);
+exp_value_double.vel = zeros(length(MyFolderInfoDouble), 1);
+exp_value_double.dir = zeros(length(MyFolderInfoDouble), 1);
+%exp_value_hard.chord = zeros(length(MyFolderInfoDouble), 1);   % chord length file must have ordered data to reflect that of force value data
 
 fprintf('\nvariables allocated successfully\n'); 
 
@@ -142,6 +162,8 @@ for k = 1:length(MyFolderInfoSoft)
         exp_value_soft.aoa(k) = 5;
     elseif MyFolderInfoSoft(k).name(6:9) == "0007"
         exp_value_soft.aoa(k) = 7.5;  
+    elseif MyFolderInfoSoft(k).name(6:9) == "pos7"
+        exp_value_hard.aoa(k) = 7.5; 
     elseif MyFolderInfoSoft(k).name(6:9) == "0012"
         exp_value_soft.aoa(k) = 12.5;
     else
@@ -217,7 +239,9 @@ for k = 1:length(MyFolderInfoHard)
     elseif MyFolderInfoHard(k).name(6:9) == "pos5"
         exp_value_hard.aoa(k) = 5;
     elseif MyFolderInfoHard(k).name(6:9) == "0007"
-        exp_value_hard.aoa(k) = 7.5;  
+        exp_value_hard.aoa(k) = 7.5; 
+    elseif MyFolderInfoHard(k).name(6:9) == "pos7"
+        exp_value_hard.aoa(k) = 7.5; 
     elseif MyFolderInfoHard(k).name(6:9) == "0012"
         exp_value_hard.aoa(k) = 12.5;
     else
@@ -252,9 +276,84 @@ for k = 1:numel(fields)
     exp_value_hard.(fields{k})(remove, :) = [];
 end
 
-clear exp_table
+clear exp_table_hard
 
-fprintf('%d hard data files read successfully\n', length(exp_value_hard.aoa));  
+%% double data read 
+
+for k = 1:length(MyFolderInfoDouble) 
+
+    if length(MyFolderInfoDouble(k).name) < 4
+        continue
+    end
+
+    if MyFolderInfoDouble(k).name(1:4) ~= "soft"   % skip files that are not soft
+        continue
+    end
+
+    exp_table_double = readtable(MyFolderDouble + "/" + MyFolderInfoDouble(k).name, 'Delimiter', ', ', "Range", "D:I");
+    %chord_table = readtable("./" + MyFileChord, 'Delimiter', ', ', "Range", "A:A");
+
+    exp_value_double.f_avg(k, :) = mean(exp_table_double{1:end, 1:3});  % average force vector for all of wing's config.
+    exp_value_double.f_median(k, :) = median(exp_table_double{1:end, 1:3});  % average force vector for all of wing's config.
+    exp_value_double.f_std(k, :) = std(exp_table_double{1:end, 1:3});   % standard dev for each force component of every wing config.
+    
+    exp_value_double.f_ratio(k, 1) = mean(exp_table_double{1:end, sensor_orientation.lift_dir} ./ exp_table_double{1:end, sensor_orientation.drag_dir});
+    exp_value_double.f_std_ratio(k, 1) = std(exp_table_double{1:end, sensor_orientation.lift_dir} ./ exp_table_double{1:end, sensor_orientation.drag_dir});
+
+    exp_value_double.t_avg(k, :) = mean(exp_table_double{1:end, 4:6}); % average torque vector for all of wing's config.
+    exp_value_double.t_std(k, :) = std(exp_table_double{1:end, 4:6});  % standard deviation for each torque component of every wing config.
+
+    exp_value_double.wingtype(k, 1) = string(MyFolderInfoDouble(k).name(1:4)); % wing type.
+
+    if MyFolderInfoDouble(k).name(6:9) == "zero"  % wing angle of attack discrimination (char and int) --> lines 58 to 66
+        exp_value_double.aoa(k) = 0;
+    elseif MyFolderInfoDouble(k).name(6:9) == "-005"
+        exp_value_double.aoa(k) = -5;
+    elseif MyFolderInfoDouble(k).name(6:9) == "neg5"
+        exp_value_double.aoa(k) = -5;  
+    elseif MyFolderInfoDouble(k).name(6:9) == "pos5"
+        exp_value_double.aoa(k) = 5;
+    elseif MyFolderInfoDouble(k).name(6:9) == "0007"
+        exp_value_double.aoa(k) = 7.5; 
+    elseif MyFolderInfoDouble(k).name(6:9) == "pos7"
+        exp_value_double.aoa(k) = 7.5; 
+    elseif MyFolderInfoDouble(k).name(6:9) == "0012"
+        exp_value_double.aoa(k) = 12.5;
+    else
+        exp_value_double.aoa(k) = str2double(MyFolderInfoDouble(k).name(8:9));
+    end
+
+%     if MyFolderInfo(k).name(6:9) == "0010" && MyFolderInfo(k).name(14:15) == "40"
+%         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
+%         fourier(exp_table,  sensor_orientation.lift_dir);
+%     end
+% 
+%     if MyFolderInfo(k).name(6:9) == "0025" && MyFolderInfo(k).name(14:15) == "30"
+%         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
+%         fourier(exp_table,  sensor_orientation.lift_dir);
+%     end
+% 
+%     if MyFolderInfo(k).name(6:9) == "0010" && MyFolderInfo(k).name(14:15) == "30"
+%         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
+%         fourier(exp_table,  sensor_orientation.lift_dir, str2double(MyFolderInfo(k).name(6:9)), str2double(MyFolderInfo(k).name(14:15)));
+%     end
+
+    exp_value_double.vel(k) = str2double(MyFolderInfoDouble(k).name(14:15)) / 100;   % flow velocity (m/s)
+
+end
+
+% fourier_transform_signal(exp_value_double, 10, 0.4, sensor_orientation.lift_dir);
+
+remove = (exp_value_double.f_avg(:, 1) == 0);
+
+fields = fieldnames(exp_value_double);
+for k = 1:numel(fields)
+    exp_value_double.(fields{k})(remove, :) = [];
+end
+
+clear exp_table_double
+
+fprintf('%d double data files read successfully\n', length(exp_value_double.aoa));  
 
 fprintf('\ndata read completed\n\n'); 
 
