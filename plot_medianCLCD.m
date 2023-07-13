@@ -1,8 +1,9 @@
-    function [] = plot_medianCLCD(wingtype, sel_inflation, exp_value, exp_value_hard, exp_value_double, sel_speed, div, chord, kin_viscosity, plot_type, format, lift_dir, drag_dir)
+function [] = plot_medianCLCD(wingtype, sel_inflation, sel_inflation_double, exp_value, exp_value_hard, exp_value_double, sel_speed, div, chord, kin_viscosity, plot_type, format, lift_dir, drag_dir)
     % prints ratio of median forces
 
     plot_variable = 'medianCL_CD';
     plot_variable_printed_name = 'medianC_{L} / medianC_{D}';
+    double_vel = 0.25;
 
     if wingtype == "hard"
 
@@ -32,9 +33,9 @@
         
                  if (exp_value.vel(k) == sel_speed(j))
                     if exist('k1','var') == 0
-                       scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), exp_value.f_std_ratio(k), 'ob', 'DisplayName', 'neutral', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
+                       scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), exp_value.f_std_ratio(k), 'ob', 'DisplayName', 'neutral',   'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
                     else
-                        scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), exp_value.f_std_ratio(k), 'ob', 'HandleVisibility','off', 'CapSize', 18, 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
+                        scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), exp_value.f_std_ratio(k), 'ob', 'HandleVisibility','off',   'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
                         x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
                         y_vec = [-exp_value.f_median(k1, lift_dir) / exp_value.f_median(k1, drag_dir), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir)];
                         plot(x_vec, y_vec, '--b', 'HandleVisibility','off')
@@ -146,7 +147,7 @@
         clear k1 k2 k3 k4 k5 hard1
     
         figure('Position', [200, 200, 1000, 1000])
-        set(gcf, 'Position', [440 378 1240 840])
+        set(gcf, 'Position', [440 378 1800 1000])
     
         if plot_type == "title"
             title([plot_variable_printed_name, ' plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight','bold','fontsize', 24)
@@ -158,7 +159,7 @@
         xlabel('AoA [ ˚ ]','fontweight','bold','fontsize', 30);
         ylabel(strcat(plot_variable_printed_name, ' [ ]'),'fontweight','bold','fontsize', 30);
         xlim([-7.5 17.5])
-        ylim([-35 25])
+        ylim([-6 10])
     
         for k = 1:length(exp_value.f_median)
 
@@ -176,64 +177,229 @@
                     end
             end
 
+            if sel_speed(j) == double_vel 
+                        if k > length(exp_value_double.vel)
+                            continue
+                        end
 
-            if (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(1))
-                if exist('k1','var') == 0
-                            scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'ok', 'DisplayName', '(dotted) neutral', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
-                else
-                            scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'ok', 'HandleVisibility','off', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')  
-                            x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
-                            y_vec = [exp_value.f_median(k1, lift_dir) / exp_value.f_median(k1, drag_dir), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir)];
-                            plot(x_vec, y_vec, ':k', 'HandleVisibility','off')
-                 end
-                 k1 = k;
+                      if exp_value_double.inflation(k) == sel_inflation_double(1)
+                       if exp_value_double.dir(k) == 1
+                            if exist('d1','var') == 0
+                                scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'ok', 'DisplayName', '(dotted) neutral',   'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+                            else
+                                scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'ok', 'HandleVisibility','off', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+                                x_vec = [exp_value_double.aoa(d1), exp_value_double.aoa(k)];
+                                y_vec = [(exp_value_double.f_median(d1, lift_dir) / exp_value_double.f_median(d1,  drag_dir)), (exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k,  drag_dir))];
+                                plot(x_vec, y_vec, ':k', 'HandleVisibility','off')
+                            end
+                            d1 = k;
+                        elseif exp_value_double.dir(k) == 0
+                             if exist('d1n','var') == 0
+                                scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'ok', 'HandleVisibility','off',   'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+                             else
+                                scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'ok', 'HandleVisibility','off',   'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+                                x_vec = [exp_value_double.aoa(d1n), exp_value_double.aoa(k)];
+                                y_vec = [(exp_value_double.f_median(d1n, lift_dir) / exp_value_double.f_median(d1n,  drag_dir)), (exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k,  drag_dir))];
+                                plot(x_vec, y_vec, ':k', 'HandleVisibility','off')
+                             end
+                            d1n = k;
+                        end
+                      elseif exp_value_double.inflation(k) == sel_inflation_double(2)
+                        if exp_value_double.dir(k) == 1
+                         if exist('d2','var') == 0
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'oy', 'DisplayName', '15 mL inf.',   'MarkerFaceColor', 'y', 'LineWidth', 1, MarkerEdgeColor = 'yellow')
+                         else
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'oy', 'HandleVisibility','off',   'MarkerFaceColor', 'y', 'LineWidth', 1, MarkerEdgeColor = 'yellow')
+                            x_vec = [exp_value_double.aoa(d2), exp_value_double.aoa(k)];
+                            y_vec = [(exp_value_double.f_median(d2, lift_dir) / exp_value_double.f_median(d2,  drag_dir)), (exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k,  drag_dir))];
+                            plot(x_vec, y_vec, ':y', 'HandleVisibility','off')
+                         end
+                        d2 = k;
+                        elseif exp_value_double.dir(k) == 0
+                         if exist('d2n','var') == 0
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'oy', 'HandleVisibility','off',   'MarkerFaceColor', 'y', 'LineWidth', 1, MarkerEdgeColor = 'yellow')
+                         else
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'oy', 'HandleVisibility','off',   'MarkerFaceColor', 'y', 'LineWidth', 1, MarkerEdgeColor = 'yellow')
+                            x_vec = [exp_value_double.aoa(d2n), exp_value_double.aoa(k)];
+                            y_vec = [(exp_value_double.f_median(d2n, lift_dir) / exp_value_double.f_median(d2n,  drag_dir)), (exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k,  drag_dir))];
+                            plot(x_vec, y_vec, ':y', 'HandleVisibility','off')
+                         end
+                        d2n = k;
+                       end
     
-             elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(2))
-                 if exist('k2','var') == 0
-                  scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'oc', 'DisplayName', '30 mL inf.', 'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
-                 else
-                  scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'oc', 'HandleVisibility','off', 'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')                
-                    x_vec = [exp_value.aoa(k2), exp_value.aoa(k)];
-                    y_vec = [exp_value.f_median(k2, lift_dir) / exp_value.f_median(k2, drag_dir), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir)];
-                    plot(x_vec, y_vec, ':c', 'HandleVisibility','off')
+                     elseif exp_value_double.inflation(k) == sel_inflation_double(3)
+                       if exp_value_double.dir(k) == 1 
+                         if exist('d3','var') == 0
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'oc', 'DisplayName', '30 mL inf.',   'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
+                         else
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'oc', 'HandleVisibility','off',   'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
+                            x_vec = [exp_value_double.aoa(d3), exp_value_double.aoa(k)];
+                            y_vec = [(exp_value_double.f_median(d3, lift_dir) / exp_value_double.f_median(d3,  drag_dir)), (exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k,  drag_dir))];
+                            plot(x_vec, y_vec, ':c', 'HandleVisibility','off')
+                        end
+                        d3 = k;
+                       elseif exp_value_double.dir(k) == 0
+                         if exist('d3n','var') == 0
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'oc', 'HandleVisibility','off',   'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
+                         else
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'oc', 'HandleVisibility','off',   'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
+                            x_vec = [exp_value_double.aoa(d3n), exp_value_double.aoa(k)];
+                            y_vec = [(exp_value_double.f_median(d3n, lift_dir) / exp_value_double.f_median(d3n,  drag_dir)), (exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k,  drag_dir))];
+                            plot(x_vec, y_vec, ':c', 'HandleVisibility','off')
+                        end
+                        d3n = k;
+                       end
+    
+                      elseif exp_value_double.inflation(k) == sel_inflation_double(4)
+                        if exp_value_double.dir(k) == 1
+                         if exist('d4','var') == 0
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'oc', 'DisplayName', '45 mL inf.',   'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
+                         else
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'oc', 'HandleVisibility','off',   'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
+                            x_vec = [exp_value_double.aoa(d4), exp_value_double.aoa(k)];
+                            y_vec = [(exp_value_double.f_median(d4, lift_dir) / exp_value_double.f_median(d4,  drag_dir)), (exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k,  drag_dir))];
+                            plot(x_vec, y_vec, ':c', 'HandleVisibility','off')
+                         end
+                        d4 = k;
+                       elseif exp_value_double.dir(k) == 0
+                          if exist('d4n','var') == 0
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'oc', 'HandleVisibility','off',   'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
+                         else
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'oc', 'HandleVisibility','off',   'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
+                            x_vec = [exp_value_double.aoa(d4n), exp_value_double.aoa(k)];
+                            y_vec = [(exp_value_double.f_median(d4n, lift_dir) / exp_value_double.f_median(d4n,  drag_dir)), (exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k,  drag_dir))];
+                            plot(x_vec, y_vec, ':c', 'HandleVisibility','off')
+                         end
+                        d4n = k;
+                        end
+                     elseif exp_value_double.inflation(k) == sel_inflation_double(5)
+                       if exp_value_double.dir(k) == 1
+                         if exist('d5','var') == 0
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'om', 'DisplayName', '60 mL inf.',   'MarkerFaceColor', 'm', 'LineWidth', 1, MarkerEdgeColor = 'magenta')
+                         else
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'om', 'HandleVisibility','off',   'MarkerFaceColor', 'm', 'LineWidth', 1, MarkerEdgeColor = 'magenta')
+                            x_vec = [exp_value_double.aoa(d5), exp_value_double.aoa(k)];
+                            y_vec = [(exp_value_double.f_median(d5, lift_dir) / exp_value_double.f_median(d5,  drag_dir)), (exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k,  drag_dir))];
+                            plot(x_vec, y_vec, ':m', 'HandleVisibility','off')
+                        end
+                        d5 = k;
+                       elseif exp_value_double.dir(k) == 0
+                        if exist('d5n','var') == 0
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'om', 'HandleVisibility','off',   'MarkerFaceColor', 'm', 'LineWidth', 1, MarkerEdgeColor = 'magenta')
+                         else
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'om', 'HandleVisibility','off',   'MarkerFaceColor', 'm', 'LineWidth', 1, MarkerEdgeColor = 'magenta')
+                            x_vec = [exp_value_double.aoa(d5n), exp_value_double.aoa(k)];
+                            y_vec = [(exp_value_double.f_median(d5n, lift_dir) / exp_value_double.f_median(d5n,  drag_dir)), (exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k,  drag_dir))];
+                            plot(x_vec, y_vec, ':m', 'HandleVisibility','off')
+                        end
+                        d5n = k;
+                       end
+                     elseif exp_value_double.inflation(k) == sel_inflation_double(6)
+                       if exp_value_double.dir(k) == 1
+                         if exist('d6','var') == 0
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'ok', 'DisplayName', '90 mL inf.',   'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
+                         else
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'ob', 'HandleVisibility','off',  'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
+                            x_vec = [exp_value_double.aoa(d6), exp_value_double.aoa(k)];
+                            y_vec = [(exp_value_double.f_median(d6, lift_dir) / exp_value_double.f_median(d6,  drag_dir)), (exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k,  drag_dir))];
+                            plot(x_vec, y_vec, ':b', 'HandleVisibility','off')
+                        end
+                        d6 = k;
+                       elseif exp_value_double.dir(k) == 0
+                        if exist('d6n','var') == 0
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'ob', 'HandleVisibility','off',   'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
+                         else
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'ob', 'HandleVisibility','off',  'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
+                            x_vec = [exp_value_double.aoa(d6n), exp_value_double.aoa(k)];
+                            y_vec = [(exp_value_double.f_median(d6n, lift_dir) / exp_value_double.f_median(d6n,  drag_dir)), (exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k,  drag_dir))];
+                            plot(x_vec, y_vec, ':b', 'HandleVisibility','off')
+                        end
+                        d6n = k;
+                       end
+                     elseif exp_value_double.inflation(k) == sel_inflation_double(7)
+                       if exp_value_double.dir(k) == 1
+                        if exist('d7','var') == 0 
+                         scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'og', 'DisplayName', '120 mL inf.',   'MarkerFaceColor', 'g', 'LineWidth', 1, MarkerEdgeColor = 'green')
+                        else
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18,'og', 'HandleVisibility','off',   'MarkerFaceColor', 'g', 'LineWidth', 1, MarkerEdgeColor = 'green')
+                            x_vec = [exp_value_double.aoa(d7), exp_value_double.aoa(k)];
+                            y_vec = [(exp_value_double.f_median(d7, lift_dir) / exp_value_double.f_median(d7,  drag_dir)), (exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k,  drag_dir))];
+                            plot(x_vec, y_vec, ':g', 'HandleVisibility','off')
+                        end
+                        d7 = k;
+                      elseif exp_value_double.dir(k) == 0
+                        if exist('d7n','var') == 0 
+                         scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'og', 'HandleVisibility','off',   'MarkerFaceColor', 'g', 'LineWidth', 1, MarkerEdgeColor = 'green')
+                        else
+                            scatter(exp_value_double.aoa(k), exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k, drag_dir), 18, 'og', 'HandleVisibility','off',   'MarkerFaceColor', 'g', 'LineWidth', 1, MarkerEdgeColor = 'green')
+                            x_vec = [exp_value_double.aoa(d7n), exp_value_double.aoa(k)];
+                            y_vec = [(exp_value_double.f_median(d7n, lift_dir) / exp_value_double.f_median(d7n,  drag_dir)), (exp_value_double.f_median(k, lift_dir) / exp_value_double.f_median(k,  drag_dir))];
+                            plot(x_vec, y_vec, ':g', 'HandleVisibility','off')
+                        end
+                        d7n = k;
+                       end
+                      end
+
+            else
+
+                if (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(1))
+                    if exist('k1','var') == 0
+                                scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'ok', 'DisplayName', '(dotted) neutral', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')
+                    else
+                                scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'ok', 'HandleVisibility','off', 'MarkerFaceColor', 'k', 'LineWidth', 1, MarkerEdgeColor = 'black')  
+                                x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
+                                y_vec = [exp_value.f_median(k1, lift_dir) / exp_value.f_median(k1, drag_dir), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir)];
+                                plot(x_vec, y_vec, ':k', 'HandleVisibility','off')
+                     end
+                     k1 = k;
+        
+                 elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(2))
+                     if exist('k2','var') == 0
+                      scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'oc', 'DisplayName', '30 mL inf.', 'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')
+                     else
+                      scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'oc', 'HandleVisibility','off', 'MarkerFaceColor', 'c', 'LineWidth', 1, MarkerEdgeColor = 'cyan')                
+                        x_vec = [exp_value.aoa(k2), exp_value.aoa(k)];
+                        y_vec = [exp_value.f_median(k2, lift_dir) / exp_value.f_median(k2, drag_dir), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir)];
+                        plot(x_vec, y_vec, ':c', 'HandleVisibility','off')
+                    end
+                    k2 = k;
+        
+                 elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(3))
+                     if exist('k3','var') == 0
+                    scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'om', 'DisplayName', '60 mL inf.', 'MarkerFaceColor', 'm', 'LineWidth', 1, MarkerEdgeColor = 'magenta')
+                     else
+                        scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'om', 'HandleVisibility','off', 'MarkerFaceColor', 'm', 'LineWidth', 1, MarkerEdgeColor = 'magenta')
+                        x_vec = [exp_value.aoa(k3), exp_value.aoa(k)];
+                        y_vec = [exp_value.f_median(k3, lift_dir) / exp_value.f_median(k3, drag_dir), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir)];
+                        plot(x_vec, y_vec, ':m', 'HandleVisibility','off')
+                    end
+                    k3 = k;
+        
+                 elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(4))
+                     if exist('k4','var') == 0
+                        scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'ob', 'DisplayName', '90 mL inf.', 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
+                     else
+                        scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'ob', 'HandleVisibility','off', 'MarkerFaceColor','b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
+                        x_vec = [exp_value.aoa(k4), exp_value.aoa(k)];
+                        y_vec = [exp_value.f_median(k4, lift_dir) / exp_value.f_median(k4, drag_dir), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir)];
+                        plot(x_vec, y_vec, ':b', 'HandleVisibility','off')
+                    end
+                    k4 = k;
+        
+                 elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(5))
+                     if exist('k5','var') == 0
+                      scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'og', 'DisplayName', '120 mL inf.', 'MarkerFaceColor', 'g', 'LineWidth', 1, MarkerEdgeColor = 'green')
+                     else
+                        scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'og', 'HandleVisibility','off', 'MarkerFaceColor','g', 'LineWidth', 1, MarkerEdgeColor = 'green')
+                        x_vec = [exp_value.aoa(k5), exp_value.aoa(k)];
+                        y_vec = [exp_value.f_median(k5, lift_dir) / exp_value.f_median(k5, drag_dir), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir)];
+                        plot(x_vec, y_vec, ':g', 'HandleVisibility','off')
+                    end
+                    k5 = k;
+        
                 end
-                k2 = k;
-    
-             elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(3))
-                 if exist('k3','var') == 0
-                scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'om', 'DisplayName', '60 mL inf.', 'MarkerFaceColor', 'm', 'LineWidth', 1, MarkerEdgeColor = 'magenta')
-                 else
-                    scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'om', 'HandleVisibility','off', 'MarkerFaceColor', 'm', 'LineWidth', 1, MarkerEdgeColor = 'magenta')
-                    x_vec = [exp_value.aoa(k3), exp_value.aoa(k)];
-                    y_vec = [exp_value.f_median(k3, lift_dir) / exp_value.f_median(k3, drag_dir), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir)];
-                    plot(x_vec, y_vec, ':m', 'HandleVisibility','off')
-                end
-                k3 = k;
-    
-             elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(4))
-                 if exist('k4','var') == 0
-                    scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'ob', 'DisplayName', '90 mL inf.', 'MarkerFaceColor', 'b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
-                 else
-                    scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'ob', 'HandleVisibility','off', 'MarkerFaceColor','b', 'LineWidth', 1, MarkerEdgeColor = 'blue')
-                    x_vec = [exp_value.aoa(k4), exp_value.aoa(k)];
-                    y_vec = [exp_value.f_median(k4, lift_dir) / exp_value.f_median(k4, drag_dir), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir)];
-                    plot(x_vec, y_vec, ':b', 'HandleVisibility','off')
-                end
-                k4 = k;
-    
-             elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(5))
-                 if exist('k5','var') == 0
-                  scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'og', 'DisplayName', '120 mL inf.', 'MarkerFaceColor', 'g', 'LineWidth', 1, MarkerEdgeColor = 'green')
-                 else
-                    scatter(exp_value.aoa(k), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir), 18, 'og', 'HandleVisibility','off', 'MarkerFaceColor','g', 'LineWidth', 1, MarkerEdgeColor = 'green')
-                    x_vec = [exp_value.aoa(k5), exp_value.aoa(k)];
-                    y_vec = [exp_value.f_median(k5, lift_dir) / exp_value.f_median(k5, drag_dir), exp_value.f_median(k, lift_dir) / exp_value.f_median(k, drag_dir)];
-                    plot(x_vec, y_vec, ':g', 'HandleVisibility','off')
-                end
-                k5 = k;
-    
-             end
-        end
+            end
+         end
         
         %str_annotation = sprintf('Re = %.2e', Re);
         %annotation('textbox', [0.696 0.77 0.1 0.1], 'String', str_annotation, 'BackgroundColor','white','LineStyle','-','Fontsize', 16, 'Interpreter','latex' ) % printing Re on plots
