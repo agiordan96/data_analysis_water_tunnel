@@ -297,6 +297,10 @@ for k = 1:length(MyFolderInfoDouble)
         continue
     end
 
+    if k == 82
+        continue
+    end
+
     exp_table_double = readtable(MyFolderDouble + "/" + MyFolderInfoDouble(k).name, 'Delimiter', ', ', "Range", "D:I");
     %chord_table = readtable("./" + MyFileChord, 'Delimiter', ', ', "Range", "A:A");
 
@@ -314,6 +318,8 @@ for k = 1:length(MyFolderInfoDouble)
 
     if MyFolderInfoDouble(k).name(6:9) == "zero"  % wing angle of attack discrimination (char and int) --> lines 58 to 66
         exp_value_double.aoa(k) = 0;
+    elseif MyFolderInfoDouble(k).name(6:9) == "0000"  % correction for error in experiment
+        exp_value_double.aoa(k) = -5;
     elseif MyFolderInfoDouble(k).name(6:9) == "-005"
         exp_value_double.aoa(k) = -5;
     elseif MyFolderInfoDouble(k).name(6:9) == "neg5"
@@ -364,7 +370,7 @@ clear T sortedT
 
 fprintf('soft data sorting completed\n')
 
-%% soft data sorting
+%% hard data sorting
 
 C = struct2table(exp_value_hard); % convert the struct array to a table
 sortedC = sortrows(C, 'aoa'); % sort the table by 'aoa'
@@ -373,6 +379,16 @@ exp_value_hard = table2struct(sortedC,'ToScalar',true); % convert the table back
 clear C sortedC
 
 fprintf('hard data sorting completed\n')
+
+%% double data sorting
+
+B = struct2table(exp_value_double); % convert the struct array to a table
+sortedB = sortrows(B, 'aoa'); % sort the table by 'aoa'
+exp_value_double = table2struct(sortedB,'ToScalar',true); % convert the table back to the struct array
+
+clear B sortedB
+
+fprintf('double data sorting completed\n')
 
 %% data processing
 
@@ -424,8 +440,9 @@ fprintf('data processing completed\n\n')
 
 format short
 
-sel_speed = [.10, .15, .20, .25, .30, .40];
+sel_speed = [.25];
 sel_inflation = [0, 30, 60, 90, 120];
+sel_inflation_double = [0, 15, 30, 45, 60, 90, 120];
 
 dyn_pressure = 0.5 * rho .* sel_speed .^ 2; % vector, calculation of dynamic pressure
 div = dyn_pressure .* S; % matrix leading to aero coefficients. Rows: inflations. Column: speeds.
@@ -437,7 +454,7 @@ div = dyn_pressure .* S; % matrix leading to aero coefficients. Rows: inflations
 %plot_soft_wing(exp_value_soft.wingtype(1, 1:4), exp_value_soft, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
 %plot_soft_wing(exp_value_soft.wingtype(1), exp_value_soft, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
 
-plot_soft_hard_wing("soft_hard", exp_value_soft, exp_value_hard, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);
+plot_soft_hard_wing("soft_hard", exp_value_soft, exp_value_hard, exp_value_double, sel_speed, sel_inflation, sel_inflation_double, div, chord, kin_viscosity, sensor_orientation);
 
 %plot_hard_wing(exp_value_hard.wingtype(1, 1:4), exp_value_hard, sel_speed, div, chord, kin_viscosity, sensor_orientation);
 
