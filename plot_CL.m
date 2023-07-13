@@ -185,7 +185,7 @@ function [] = plot_CL(wingtype, sel_inflation, sel_inflation_double, exp_value, 
                      end
                 end
 
-                    if sel_speed(j) == double_vel 
+                if sel_speed(j) == double_vel 
                         if k > length(exp_value_double.vel)
                             continue
                         end
@@ -344,8 +344,7 @@ function [] = plot_CL(wingtype, sel_inflation, sel_inflation_double, exp_value, 
                             plot(x_vec, y_vec, ':g', 'HandleVisibility','off')
                         end
                         d7n = k;
-                      end
-                        
+                       end
                       end
 
                 else
