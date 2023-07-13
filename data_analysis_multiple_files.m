@@ -323,26 +323,10 @@ for k = 1:length(MyFolderInfoDouble)
         exp_value_double.aoa(k) = str2double(MyFolderInfoDouble(k).name(8:9));
     end
 
-%     if MyFolderInfo(k).name(6:9) == "0010" && MyFolderInfo(k).name(14:15) == "40"
-%         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
-%         fourier(exp_table,  sensor_orientation.lift_dir);
-%     end
-% 
-%     if MyFolderInfo(k).name(6:9) == "0025" && MyFolderInfo(k).name(14:15) == "30"
-%         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
-%         fourier(exp_table,  sensor_orientation.lift_dir);
-%     end
-% 
-%     if MyFolderInfo(k).name(6:9) == "0010" && MyFolderInfo(k).name(14:15) == "30"
-%         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
-%         fourier(exp_table,  sensor_orientation.lift_dir, str2double(MyFolderInfo(k).name(6:9)), str2double(MyFolderInfo(k).name(14:15)));
-%     end
-
     exp_value_double.vel(k) = str2double(MyFolderInfoDouble(k).name(14:15)) / 100;   % flow velocity (m/s)
+    exp_value_double.inflation(k) = str2double(MyFolderInfoSoft(k).name(20:22));   % wing inflation
 
 end
-
-% fourier_transform_signal(exp_value_double, 10, 0.4, sensor_orientation.lift_dir);
 
 remove = (exp_value_double.f_avg(:, 1) == 0);
 
