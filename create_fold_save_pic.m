@@ -6,9 +6,9 @@ function [] = create_fold_save_pic(wingtype, folder_vec, plot_type)
 
         if folder_vec(1) == 1 
             if plot_type == "no_title"
-                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_hardwing/', date, '_', plot_type, '/', 'av_CL_CD_plot/'));
+                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_hardwing/', date, '_', plot_type, '/', 'CL_CD_plot/'));
             else
-                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_hardwing/', date, '/av_CL_CD_plot/'));
+                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_hardwing/', date, '/CL_CD_plot/'));
             end
         end
         
@@ -30,9 +30,9 @@ function [] = create_fold_save_pic(wingtype, folder_vec, plot_type)
 
         if folder_vec(4) == 1 
             if plot_type == "no_title"
-                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_hardwing/', date, '_', plot_type, '/', 'avCL_avCD/'));
+                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_hardwing/', date, '_', plot_type, '/', 'avCL_avCD_plot/'));
             else
-                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_hardwing/', date, '/avCL_avCD/'));
+                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_hardwing/', date, '/avCL_avCD_plot/'));
             end
         end
 
@@ -48,9 +48,9 @@ function [] = create_fold_save_pic(wingtype, folder_vec, plot_type)
 
          if folder_vec(1) == 1 
             if plot_type == "no_title"
-                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softwing/', date, '_', plot_type, '/', 'av_CL_CD_plot/'));
+                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softwing/', date, '_', plot_type, '/', 'avCL_avCD_plot/'));
             else
-                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softwing/', date, '/av_CL_CD_plot/'));
+                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softwing/', date, '/avCL_avCD_plot/'));
             end
         end
         
@@ -89,9 +89,9 @@ function [] = create_fold_save_pic(wingtype, folder_vec, plot_type)
     elseif wingtype == "soft_hard"
         if folder_vec(1) == 1 
             if plot_type == "no_title"
-                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softhardwing/', date, '_', plot_type, '/', 'av_CL_CD_plot/'));
+                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softhardwing/', date, '_', plot_type, '/', 'CL_CD_plot/'));
             else
-                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softhardwing/', date, '/av_CL_CD_plot/'));
+                [~, ~, ~] = mkdir(strcat('./pictures_wing/pic_softhardwing/', date, '/CL_CD_plot/'));
             end
         end
         
