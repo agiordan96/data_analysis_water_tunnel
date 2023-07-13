@@ -64,10 +64,10 @@ if MyFolderHard == ""
     fprintf('-> going for default value: data directory "%s"\n\n', MyFolderHard); 
 end
 
-if MyFolderDouble == "" 
+%if MyFolderDouble == "" 
     MyFolderDouble = "soft_data_12072023_25ms";   % enter default value here
-    fprintf('-> going for default value: data directory "%s"\n\n', MyFolderHard); 
-end
+%    fprintf('-> going for default value: data directory "%s"\n\n', MyFolderHard); 
+%end
 
 
 
@@ -106,7 +106,7 @@ exp_value_hard.f_avg = zeros(length(MyFolderInfoHard), 3);
 exp_value_hard.f_std = zeros(length(MyFolderInfoHard), 3);
 exp_value_hard.f_ratio = zeros(length(MyFolderInfoHard), 1);
 exp_value_hard.f_std_ratio = zeros(length(MyFolderInfoHard), 1);
-MyFolderInfoHardexp_value_hard.t_std = zeros(length(MyFolderInfoHard), 3);
+exp_value_hard.t_std = zeros(length(MyFolderInfoHard), 3);
 exp_value_hard.aoa = zeros(length(MyFolderInfoHard), 1);
 exp_value_hard.vel = zeros(length(MyFolderInfoHard), 1);
 %exp_value_hard.chord = zeros(length(MyFolderInfoHard), 1);   % chord length file must have ordered data to reflect that of force value data
@@ -117,9 +117,10 @@ exp_value_double.f_avg = zeros(length(MyFolderInfoDouble), 3);
 exp_value_double.f_std = zeros(length(MyFolderInfoDouble), 3);
 exp_value_double.f_ratio = zeros(length(MyFolderInfoDouble), 1);
 exp_value_double.f_std_ratio = zeros(length(MyFolderInfoDouble), 1);
-MyFolderInfoHardexp_value_hard.t_std = zeros(length(MyFolderInfoDouble), 3);
+exp_value_double.t_std = zeros(length(MyFolderInfoDouble), 3);
 exp_value_double.aoa = zeros(length(MyFolderInfoDouble), 1);
 exp_value_double.vel = zeros(length(MyFolderInfoDouble), 1);
+exp_value_double.inflation = zeros(length(MyFolderInfoDouble), 1);
 exp_value_double.dir = zeros(length(MyFolderInfoDouble), 1);
 %exp_value_hard.chord = zeros(length(MyFolderInfoDouble), 1);   % chord length file must have ordered data to reflect that of force value data
 
@@ -278,6 +279,8 @@ end
 
 clear exp_table_hard
 
+fprintf('%d hard data files read successfully\n', length(exp_value_hard.aoa));
+
 %% double data read 
 
 for k = 1:length(MyFolderInfoDouble) 
@@ -287,6 +290,10 @@ for k = 1:length(MyFolderInfoDouble)
     end
 
     if MyFolderInfoDouble(k).name(1:4) ~= "soft"   % skip files that are not soft
+        continue
+    end
+
+    if k == 88
         continue
     end
 
@@ -324,7 +331,13 @@ for k = 1:length(MyFolderInfoDouble)
     end
 
     exp_value_double.vel(k) = str2double(MyFolderInfoDouble(k).name(14:15)) / 100;   % flow velocity (m/s)
-    exp_value_double.inflation(k) = str2double(MyFolderInfoSoft(k).name(20:22));   % wing inflation
+    exp_value_double.inflation(k) = str2double(MyFolderInfoDouble(k).name(20:22));   % wing inflation
+    
+    if MyFolderInfoDouble(k).name(19) == "p"  % wing inflation direction discrimination
+        exp_value_double.dir(k) = 1;
+    else 
+        exp_value_double.dir(k) = 0;
+    end
 
 end
 
