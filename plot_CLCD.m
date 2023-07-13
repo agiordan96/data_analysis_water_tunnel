@@ -1,7 +1,7 @@
 function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_speed, div, chord, kin_viscosity, plot_type, format, lift_dir, drag_dir)
     % prints average of forces ratios
 
-    plot_variable = 'av_CL_CD';
+    plot_variable = 'CL_CD';
     plot_variable_printed_name = 'C_{L} / C_{D}';
 
     if wingtype == "hard"
@@ -24,7 +24,7 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
             ax = gca;
             ax.XAxis.LineWidth = 2;
             ax.YAxis.LineWidth = 2;
-            xlim([-10 30])
+            xlim([-7.5 17.5])
             %ylim([-1.3 2])
         
             clear k1
@@ -70,7 +70,7 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
         grid on
         xlabel('AoA [ ˚ ]','fontweight','bold','fontsize', 30);
         ylabel(strcat(plot_variable_printed_name, ' [ ]'),'fontweight','bold','fontsize', 30);
-        xlim([-10 35])
+        xlim([-7.5 17.5])
     
         for k = 1:length(exp_value.f_avg)
             if (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(1))
@@ -159,8 +159,8 @@ function [] = plot_CLCD(wingtype, sel_inflation, exp_value, exp_value_hard, sel_
         grid on
         xlabel('AoA [ ˚ ]','fontweight','bold','fontsize', 30);
         ylabel(strcat(plot_variable_printed_name, ' [ ]'),'fontweight','bold','fontsize', 30);
-        xlim([-10 35])
-        ylim([-31 25])
+        xlim([-7.5 17.5])
+        ylim([-200 200])
     
         for k = 1:length(exp_value.f_avg)
 

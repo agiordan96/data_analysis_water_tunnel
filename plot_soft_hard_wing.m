@@ -27,17 +27,17 @@ medianCL_CD_plot = (input(medianCL_CD_prompt, "s"));
 plot_type = (input(plot_type_prompt, "s"));
 
 if CL_CD_plot == "" 
-    CL_CD_plot = 0;    % enter default value here
+    CL_CD_plot = 1;    % enter default value here
     fprintf('-> going for default value\n\n'); 
 end
 
 if CL_plot == "" 
-   CL_plot = 0;    % enter default value here
+   CL_plot = 1;    % enter default value here
    fprintf('-> going for default value\n\n'); 
 end
 
 if CD_plot == "" 
-   CD_plot = 0;     % enter default value here
+   CD_plot = 1;     % enter default value here
    fprintf('-> going for default value\n\n'); 
 end
 
@@ -76,11 +76,11 @@ if CD_plot == 1
 end
 
 if avCL_avCD_plot == 1
-    plot_avCL_avCD(wingtype, sel_inflation, exp_value_soft, exp_value_hard, sel_speed, div, chord, kin_viscosity, drag_dir, plot_type, 'png');
+    plot_avCLavCD(wingtype, sel_inflation, exp_value_soft, exp_value_hard, sel_speed, div, chord, kin_viscosity, plot_type, 'png', lift_dir, drag_dir);
 end
 
 if medianCL_CD_plot == 1
-    plot_medianCLCD(wingtype, sel_inflation, exp_value_soft, exp_value_hard, sel_speed, div, chord, kin_viscosity, drag_dir, plot_type, 'png');
+    plot_medianCLCD(wingtype, sel_inflation, exp_value_soft, exp_value_hard, sel_speed, div, chord, kin_viscosity, plot_type, 'png', lift_dir, drag_dir);
 end
 
 
