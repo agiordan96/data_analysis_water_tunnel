@@ -1,4 +1,4 @@
-function [] = plot_CL(wingtype, sel_inflation, exp_value, exp_value_hard, sel_speed, div, chord, kin_viscosity, lift_dir, plot_type, format)
+function [] = plot_CL(wingtype, sel_inflation, exp_value, exp_value_hard, exp_value_double, sel_speed, div, chord, kin_viscosity, lift_dir, plot_type, format)
     
     plot_variable = 'CL';
     plot_variable_printed_name = 'C_{L}';
