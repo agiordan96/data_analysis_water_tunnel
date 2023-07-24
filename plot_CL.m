@@ -69,7 +69,7 @@ function [] = plot_CL(wingtype, sel_inflation, sel_inflation_double, exp_value, 
             legend('Location','north','Orientation','horizontal','fontsize', 22, 'LineWidth', 2)
             hold on
             grid on
-            ax.FontSize = 100;
+            ax.FontSize = 50;
             xlabel('AoA [ ˚ ]','fontweight','bold','fontsize', 30);
             ylabel(strcat(plot_variable_printed_name, ' [ ]'),'fontweight','bold','fontsize', 30);
             ax = gca;
@@ -161,17 +161,17 @@ function [] = plot_CL(wingtype, sel_inflation, sel_inflation_double, exp_value, 
                 title([plot_variable_printed_name, ' plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight','bold','fontsize', 24)
             end
 
-            legend('Location','north','Orientation','horizontal','fontsize', 50, 'LineWidth', 2)
+            legend('Location','north','Orientation','horizontal','fontsize', 40, 'LineWidth', 2)
             hold on
             grid on
-            ax.FontSize = 50;
-            xlabel('AoA [ ˚ ]','fontweight','bold','fontsize', 50);
-            ylabel(strcat(plot_variable_printed_name, ' [ ]'),'fontweight','bold','fontsize', 50);
+            ax.FontSize = 40;
+            xlabel('AoA [ ˚ ]','fontweight','bold','fontsize', 40);
+            ylabel(strcat(plot_variable_printed_name, ' [ ]'),'fontweight','bold','fontsize', 40);
             ax = gca;
             ax.XAxis.LineWidth = 2;
             ax.YAxis.LineWidth = 2;
             ax.XAxis.TickValues = [-5 0 5 7.5 10 12.5 15];
-            xlim([-7.5 17.5])
+            xlim([-6 16])
             ylim([-1.3 2.6])
             ax.InnerPosition = ([0.084,0.1093,0.8771,0.8116]);
         
