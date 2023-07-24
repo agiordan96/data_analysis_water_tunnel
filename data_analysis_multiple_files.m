@@ -440,7 +440,8 @@ fprintf('data processing completed\n\n')
 
 format short
 
-sel_speed = [.25];
+sel_speed = [.15, .20, .25, .30, .40];
+%sel_speed = [.25];
 sel_inflation = [0, 30, 60, 90, 120];
 sel_inflation_double = [0, 15, 30, 45, 60, 90, 120];
 
@@ -456,7 +457,7 @@ div = dyn_pressure .* S; % matrix leading to aero coefficients. Rows: inflations
 
 plot_soft_hard_wing("soft_hard", exp_value_soft, exp_value_hard, exp_value_double, sel_speed, sel_inflation, sel_inflation_double, div, chord, kin_viscosity, sensor_orientation);
 
-%plot_hard_wing(exp_value_hard.wingtype(1, 1:4), exp_value_hard, sel_speed, div, chord, kin_viscosity, sensor_orientation);
+% plot_hard_wing(exp_value_hard.wingtype(1, 1:4), exp_value_hard, sel_speed, div, chord, kin_viscosity, sensor_orientation);
 
 % if exp_value_soft.wingtype(1, 1:4) == "soft"
 %     plot_soft_wing(exp_value_soft.wingtype(1, 1:4), exp_value_soft, sel_speed, sel_inflation, div, chord, kin_viscosity, sensor_orientation);

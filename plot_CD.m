@@ -152,14 +152,17 @@ function [] = plot_CD(wingtype, sel_inflation, sel_inflation_double, exp_value, 
             
             clear k1 k2 k3 k4 k5 hard1
         
-            figure('Position', [200, 200, 1800, 1000])
-            set(gcf, 'Position', [440 378 1640 1200])
+            %figure('Position', [200, 200, 1000, 1000])
+            figure
+            set(gcf, 'Position', [440 378 1800 1000])
         
             if plot_type == "title"
                 title([plot_variable_printed_name, ' plot # ', num2str(j), '; Flow Speed: ', num2str(sel_speed(j))],'fontweight','bold','fontsize', 24)
             end
             
-            legend('Location','north','Orientation','horizontal','fontsize', 22, 'LineWidth', 2)
+            legend('Location','north','Orientation','horizontal','fontsize', 35, 'LineWidth', 2)
+%             [h,icons] = legend('Location','north','Orientation','horizontal','fontsize', 35, 'LineWidth', 2)
+%             set(icons,'MarkerSize',20)
             hold on
             grid on
             xlabel('AoA [deg]','fontweight','bold','fontsize', 30);
@@ -167,16 +170,17 @@ function [] = plot_CD(wingtype, sel_inflation, sel_inflation_double, exp_value, 
             ax = gca;
             ax.XAxis.TickValues = [-5 0 5 7.5 10 12.5 15];
             xlim([-7.5 17.5])
-            ylim([-.1 1.12])
+            ylim([-.1 1.15])
             ax.XAxis.LineWidth = 2;
             ax.YAxis.LineWidth = 2;
+            ax.InnerPosition = ([0.084,0.1093,0.8771,0.8116]);
         
             for k = 1:length(exp_value.f_avg)
 
                 if k <= length(exp_value_hard.vel)
                     if (exp_value_hard.vel(k) == sel_speed(j))
                         if exist('hard1','var') == 0
-                            errorbar(exp_value_hard.aoa(k), (-exp_value_hard.f_avg(k, drag_dir) / div(1, j)), exp_value_hard.f_std(k, drag_dir) / div(1, j), 'o', 'Color', '#383B3E', 'DisplayName', '(solid) rigid', 'CapSize', 18, 'LineWidth', 1, MarkerFaceColor='#383B3E')
+                            errorbar(exp_value_hard.aoa(k), (-exp_value_hard.f_avg(k, drag_dir) / div(1, j)), exp_value_hard.f_std(k, drag_dir) / div(1, j), 'o', 'Color', '#383B3E', 'DisplayName', '–– rigid', 'CapSize', 18, 'LineWidth', 1, MarkerFaceColor='#383B3E')
                         else
                             errorbar(exp_value_hard.aoa(k), (-exp_value_hard.f_avg(k, drag_dir) / div(1, j)), exp_value_hard.f_std(k, drag_dir) / div(1, j), 'o', 'Color', '#383B3E', 'HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerFaceColor='#383B3E')
                             x_vec = [exp_value_hard.aoa(hard1), exp_value_hard.aoa(k)];
@@ -194,7 +198,7 @@ function [] = plot_CD(wingtype, sel_inflation, sel_inflation_double, exp_value, 
                       if exp_value_double.inflation(k) == sel_inflation_double(1)
                        if exp_value_double.dir(k) == 1
                             if exist('d1','var') == 0
-                                errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, drag_dir) / div(1, j)), exp_value_double.f_std(k, drag_dir) / div(1, j), 'o', 'Color', '#383B3E', 'DisplayName', '(dotted) neutral', 'CapSize', 18,  'LineWidth', 1, MarkerFaceColor = '#383B3E', MarkerEdgeColor = '#383B3E')
+                                errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, drag_dir) / div(1, j)), exp_value_double.f_std(k, drag_dir) / div(1, j), 'o', 'Color', '#383B3E', 'DisplayName', '– – neutral', 'CapSize', 18,  'LineWidth', 1, MarkerFaceColor = '#383B3E', MarkerEdgeColor = '#383B3E')
                             else
                                 errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, drag_dir) / div(1, j)), exp_value_double.f_std(k, drag_dir) / div(1, j), 'o', 'Color', '#383B3E', 'HandleVisibility','off', 'CapSize', 18,  'LineWidth', 1, MarkerFaceColor = '#383B3E', MarkerEdgeColor = '#383B3E')
                                 x_vec = [exp_value_double.aoa(d1), exp_value_double.aoa(k)];
@@ -354,7 +358,7 @@ function [] = plot_CD(wingtype, sel_inflation, sel_inflation_double, exp_value, 
         
                   if (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(1))
                     if exist('k1','var') == 0
-                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(1, j)), exp_value.f_std(k, drag_dir) / div(1, j), 'o', 'Color', '#383B3E', 'DisplayName', '(dotted) neutral', 'CapSize', 18,  'LineWidth', 1, MarkerFaceColor = '#383B3E', MarkerEdgeColor = '#383B3E')
+                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(1, j)), exp_value.f_std(k, drag_dir) / div(1, j), 'o', 'Color', '#383B3E', 'DisplayName', '– – neutral', 'CapSize', 18,  'LineWidth', 1, MarkerFaceColor = '#383B3E', MarkerEdgeColor = '#383B3E')
                     else
                         errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, drag_dir) / div(1, j)), exp_value.f_std(k, drag_dir) / div(1, j), 'o', 'Color', '#383B3E', 'HandleVisibility','off', 'CapSize', 18,  'LineWidth', 1, MarkerFaceColor = '#383B3E', MarkerEdgeColor = '#383B3E')
                         x_vec = [exp_value.aoa(k1), exp_value.aoa(k)];
