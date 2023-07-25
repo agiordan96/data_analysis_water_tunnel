@@ -289,44 +289,44 @@ function [] = plot_CL(wingtype, sel_inflation, sel_inflation_double, exp_value, 
 %                      elseif exp_value_double.inflation(k) == sel_inflation_double(5)
 %                        if exp_value_double.dir(k) == 1
 %                          if exist('d5','var') == 0
-%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(3, j)), exp_value_double.f_std(k, lift_dir) / div(3, j), 'o', 'Color', '#cfa93a','DisplayName', '60 mL', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#cfa93a', MarkerEdgeColor = '#cfa93a')
+%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(3, j)), exp_value_double.f_std(k, lift_dir) / div(3, j), 'o', 'Color', '#ebb81e','DisplayName', '60 mL', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#ebb81e', MarkerEdgeColor = '#ebb81e')
 %                          else
-%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(3, j)), exp_value_double.f_std(k, lift_dir) / div(3, j), 'o', 'Color', '#cfa93a','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#cfa93a', MarkerEdgeColor = '#cfa93a')
+%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(3, j)), exp_value_double.f_std(k, lift_dir) / div(3, j), 'o', 'Color', '#ebb81e','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#ebb81e', MarkerEdgeColor = '#ebb81e')
 %                             x_vec = [exp_value_double.aoa(d5), exp_value_double.aoa(k)];
 %                             y_vec = [(-exp_value_double.f_avg(d5, lift_dir) / div(3, j)), (-exp_value_double.f_avg(k, lift_dir) / div(3, j))];
-%                             plot(x_vec, y_vec, '-.', 'Color', '#cfa93a', 'HandleVisibility', 'off', 'LineWidth', 3)
+%                             plot(x_vec, y_vec, '-.', 'Color', '#ebb81e', 'HandleVisibility', 'off', 'LineWidth', 3)
 %                         end
 %                         d5 = k;
 %                        elseif exp_value_double.dir(k) == 0
 %                         if exist('d5n','var') == 0
-%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(3, j)), exp_value_double.f_std(k, lift_dir) / div(3, j), 'o', 'Color', '#cfa93a','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#cfa93a', MarkerEdgeColor = '#cfa93a')
+%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(3, j)), exp_value_double.f_std(k, lift_dir) / div(3, j), 'o', 'Color', '#ebb81e','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#ebb81e', MarkerEdgeColor = '#ebb81e')
 %                          else
-%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(3, j)), exp_value_double.f_std(k, lift_dir) / div(3, j), 'o', 'Color', '#cfa93a','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#cfa93a', MarkerEdgeColor = '#cfa93a')
+%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(3, j)), exp_value_double.f_std(k, lift_dir) / div(3, j), 'o', 'Color', '#ebb81e','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#ebb81e', MarkerEdgeColor = '#ebb81e')
 %                             x_vec = [exp_value_double.aoa(d5n), exp_value_double.aoa(k)];
 %                             y_vec = [(-exp_value_double.f_avg(d5n, lift_dir) / div(3, j)), (-exp_value_double.f_avg(k, lift_dir) / div(3, j))];
-%                             plot(x_vec, y_vec, '-.', 'Color', '#cfa93a', 'HandleVisibility', 'off', 'LineWidth', 3)
+%                             plot(x_vec, y_vec, '-.', 'Color', '#ebb81e', 'HandleVisibility', 'off', 'LineWidth', 3)
 %                         end
 %                         d5n = k;
 %                        end
 %                      elseif exp_value_double.inflation(k) == sel_inflation_double(6)
 %                        if exp_value_double.dir(k) == 1
 %                          if exist('d6','var') == 0
-%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(4, j)), exp_value_double.f_std(k, lift_dir) / div(4, j), 'o', 'Color', '#93D2BD','DisplayName', '90 mL', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#93D2BD', MarkerEdgeColor = '#93D2BD')
+%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(4, j)), exp_value_double.f_std(k, lift_dir) / div(4, j), 'o', 'Color', '#0A9C6B','DisplayName', '90 mL', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#0A9C6B', MarkerEdgeColor = '#0A9C6B')
 %                          else
-%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(4, j)), exp_value_double.f_std(k, lift_dir) / div(4, j), 'o', 'Color', '#93D2BD','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#93D2BD', MarkerEdgeColor = '#93D2BD')
+%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(4, j)), exp_value_double.f_std(k, lift_dir) / div(4, j), 'o', 'Color', '#0A9C6B','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#0A9C6B', MarkerEdgeColor = '#0A9C6B')
 %                             x_vec = [exp_value_double.aoa(d6), exp_value_double.aoa(k)];
 %                             y_vec = [(-exp_value_double.f_avg(d6, lift_dir) / div(4, j)), (-exp_value_double.f_avg(k, lift_dir) / div(4, j))];
-%                             plot(x_vec, y_vec, '-.', 'Color', '#93D2BD', 'HandleVisibility', 'off', 'LineWidth', 3)
+%                             plot(x_vec, y_vec, '-.', 'Color', '#0A9C6B', 'HandleVisibility', 'off', 'LineWidth', 3)
 %                         end
 %                         d6 = k;
 %                        elseif exp_value_double.dir(k) == 0
 %                         if exist('d6n','var') == 0
-%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(4, j)), exp_value_double.f_std(k, lift_dir) / div(4, j), 'o', 'Color', '#93D2BD','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#93D2BD', MarkerEdgeColor = '#93D2BD')
+%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(4, j)), exp_value_double.f_std(k, lift_dir) / div(4, j), 'o', 'Color', '#0A9C6B','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#0A9C6B', MarkerEdgeColor = '#0A9C6B')
 %                          else
-%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(4, j)), exp_value_double.f_std(k, lift_dir) / div(4, j), 'o', 'Color', '#93D2BD','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#93D2BD', MarkerEdgeColor = '#93D2BD')
+%                             errorbar(exp_value_double.aoa(k), (-exp_value_double.f_avg(k, lift_dir) / div(4, j)), exp_value_double.f_std(k, lift_dir) / div(4, j), 'o', 'Color', '#0A9C6B','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#0A9C6B', MarkerEdgeColor = '#0A9C6B')
 %                             x_vec = [exp_value_double.aoa(d6n), exp_value_double.aoa(k)];
 %                             y_vec = [(-exp_value_double.f_avg(d6n, lift_dir) / div(4, j)), (-exp_value_double.f_avg(k, lift_dir) / div(4, j))];
-%                             plot(x_vec, y_vec, '-.', 'Color', '#93D2BD', 'HandleVisibility', 'off', 'LineWidth', 3)
+%                             plot(x_vec, y_vec, '-.', 'Color', '#0A9C6B', 'HandleVisibility', 'off', 'LineWidth', 3)
 %                         end
 %                         d6n = k;
 %                        end
@@ -378,22 +378,22 @@ function [] = plot_CL(wingtype, sel_inflation, sel_inflation_double, exp_value, 
                     k2 = k;
                  elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(3))
                      if exist('k3','var') == 0
-                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, lift_dir) / div(3, j)), exp_value.f_std(k, lift_dir) / div(3, j), 'o', 'Color', '#cfa93a','DisplayName', '60 mL', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#cfa93a', MarkerEdgeColor = '#cfa93a')
+                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, lift_dir) / div(3, j)), exp_value.f_std(k, lift_dir) / div(3, j), 'o', 'Color', '#ebb81e','DisplayName', '60 mL', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#ebb81e', MarkerEdgeColor = '#ebb81e')
                      else
-                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, lift_dir) / div(3, j)), exp_value.f_std(k, lift_dir) / div(3, j), 'o', 'Color', '#cfa93a','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#cfa93a', MarkerEdgeColor = '#cfa93a')
+                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, lift_dir) / div(3, j)), exp_value.f_std(k, lift_dir) / div(3, j), 'o', 'Color', '#ebb81e','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#ebb81e', MarkerEdgeColor = '#ebb81e')
                         x_vec = [exp_value.aoa(k3), exp_value.aoa(k)];
                         y_vec = [(-exp_value.f_avg(k3, lift_dir) / div(3, j)), (-exp_value.f_avg(k, lift_dir) / div(3, j))];
-                        plot(x_vec, y_vec, '-.', 'Color', '#cfa93a', 'HandleVisibility', 'off', 'LineWidth', 3)
+                        plot(x_vec, y_vec, '-.', 'Color', '#ebb81e', 'HandleVisibility', 'off', 'LineWidth', 3)
                     end
                     k3 = k;
                  elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(4))
                      if exist('k4','var') == 0
-                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, lift_dir) / div(4, j)), exp_value.f_std(k, lift_dir) / div(4, j), 'o', 'Color', '#93D2BD','DisplayName', '90 mL', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#93D2BD', MarkerEdgeColor = '#93D2BD')
+                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, lift_dir) / div(4, j)), exp_value.f_std(k, lift_dir) / div(4, j), 'o', 'Color', '#0A9C6B','DisplayName', '90 mL', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#0A9C6B', MarkerEdgeColor = '#0A9C6B')
                      else
-                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, lift_dir) / div(4, j)), exp_value.f_std(k, lift_dir) / div(4, j), 'o', 'Color', '#93D2BD','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#93D2BD', MarkerEdgeColor = '#93D2BD')
+                        errorbar(exp_value.aoa(k), (-exp_value.f_avg(k, lift_dir) / div(4, j)), exp_value.f_std(k, lift_dir) / div(4, j), 'o', 'Color', '#0A9C6B','HandleVisibility','off', 'CapSize', 18, 'LineWidth', 1, MarkerSize = 9, MarkerFaceColor = '#0A9C6B', MarkerEdgeColor = '#0A9C6B')
                         x_vec = [exp_value.aoa(k4), exp_value.aoa(k)];
                         y_vec = [(-exp_value.f_avg(k4, lift_dir) / div(4, j)), (-exp_value.f_avg(k, lift_dir) / div(4, j))];
-                        plot(x_vec, y_vec, '-.', 'Color', '#93D2BD', 'HandleVisibility', 'off', 'LineWidth', 3)
+                        plot(x_vec, y_vec, '-.', 'Color', '#0A9C6B', 'HandleVisibility', 'off', 'LineWidth', 3)
                     end
                     k4 = k;
                  elseif (exp_value.vel(k) == sel_speed(j)) && (exp_value.inflation(k) == sel_inflation(5))
