@@ -174,7 +174,7 @@ function [] = plot_CL(wingtype, sel_inflation, sel_inflation_double, exp_value, 
             ax.XAxis.TickValues = [-5 0 5 7.5 10 12.5 15];
             xlim([-6 16])
             ylim([-1 3])
-            ax.InnerPosition = ([0.101388888888889,0.136934673366834,0.884027777777778,0.839195979899497]);
+            ax.InnerPosition = ([0.1014,0.137,0.88,0.83]);
         
             for k = 1:length(exp_value.f_avg)
 
