@@ -1,4 +1,4 @@
-function [] = fourier(y, direction, aoa, speed)
+function [] = fourier(y, direction, wingtype)
 
   switch direction
         case 1
@@ -22,11 +22,12 @@ function [] = fourier(y, direction, aoa, speed)
     P = abs(Y).^2/n;
     
     figure
+
     plot(f(2:end), P(2:end))
-    title('Data in Frequency Domain')
+    title(strcat('data ', wingtype, ' wing'))
     xlabel('Frequency (f)')
     ylabel('|P(f)|')
     xlim([0 20])
 
-    save_plot(gcf, "fourier", direction, aoa, speed / 100, png)
+%     save_plot(gcf, "fourier", direction, aoa, speed / 100, png)
 end
