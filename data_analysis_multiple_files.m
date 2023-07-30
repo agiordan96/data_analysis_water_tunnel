@@ -146,23 +146,6 @@ for k = 1:length(MyFolderInfoSoft)
 
     exp_table = readtable(MyFolderSoft + "/" + MyFolderInfoSoft(k).name, 'Delimiter', ', ', "Range", "D:I");
     %chord_table = readtable("./" + MyFileChord, 'Delimiter', ', ', "Range", "A:A");
-    
-    exp_table.Fx = exp_table.Fx - sens_subt_lift;
-    exp_table.Fy = exp_table.Fy - sens_subt_drag;
-
-
-    switch str2double(MyFolderInfoSoft(k).name(14:15))
-        case 15
-            exp_table.Fy = exp_table.Fy - (-0.013);
-        case 20
-            exp_table.Fy = exp_table.Fy - (-0.029);
-        case 25
-            exp_table.Fy = exp_table.Fy - (-0.061);
-        case 30
-            exp_table.Fy = exp_table.Fy - (-0.102);
-        case 40
-            exp_table.Fy = exp_table.Fy - (-0.210);
-    end
 
     exp_value_soft.f_avg(k, :) = mean(exp_table{1:end, 1:3});  % average force vector for all of wing's config.
     exp_value_soft.f_median(k, :) = median(exp_table{1:end, 1:3});  % median force vector for all of wing's config.
@@ -244,23 +227,6 @@ for k = 1:length(MyFolderInfoHard)
 
     exp_table_hard = readtable(MyFolderHard + "/" + MyFolderInfoHard(k).name, 'Delimiter', ', ', "Range", "D:I");
     %chord_table = readtable("./" + MyFileChord, 'Delimiter', ', ', "Range", "A:A");
-    
-    exp_table_hard.Fx = exp_table_hard.Fx - sens_subt_lift;
-    exp_table_hard.Fy = exp_table_hard.Fy - sens_subt_drag;
-
-    switch str2double(MyFolderInfoHard(k).name(14:15))
-
-        case 15
-            exp_table_hard.Fy = exp_table_hard.Fy - (-0.013);
-        case 20
-            exp_table_hard.Fy = exp_table_hard.Fy - (-0.029);
-        case 25
-            exp_table_hard.Fy = exp_table_hard.Fy - (-0.061);
-        case 30
-            exp_table_hard.Fy = exp_table_hard.Fy - (-0.102);
-        case 40
-            exp_table_hard.Fy = exp_table_hard.Fy - (-0.210);
-    end
 
     exp_value_hard.f_avg(k, :) = mean(exp_table_hard{1:end, 1:3});  % average force vector for all of wing's config.
     exp_value_hard.f_median(k, :) = median(exp_table_hard{1:end, 1:3});  % average force vector for all of wing's config.
@@ -299,7 +265,7 @@ for k = 1:length(MyFolderInfoHard)
 %         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
 %         fourier(exp_table,  sensor_orientation.lift_dir);
 %     end
-% 
+
 %     if MyFolderInfo(k).name(6:9) == "0025" && MyFolderInfo(k).name(14:15) == "30"
 %         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
 %         fourier(exp_table,  sensor_orientation.lift_dir);
@@ -309,7 +275,7 @@ for k = 1:length(MyFolderInfoHard)
 %         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
 %         fourier(exp_table,  sensor_orientation.lift_dir, str2double(MyFolderInfo(k).name(6:9)), str2double(MyFolderInfo(k).name(14:15)));
 %     end
-
+% 
 %     if MyFolderInfoHard(k).name(6:9) == "0015" && MyFolderInfoHard(k).name(14:15) == "30"
 %         %fourier_transform_signal(exp_table,  sensor_orientation.lift_dir);
 %         fourier(exp_table_hard,  sensor_orientation.lift_dir, 'rigid');
@@ -344,35 +310,17 @@ for k = 1:length(MyFolderInfoDouble)
     if MyFolderInfoDouble(k).name(1:4) ~= "soft"   % skip files that are not soft
         continue
     end
-
-    if k == 88
-        continue
-    end
-
+% 
+%     if k == 88
+%         continue
+%     end
+% 
     if k == 82
         continue
     end
 
     exp_table_double = readtable(MyFolderDouble + "/" + MyFolderInfoDouble(k).name, 'Delimiter', ', ', "Range", "D:I");
     %chord_table = readtable("./" + MyFileChord, 'Delimiter', ', ', "Range", "A:A");
-
-    exp_table_double.Fx = exp_table_double.Fx - sens_subt_lift;
-    exp_table_double.Fy = exp_table_double.Fy - sens_subt_drag;
-
-    switch str2double(MyFolderInfoDouble(k).name(14:15))
-
-        case 15
-            exp_table_double.Fy = exp_table_double.Fy - (-0.013);
-        case 20
-            exp_table_double.Fy = exp_table_double.Fy - (-0.029);
-        case 25
-            exp_table_double.Fy = exp_table_double.Fy - (-0.061);
-        case 30
-            exp_table_double.Fy = exp_table_double.Fy - (-0.102);
-        case 40
-            exp_table_double.Fy = exp_table_double.Fy - (-0.210);
-    end
-
     exp_value_double.f_avg(k, :) = mean(exp_table_double{1:end, 1:3});  % average force vector for all of wing's config.
     exp_value_double.f_median(k, :) = median(exp_table_double{1:end, 1:3});  % average force vector for all of wing's config.
     exp_value_double.f_std(k, :) = std(exp_table_double{1:end, 1:3});   % standard dev for each force component of every wing config.
